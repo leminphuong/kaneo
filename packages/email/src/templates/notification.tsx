@@ -15,29 +15,29 @@ export type NotificationEmailProps = {
 
 const messages = {
   en: {
-    preview: "You have a new Kaneo notification",
+    preview: "You have a new JOYDIGI TASK notification",
     subtitle: "A notification matched your delivery preferences.",
-    footer: "Kaneo notification",
-    actionLabel: "Open in Kaneo",
+    footer: "JOYDIGI TASK notification",
+    actionLabel: "Open in JOYDIGI TASK",
   },
   de: {
-    preview: "Du hast eine neue Kaneo-Benachrichtigung",
+    preview: "Du hast eine neue JOYDIGI TASK-Benachrichtigung",
     subtitle:
       "Eine Benachrichtigung entspricht deinen Zustellungs-Einstellungen.",
-    footer: "Kaneo-Benachrichtigung",
-    actionLabel: "In Kaneo oeffnen",
+    footer: "JOYDIGI TASK-Benachrichtigung",
+    actionLabel: "In JOYDIGI TASK oeffnen",
   },
   vi: {
-    preview: "Bạn có thông báo mới từ Kaneo",
+    preview: "Bạn có thông báo mới từ JOYDIGI TASK",
     subtitle: "Một thông báo khớp với tùy chọn nhận thông báo của bạn.",
-    footer: "Thông báo Kaneo",
-    actionLabel: "Mở trong Kaneo",
+    footer: "Thông báo JOYDIGI TASK",
+    actionLabel: "Mở trong JOYDIGI TASK",
   },
   ja: {
-    preview: "Kaneo の新しい通知",
+    preview: "JOYDIGI TASK の新しい通知",
     subtitle: "配信設定に一致する通知がありました。",
-    footer: "Kaneo 通知",
-    actionLabel: "Kaneo で開く",
+    footer: "JOYDIGI TASK 通知",
+    actionLabel: "JOYDIGI TASK で開く",
   },
 } as const;
 

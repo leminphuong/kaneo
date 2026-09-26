@@ -13,42 +13,42 @@ export type OtpEmailProps = {
 
 const messages = {
   en: {
-    preview: "Your Kaneo verification code",
+    preview: "Your JOYDIGI TASK verification code",
     title: "Your verification code",
     subtitle: "Enter this one-time code to finish signing in.",
-    code: "is your Kaneo verification code.",
+    code: "is your JOYDIGI TASK verification code.",
     expiry: `This code expires in ${OTP_EXPIRY_SECONDS / 60} minutes.`,
     ignore: "If you didn't request this, you can ignore this email.",
-    footer: "Kaneo security email",
+    footer: "JOYDIGI TASK security email",
   },
   de: {
-    preview: "Dein Kaneo Bestätigungscode",
+    preview: "Dein JOYDIGI TASK Bestätigungscode",
     title: "Dein Bestätigungscode",
     subtitle: "Gib diesen Einmalcode ein, um die Anmeldung abzuschließen.",
-    code: "ist dein Kaneo Bestätigungscode.",
+    code: "ist dein JOYDIGI TASK Bestätigungscode.",
     expiry: `Dieser Code läuft in ${OTP_EXPIRY_SECONDS / 60} Minuten ab.`,
     ignore:
       "Wenn du das nicht angefordert hast, kannst du diese E-Mail ignorieren.",
-    footer: "Kaneo Sicherheits-E-Mail",
+    footer: "JOYDIGI TASK Sicherheits-E-Mail",
   },
   vi: {
-    preview: "Mã xác minh Kaneo của bạn",
+    preview: "Mã xác minh JOYDIGI TASK của bạn",
     title: "Mã xác minh của bạn",
     subtitle: "Nhập mã dùng một lần này để hoàn tất đăng nhập.",
-    code: "là mã xác minh Kaneo của bạn.",
+    code: "là mã xác minh JOYDIGI TASK của bạn.",
     expiry: `Mã này sẽ hết hạn sau ${OTP_EXPIRY_SECONDS / 60} phút.`,
     ignore: "Nếu bạn không yêu cầu điều này, bạn có thể bỏ qua email này.",
-    footer: "Email bảo mật Kaneo",
+    footer: "Email bảo mật JOYDIGI TASK",
   },
   ja: {
-    preview: "Kaneo の確認コード",
+    preview: "JOYDIGI TASK の確認コード",
     title: "確認コード",
     subtitle:
       "サインインを完了するには、このワンタイムコードを入力してください。",
-    code: "はあなたの Kaneo 確認コードです。",
+    code: "はあなたの JOYDIGI TASK 確認コードです。",
     expiry: `このコードの有効期限は${OTP_EXPIRY_SECONDS / 60}分です。`,
     ignore: "心当たりがない場合は、このメールを無視してかまいません。",
-    footer: "Kaneo セキュリティメール",
+    footer: "JOYDIGI TASK セキュリティメール",
   },
 } as const;
 
