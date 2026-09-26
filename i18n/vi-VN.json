@@ -1,0 +1,2733 @@
+{
+	"common": {
+		"appName": "Kaneo",
+		"actions": {
+			"cancel": "Hủy",
+			"close": "Đóng",
+			"clearAll": "Xóa tất cả",
+			"delete": "Xóa",
+			"deleting": "Đang xóa...",
+			"markAllRead": "Đánh dấu đã đọc tất cả",
+			"remove": "Gỡ bỏ",
+			"reset": "Đặt lại",
+			"filter": "Lọc",
+			"clearAllFilters": "Xóa tất cả bộ lọc",
+			"confirm": "Xác nhận",
+			"toggleTheme": "Đổi giao diện sáng/tối"
+		},
+		"a11y": {
+			"toggleSidebar": "Bật/tắt thanh bên"
+		},
+		"sidebar": {
+			"title": "Thanh bên",
+			"mobileDescription": "Hiển thị thanh bên trên di động."
+		},
+		"empty": {
+			"loading": "Đang tải..."
+		},
+		"pagination": {
+			"label": "Phân trang",
+			"previous": "Trước",
+			"next": "Tiếp",
+			"previousPage": "Đến trang trước",
+			"nextPage": "Đến trang sau",
+			"morePages": "Thêm trang"
+		},
+		"breadcrumb": {
+			"label": "Đường dẫn",
+			"more": "Thêm"
+		},
+		"language": {
+			"english": "Tiếng Anh",
+			"german": "Tiếng Đức",
+			"greek": "Tiếng Hy Lạp",
+			"macedonian": "Tiếng Macedonia",
+			"french": "Tiếng Pháp",
+			"spanish": "Tiếng Tây Ban Nha",
+			"dutch": "Tiếng Hà Lan",
+			"korean": "Tiếng Hàn",
+			"chinese": "Tiếng Trung",
+			"italian": "Tiếng Ý"
+		},
+		"people": {
+			"someone": "Ai đó",
+			"unknown": "Không xác định"
+		},
+		"error": {
+			"title": "Đã xảy ra lỗi",
+			"troubleshooting": "Các bước khắc phục:",
+			"tryAgain": "Thử lại",
+			"viewDeploymentGuide": "Xem hướng dẫn triển khai",
+			"refreshPage": "Tải lại trang",
+			"description": "Trang gặp sự cố ngoài dự kiến. Tải lại thường sẽ khắc phục được.",
+			"messages": {
+				"auth": "Xác thực thất bại. Vui lòng đăng nhập lại.",
+				"cors": "Không kết nối được tới máy chủ. Nguyên nhân có thể do cấu hình CORS.",
+				"network": "Lỗi mạng. Vui lòng kiểm tra kết nối Internet rồi thử lại.",
+				"server": "Lỗi máy chủ. Vui lòng thử lại sau.",
+				"unknown": "Đã xảy ra lỗi ngoài dự kiến."
+			},
+			"troubleshootingSteps": {
+				"cors": {
+					"checkAccessibility": "Kiểm tra trình duyệt có truy cập được máy chủ API không",
+					"checkApiRunning": "Đảm bảo máy chủ API của bạn đang chạy",
+					"checkApiUrl": "Kiểm tra VITE_API_URL trong .env của frontend có khớp URL máy chủ API không",
+					"checkProtocol": "Đảm bảo frontend và API dùng cùng giao thức (http/https)",
+					"verifyCorsOrigins": "Xác nhận CORS_ORIGINS trong .env của API có chứa URL frontend của bạn"
+				},
+				"network": {
+					"checkConnection": "Kiểm tra kết nối Internet của bạn",
+					"checkFirewall": "Kiểm tra xem có vấn đề với tường lửa hoặc proxy không",
+					"tryRefresh": "Thử tải lại trang",
+					"verifyApiRunning": "Xác nhận máy chủ API đang chạy và truy cập được"
+				}
+			}
+		},
+		"formats": {
+			"never": "Không bao giờ"
+		},
+		"modals": {
+			"createProject": {
+				"title": "Tạo dự án mới",
+				"breadcrumbNew": "Tạo dự án mới",
+				"workspaceFallback": "KHÔNG GIAN LÀM VIỆC",
+				"description": "Tạo một dự án mới trong không gian làm việc của bạn bằng cách cung cấp tên, mã và chọn biểu tượng.",
+				"pickIcon": "Chọn biểu tượng",
+				"searchIcons": "Tìm biểu tượng...",
+				"projectName": "Tên dự án",
+				"keyLabel": "Mã:",
+				"keyHint": "Dùng cho mã số phiếu (ví dụ: {{example}}-123)",
+				"createButton": "Tạo dự án",
+				"successToast": "Tạo dự án thành công",
+				"errorToast": "Không thể tạo dự án"
+			},
+			"createWorkspace": {
+				"breadcrumbKaneo": "KANEO",
+				"title": "Tạo không gian làm việc mới",
+				"description": "Tạo một không gian làm việc mới bằng cách đặt tên cho nó.",
+				"nameLabel": "Tên không gian làm việc",
+				"namePlaceholder": "Tên không gian làm việc",
+				"descriptionPlaceholder": "Thêm mô tả...",
+				"createButton": "Tạo không gian làm việc",
+				"successToast": "Tạo không gian làm việc thành công",
+				"errorToast": "Không thể tạo không gian làm việc"
+			},
+			"createTask": {
+				"breadcrumbTask": "CÔNG VIỆC",
+				"selectProject": "Chọn dự án",
+				"title": "Công việc mới",
+				"description": "Tạo một công việc mới bằng cách cung cấp tiêu đề, mô tả và các chi tiết khác.",
+				"taskTitlePlaceholder": "Tiêu đề công việc",
+				"descriptionPlaceholder": "Thêm mô tả cho công việc của bạn...",
+				"chooseProjectForImages": "Chọn một dự án trước khi tải ảnh lên.",
+				"prepareTaskError": "Không thể chuẩn bị công việc",
+				"successCreated": "Tạo công việc thành công",
+				"successUpdated": "Cập nhật công việc thành công",
+				"createError": "Không thể tạo công việc",
+				"priority": "Mức ưu tiên",
+				"statusFallback": "Đang thực hiện",
+				"startDate": "Ngày bắt đầu",
+				"dueDate": "Ngày đến hạn",
+				"clearStartDate": "Xóa ngày bắt đầu",
+				"clearDueDate": "Xóa ngày đến hạn",
+				"assign": "Giao việc",
+				"assignUnassigned": "Chưa giao",
+				"assignUnassignedTitle": "Chưa giao",
+				"labels": "Nhãn",
+				"searchLabels": "Tìm nhãn...",
+				"noLabelsFound": "Không tìm thấy nhãn",
+				"createLabel": "Tạo \"{{name}}\"",
+				"chooseColor": "Chọn màu",
+				"labelCreated": "Đã tạo nhãn",
+				"labelCreateError": "Không thể tạo nhãn",
+				"createMore": "Tạo thêm",
+				"createButton": "Tạo công việc",
+				"discardTitle": "Hủy công việc?",
+				"discardDescription": "Các chi tiết công việc chưa lưu sẽ bị mất.",
+				"discardButton": "Hủy công việc",
+				"untitledTask": "Công việc chưa đặt tên",
+				"labelColors": {
+					"stone": "Đá",
+					"slate": "Xám đá phiến",
+					"lavender": "Oải hương",
+					"sage": "Xanh xô thơm",
+					"forest": "Xanh rừng",
+					"amber": "Hổ phách",
+					"terracotta": "Đất nung",
+					"rose": "Hồng",
+					"crimson": "Đỏ thẫm"
+				}
+			}
+		},
+		"boolean": {
+			"false": "Sai",
+			"notSet": "Chưa đặt",
+			"true": "Đúng",
+			"undefined": "Không xác định"
+		},
+		"demoAlert": {
+			"message": "Đây là môi trường demo. Toàn bộ dữ liệu sẽ tự động bị xóa mỗi giờ.",
+			"deployYourOwn": "Tự triển khai bản của bạn"
+		}
+	},
+	"auth": {
+		"signIn": {
+			"pageTitle": "Đăng nhập",
+			"title": "Chào mừng trở lại",
+			"subtitle": "Nhập thông tin đăng nhập để truy cập không gian làm việc của bạn",
+			"invitationSubtitle": "Đăng nhập để chấp nhận lời mời của bạn",
+			"invitationAlert": "Sau khi đăng nhập, bạn sẽ có thể chấp nhận lời mời tham gia không gian làm việc.",
+			"signingIn": "Đang đăng nhập...",
+			"continueWithGoogle": "Tiếp tục với Google",
+			"continueWithGithub": "Tiếp tục với GitHub",
+			"continueWithDiscord": "Tiếp tục với Discord",
+			"continueWithOidc": "Tiếp tục với OIDC",
+			"lastUsed": "Dùng lần cuối",
+			"registrationDisabled": "Đăng ký công khai đã bị tắt. Hãy dùng lời mời để tạo tài khoản.",
+			"passwordRegistrationDisabled": "Đăng ký bằng mật khẩu đã bị tắt. Hãy dùng phương thức đăng nhập mạng xã hội hoặc OIDC đã cấu hình để tạo tài khoản.",
+			"toggleMessage": "Chưa có tài khoản?",
+			"toggleLink": "Tạo tài khoản",
+			"guestSuccess": "Đã đăng nhập với tư cách khách",
+			"guestError": "Không thể đăng nhập với tư cách khách",
+			"oidcError": "Không thể đăng nhập bằng OIDC",
+			"googleError": "Không thể đăng nhập bằng Google",
+			"githubError": "Không thể đăng nhập bằng GitHub",
+			"discordError": "Không thể đăng nhập bằng Discord",
+			"errors": {
+				"account_not_linked": "Không thể liên kết danh tính này với tài khoản hiện có. Hãy đăng nhập bằng email để xác minh tài khoản, sau đó thử SSO lại. Nếu không thể đăng nhập bằng email, hãy liên hệ quản trị viên của bạn.",
+				"oauth_code_verification_failed": "Xác minh OAuth thất bại. Vui lòng thử lại.",
+				"registration_is_currently_disabled_you_need_a_valid_invitation_to_create_an_account_": "Đăng ký hiện đang bị tắt. Bạn cần có lời mời hợp lệ để tạo tài khoản."
+			},
+			"instanceStatusError": "Không thể kết nối đến máy chủ. Vui lòng thử lại sau giây lát."
+		},
+		"providers": {
+			"google": "Google",
+			"discord": "Discord"
+		},
+		"forms": {
+			"or": "hoặc",
+			"email": "Email",
+			"password": "Mật khẩu",
+			"emailPlaceholder": "me@example.com",
+			"passwordPlaceholder": "••••••••",
+			"showPassword": "Hiện mật khẩu",
+			"hidePassword": "Ẩn mật khẩu"
+		},
+		"checkEmail": {
+			"pageTitle": "Kiểm tra email",
+			"title": "Kiểm tra email của bạn",
+			"inboxMessage": "Chúng tôi đã gửi cho bạn một liên kết đăng nhập tạm thời. Vui lòng kiểm tra hộp thư tại <email>{{email}}</email>.",
+			"emailFallback": "địa chỉ email của bạn",
+			"backToLogin": "Quay lại đăng nhập"
+		},
+		"signUp": {
+			"pageTitle": "Tạo tài khoản",
+			"title": "Tạo tài khoản",
+			"subtitleInvitation": "Tạo tài khoản để chấp nhận lời mời của bạn",
+			"subtitleRegistrationDisabled": "Đăng ký yêu cầu có lời mời",
+			"subtitlePasswordDisabled": "Dùng đăng nhập mạng xã hội hoặc OIDC để tạo tài khoản",
+			"subtitleDefault": "Bắt đầu với không gian làm việc của bạn",
+			"invitationAlert": "Sau khi tạo tài khoản, bạn sẽ có thể chấp nhận lời mời tham gia không gian làm việc.",
+			"registrationDisabledAlert": "Đăng ký hiện đang bị tắt. Nếu bạn đã được mời, hãy nhập địa chỉ email đã nhận lời mời để tạo tài khoản.",
+			"passwordDisabledAlert": "Tạo tài khoản bằng mật khẩu đã bị tắt. Hãy dùng phương thức đăng nhập mạng xã hội hoặc OIDC đã cấu hình từ trang đăng nhập.",
+			"signingIn": "Đang đăng nhập...",
+			"continueAsGuest": "Tiếp tục với tư cách khách",
+			"toggleMessage": "Đã có tài khoản?",
+			"toggleLink": "Đăng nhập",
+			"instanceStatusError": "Không thể kết nối đến máy chủ. Vui lòng thử lại sau giây lát.",
+			"instanceAdminTitle": "Thiết lập phiên bản Kaneo của bạn",
+			"instanceAdminSubtitle": "Tài khoản này sẽ trở thành quản trị viên của phiên bản với toàn quyền truy cập."
+		},
+		"verifyOtp": {
+			"pageTitle": "Xác minh mã",
+			"title": "Nhập mã xác minh",
+			"subtitle": "Dùng mã 6 chữ số đã gửi đến email của bạn để tiếp tục",
+			"codeSentTo": "Đã gửi mã đến {{email}}",
+			"verificationCodeLabel": "Mã xác minh",
+			"verifying": "Đang xác minh...",
+			"verifyAndSignIn": "Xác minh & Đăng nhập",
+			"changeEmail": "Đổi email",
+			"resend": "Gửi lại",
+			"validation": {
+				"codeLength": "Mã phải có 6 chữ số"
+			},
+			"toast": {
+				"invalidCode": "Mã xác minh không hợp lệ",
+				"signedInSuccess": "Đăng nhập thành công!",
+				"verifyFailed": "Không thể xác minh mã",
+				"resendFailed": "Không thể gửi lại mã",
+				"resendSuccess": "Đã gửi mã xác minh mới!"
+			}
+		},
+		"otpSignIn": {
+			"sendFailed": "Không thể gửi mã xác minh",
+			"codeSent": "Đã gửi mã xác minh! Hãy kiểm tra email của bạn.",
+			"sending": "Đang gửi...",
+			"sendVerificationCode": "Gửi mã xác minh"
+		},
+		"signInForm": {
+			"failedSignIn": "Đăng nhập thất bại",
+			"signedInSuccess": "Đăng nhập thành công",
+			"signingIn": "Đang đăng nhập...",
+			"signIn": "Đăng nhập"
+		},
+		"signUpForm": {
+			"fullName": "Họ và tên",
+			"namePlaceholder": "Nguyễn Văn A",
+			"failedSignUp": "Đăng ký thất bại",
+			"accountCreated": "Tạo tài khoản thành công",
+			"passwordTooShort": "Mật khẩu quá ngắn",
+			"creatingAccount": "Đang tạo tài khoản...",
+			"createAccount": "Tạo tài khoản"
+		},
+		"invitation": {
+			"pageTitleAccept": "Chấp nhận lời mời",
+			"pageTitleError": "Lỗi lời mời",
+			"pageTitleInvalid": "Lời mời không hợp lệ",
+			"loadingTitle": "Đang tải lời mời...",
+			"errorTitle": "Lỗi lời mời",
+			"invalidTitle": "Lời mời không hợp lệ",
+			"invitationExpired": "Lời mời đã hết hạn",
+			"errorLoadDescription": "Không thể tải thông tin lời mời. Lời mời có thể không hợp lệ hoặc đã hết hạn.",
+			"goToSignIn": "Đến trang đăng nhập",
+			"workspaceLabel": "Không gian làm việc: {{workspaceName}}",
+			"joinWorkspace": "Tham gia {{workspaceName}}",
+			"inviteBodySignedIn": "<inviter>{{inviterName}}</inviter> đã mời bạn tham gia không gian làm việc của họ.",
+			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> đã mời bạn tham gia không gian làm việc của họ trên Kaneo.",
+			"createAccountOrSignIn": "Tạo tài khoản để chấp nhận lời mời này, hoặc đăng nhập nếu bạn đã có tài khoản.",
+			"createAccount": "Tạo tài khoản",
+			"accepting": "Đang chấp nhận...",
+			"acceptInvitation": "Chấp nhận lời mời",
+			"goToDashboard": "Đến bảng điều khiển",
+			"signedInAs": "Đã đăng nhập với <email>{{email}}</email>",
+			"youveBeenInvited": "Bạn đã được mời!",
+			"invitationFor": "Lời mời dành cho: <email>{{email}}</email>",
+			"signIn": "Đăng nhập",
+			"toast": {
+				"acceptFailed": "Không thể chấp nhận lời mời",
+				"acceptSuccess": "Đã chấp nhận lời mời! Chào mừng bạn đến với nhóm."
+			}
+		},
+		"onboarding": {
+			"pageTitle": "Chào mừng đến với Kaneo",
+			"workspacePageTitle": "Tạo không gian làm việc",
+			"createWorkspaceTitle": "Tạo không gian làm việc",
+			"createWorkspaceSubtitle": "Thiết lập không gian làm việc để bắt đầu quản lý dự án",
+			"workspaceName": "Tên không gian làm việc",
+			"workspaceNamePlaceholder": "ví dụ: Acme Inc, Nhóm của tôi",
+			"descriptionOptional": "Mô tả (không bắt buộc)",
+			"descriptionPlaceholder": "Nhóm của bạn làm việc về lĩnh vực gì?",
+			"creating": "Đang tạo...",
+			"createWorkspace": "Tạo không gian làm việc",
+			"workspaceCreatedTitle": "Đã tạo không gian làm việc",
+			"redirectingToWorkspace": "Đang đưa bạn đến <name>{{name}}</name>...",
+			"toast": {
+				"workspaceCreated": "Tạo không gian làm việc thành công",
+				"createFailed": "Không thể tạo không gian làm việc"
+			},
+			"validation": {
+				"workspaceNameRequired": "Cần có tên không gian làm việc"
+			},
+			"restrictedSubtitle": "Tại đây chỉ quản trị viên hệ thống mới có thể tạo không gian làm việc. Hãy xin lời mời rồi tải lại trang này.",
+			"restrictedCheckInvitations": "Xem lời mời",
+			"restrictedTitle": "Bạn cần một lời mời"
+		},
+		"profileSetup": {
+			"pageTitle": "Hoàn tất hồ sơ",
+			"completeTitle": "Hoàn tất hồ sơ của bạn",
+			"subtitle": "Vui lòng nhập tên của bạn để bắt đầu",
+			"yourName": "Tên của bạn",
+			"namePlaceholder": "ví dụ: Nguyễn Văn A",
+			"saving": "Đang lưu...",
+			"continue": "Tiếp tục",
+			"welcome": "Chào mừng, {{name}}!",
+			"redirecting": "Đang đưa bạn đến bảng điều khiển...",
+			"toast": {
+				"updateSuccess": "Cập nhật hồ sơ thành công",
+				"updateFailed": "Không thể cập nhật hồ sơ"
+			},
+			"validation": {
+				"nameRequired": "Cần có tên",
+				"nameShort": "Tên phải có ít nhất 2 ký tự"
+			}
+		},
+		"passwordReset": {
+			"forgotPassword": "Quên mật khẩu?",
+			"requestTitle": "Đặt lại mật khẩu",
+			"requestSubtitle": "Nhập email của bạn, chúng tôi sẽ gửi liên kết đặt lại mật khẩu.",
+			"sendLink": "Gửi liên kết đặt lại",
+			"sending": "Đang gửi…",
+			"sent": "Nếu email này đã đăng ký, bạn sẽ nhận được liên kết đặt lại mật khẩu. Hãy kiểm tra hộp thư đến và cả thư rác.",
+			"requestError": "Không gửi được liên kết đặt lại. Vui lòng thử lại.",
+			"unavailable": "Tính năng đặt lại mật khẩu không khả dụng. Hãy liên hệ quản trị viên hệ thống.",
+			"configError": "Không kết nối được tới máy chủ. Vui lòng tải lại trang để thử lại.",
+			"resetTitle": "Chọn mật khẩu mới",
+			"resetSubtitle": "Mật khẩu mới cần từ 8 đến 128 ký tự.",
+			"newPassword": "Mật khẩu mới",
+			"confirmPassword": "Xác nhận mật khẩu mới",
+			"passwordMismatch": "Mật khẩu không khớp.",
+			"passwordLength": "Hãy dùng từ 8 đến 128 ký tự.",
+			"resetPassword": "Đặt lại mật khẩu",
+			"resetting": "Đang đặt lại…",
+			"invalidLink": "Liên kết đặt lại này không hợp lệ hoặc đã hết hạn. Hãy yêu cầu liên kết mới để tiếp tục.",
+			"requestNewLink": "Yêu cầu liên kết mới",
+			"resetError": "Không đặt lại được mật khẩu. Vui lòng thử lại.",
+			"success": "Mật khẩu của bạn đã được đặt lại. Hãy đăng nhập bằng mật khẩu mới.",
+			"backToSignIn": "Quay lại đăng nhập"
+		}
+	},
+	"settings": {
+		"account": "Tài khoản",
+		"developer": "Nhà phát triển",
+		"information": "Thông tin",
+		"notifications": "Thông báo",
+		"preferences": "Tùy chọn",
+		"apiKeys": "Khóa API",
+		"informationPage": {
+			"pageTitle": "Thông tin cá nhân",
+			"title": "Thông tin cá nhân",
+			"subtitle": "Quản lý thông tin cá nhân và tài khoản của bạn.",
+			"sectionTitle": "Thông tin tài khoản",
+			"sectionSubtitle": "Quản lý hồ sơ và thông tin tài khoản của bạn.",
+			"profilePicture": "Ảnh đại diện",
+			"fullName": "Họ và tên",
+			"fullNamePlaceholder": "Nhập tên của bạn",
+			"email": "Email",
+			"emailPlaceholder": "Nhập email của bạn",
+			"updateSuccess": "Cập nhật hồ sơ thành công",
+			"updateError": "Không thể cập nhật hồ sơ",
+			"validation": {
+				"nameRequired": "Cần có tên",
+				"nameShort": "Tên phải có ít nhất 2 ký tự",
+				"invalidEmail": "Địa chỉ email không hợp lệ"
+			},
+			"avatar": {
+				"hint": "PNG, JPEG, or WebP. Cropped to a square and resized to 256x256.",
+				"remove": "Remove",
+				"removeError": "Không xóa được ảnh đại diện",
+				"removeSuccess": "Đã xóa ảnh đại diện",
+				"updateError": "Không cập nhật được ảnh đại diện",
+				"updateSuccess": "Đã cập nhật ảnh đại diện",
+				"change": "Đổi ảnh đại diện",
+				"edit": "Đổi ảnh đại diện của bạn"
+			},
+			"deleteAccount": {
+				"confirm": "Xóa tài khoản",
+				"confirmLabel": "Confirm your email address",
+				"description": "Những không gian làm việc chỉ có mình bạn sẽ bị xóa cùng tài khoản. Ở nơi khác, công việc của bạn được giữ lại và chuyển thành chưa giao, còn bình luận của bạn bị xóa.",
+				"error": "Không xóa được tài khoản",
+				"modalDescription": "This cannot be undone. Type {{email}} to confirm.",
+				"modalTitle": "Xóa tài khoản của bạn?",
+				"sectionSubtitle": "Các thao tác vĩnh viễn ảnh hưởng tới toàn bộ tài khoản của bạn.",
+				"sectionTitle": "Vùng nguy hiểm",
+				"success": "Tài khoản của bạn đã bị xóa",
+				"title": "Xóa tài khoản",
+				"sessionTooOld": "Vì lý do bảo mật, hãy đăng xuất rồi đăng nhập lại trước khi xóa tài khoản."
+			}
+		},
+		"notificationsPage": {
+			"pageTitle": "Thông báo",
+			"title": "Thông báo",
+			"subtitle": "Chọn cách Kaneo gửi thông báo tài khoản của bạn và các kênh sử dụng.",
+			"statusConnected": "Đã kết nối",
+			"statusPaused": "Đã tạm dừng",
+			"emailTitle": "Email",
+			"emailDescription": "Dùng email tài khoản của bạn làm nơi nhận thông báo.",
+			"accountEmailLabel": "Email tài khoản",
+			"accountEmailNoAddress": "Không có email tài khoản",
+			"accountEmailHint": "Thông báo qua email luôn được gửi đến email của tài khoản đang đăng nhập.",
+			"saveChanges": "Lưu thay đổi",
+			"disconnect": "Ngắt kết nối",
+			"ntfyTitle": "ntfy",
+			"ntfyDescription": "Đăng thông báo tài khoản lên một chủ đề ntfy.",
+			"serverUrl": "URL máy chủ",
+			"topic": "Chủ đề",
+			"token": "Token",
+			"ntfyServerPlaceholder": "https://ntfy.example.com",
+			"ntfyTopicPlaceholder": "canh-bao-nhom",
+			"ntfyTokenPlaceholder": "Token bearer (không bắt buộc)",
+			"ntfyTokenHintConfigured": "Đã cấu hình token ({{masked}}). Nhập token mới để thay thế.",
+			"ntfyTokenHintOptional": "Không bắt buộc. Cung cấp token nếu máy chủ ntfy của bạn yêu cầu xác thực.",
+			"connectNtfy": "Kết nối ntfy",
+			"gotifyTitle": "Gotify",
+			"gotifyDescription": "Gửi thông báo tài khoản đến máy chủ Gotify của bạn.",
+			"gotifyTokenLabel": "Token ứng dụng",
+			"gotifyServerPlaceholder": "https://gotify.example.com",
+			"gotifyTokenPlaceholder": "Token ứng dụng Gotify",
+			"gotifyTokenHintConfigured": "Đã cấu hình token ứng dụng ({{masked}}). Nhập token mới để thay thế.",
+			"gotifyTokenHintRequired": "Bắt buộc. Dùng token ứng dụng từ máy chủ Gotify của bạn.",
+			"connectGotify": "Kết nối Gotify",
+			"webhookTitle": "Webhook tùy chỉnh",
+			"webhookDescription": "Gửi thông báo tài khoản đến điểm cuối của riêng bạn dưới dạng JSON.",
+			"endpointUrl": "URL điểm cuối",
+			"signingSecret": "Khóa bí mật ký",
+			"webhookUrlPlaceholder": "https://example.com/webhooks/kaneo",
+			"webhookSecretPlaceholder": "Khóa bí mật dùng chung (không bắt buộc)",
+			"webhookSecretHintConfigured": "Đã cấu hình khóa bí mật ký ({{masked}}). Nhập khóa mới để thay thế.",
+			"webhookSecretHintOptional": "Không bắt buộc. Kaneo sẽ ký nội dung yêu cầu khi có thiết lập khóa bí mật.",
+			"connectWebhook": "Kết nối webhook",
+			"workspaceRulesTitle": "Quy tắc gửi thông báo theo không gian làm việc",
+			"workspaceRulesDescription": "Tái sử dụng các kênh chung của bạn, sau đó quyết định không gian làm việc và dự án nào được phép gửi thông báo tài khoản.",
+			"workspaceCardHint": "Chọn kênh mà không gian làm việc này có thể dùng để gửi thông báo tài khoản.",
+			"workspaceEnabledLabel": "Bật thông báo cho {{workspaceName}}",
+			"eventPreferencesTitle": "Thông báo cho tôi về",
+			"eventPreferencesDescription": "Chọn sự kiện công việc nào sẽ tạo thông báo trong ứng dụng và có thể được gửi đến các kênh đã kết nối.",
+			"eventTaskAssignments": "Giao việc",
+			"eventComments": "Bình luận và nhắc đến",
+			"eventCommentsHint": "Bao gồm bình luận mới trên công việc được giao cho bạn và các lượt @nhắc đến trực tiếp.",
+			"eventStatusChanges": "Thay đổi trạng thái công việc",
+			"eventDueDateReminders": "Nhắc nhở ngày đến hạn",
+			"reminderLeadTimeLabel": "Nhắc tôi trước ngày đến hạn",
+			"reminderLeadTimeHint": "Từ 1 giờ đến 30 ngày trước. Thông báo quá hạn được gửi riêng.",
+			"reminderLeadTimeUnitHours": "Giờ",
+			"reminderLeadTimeUnitDays": "Ngày",
+			"reminderLeadTimeInvalid": "Nhập một số nguyên từ 1 đến {{max}}.",
+			"saveEventPreferences": "Lưu loại thông báo",
+			"workspaceCardLabelEmail": "Email",
+			"workspaceCardLabelNtfy": "ntfy",
+			"workspaceCardLabelGotify": "Gotify",
+			"workspaceCardLabelWebhook": "Webhook tùy chỉnh",
+			"emailChannelHintEnabled": "Gửi thông báo phù hợp của không gian làm việc qua email.",
+			"emailChannelHintDisabled": "Hãy cấu hình và bật email ở cấp toàn cục trước.",
+			"ntfyChannelHintEnabled": "Gửi thông báo phù hợp của không gian làm việc đến ntfy.",
+			"ntfyChannelHintDisabled": "Hãy cấu hình và bật ntfy ở cấp toàn cục trước.",
+			"gotifyChannelHintEnabled": "Gửi thông báo phù hợp của không gian làm việc đến Gotify.",
+			"gotifyChannelHintDisabled": "Hãy cấu hình và bật Gotify ở cấp toàn cục trước.",
+			"webhookChannelHintEnabled": "Gửi thông báo phù hợp của không gian làm việc đến webhook của bạn.",
+			"webhookChannelHintDisabled": "Hãy cấu hình và bật webhook ở cấp toàn cục trước.",
+			"projectScope": "Phạm vi dự án",
+			"projectScopeDescription": "Mặc định bao gồm tất cả dự án. Thu hẹp phạm vi nếu không gian làm việc này chỉ nên gửi thông báo từ các dự án đã chọn.",
+			"allProjects": "Tất cả dự án",
+			"allProjectsDescription": "Gửi thông báo từ mọi dự án trong không gian làm việc này.",
+			"selectedProjects": "Dự án đã chọn",
+			"selectedProjectsDescription": "Chỉ gửi thông báo từ các dự án đã chọn.",
+			"noProjectsInWorkspace": "Chưa có dự án nào khả dụng cho không gian làm việc này.",
+			"createRule": "Tạo quy tắc",
+			"removeRule": "Gỡ bỏ quy tắc",
+			"toastEmailSaved": "Đã lưu cài đặt thông báo email",
+			"toastEmailSaveFailed": "Không thể lưu cài đặt email",
+			"toastNtfySaved": "Đã lưu cài đặt ntfy",
+			"toastNtfySaveFailed": "Không thể lưu cài đặt ntfy",
+			"toastNtfyDisconnected": "Đã ngắt kết nối ntfy",
+			"toastNtfyDisconnectFailed": "Không thể ngắt kết nối ntfy",
+			"toastGotifySaved": "Đã lưu cài đặt Gotify",
+			"toastGotifySaveFailed": "Không thể lưu cài đặt Gotify",
+			"toastGotifyDisconnected": "Đã ngắt kết nối Gotify",
+			"toastGotifyDisconnectFailed": "Không thể ngắt kết nối Gotify",
+			"toastWebhookSaved": "Đã lưu cài đặt webhook",
+			"toastWebhookSaveFailed": "Không thể lưu cài đặt webhook",
+			"toastWebhookDisconnected": "Đã ngắt kết nối webhook",
+			"toastWebhookDisconnectFailed": "Không thể ngắt kết nối webhook",
+			"toastRuleSaved": "Đã lưu quy tắc thông báo cho {{workspaceName}}",
+			"toastRuleSaveFailed": "Không thể lưu quy tắc thông báo không gian làm việc",
+			"toastRuleRemoved": "Đã gỡ quy tắc thông báo cho {{workspaceName}}",
+			"toastRuleRemoveFailed": "Không thể gỡ quy tắc thông báo không gian làm việc",
+			"toastPreferencesSaved": "Đã lưu tùy chọn thông báo",
+			"toastPreferencesSaveFailed": "Không thể lưu tùy chọn thông báo",
+			"toastRuleSavedGeneric": "Đã lưu quy tắc thông báo không gian làm việc",
+			"toastRuleRemovedGeneric": "Đã gỡ quy tắc thông báo không gian làm việc"
+		},
+		"preferencesPage": {
+			"title": "Tùy chọn",
+			"subtitle": "Tùy chỉnh trải nghiệm Kaneo của bạn.",
+			"appearanceTitle": "Giao diện",
+			"appearanceSubtitle": "Cài đặt hiển thị và bố cục.",
+			"theme": "Chủ đề",
+			"themeDescription": "Chọn bảng màu ưa thích của bạn",
+			"selectTheme": "Chọn một chủ đề",
+			"themeLight": "Sáng",
+			"themeDark": "Tối",
+			"themeSystem": "Theo hệ thống",
+			"language": "Ngôn ngữ",
+			"languageDescription": "Chọn ngôn ngữ giao diện ưa thích của bạn",
+			"selectLanguage": "Chọn một ngôn ngữ",
+			"firstDayOfWeek": "Ngày đầu tuần",
+			"firstDayOfWeekDescription": "Chọn ngày bắt đầu cho lịch và các khoảng thời gian theo tuần",
+			"selectFirstDayOfWeek": "Chọn ngày đầu tuần",
+			"weekStartsOnSunday": "Chủ nhật",
+			"weekStartsOnMonday": "Thứ hai",
+			"weekStartsOnSaturday": "Thứ bảy",
+			"defaultView": "Chế độ xem mặc định",
+			"defaultViewDescription": "Chọn chế độ xem công việc ưa thích của bạn",
+			"selectViewMode": "Chọn chế độ xem",
+			"board": "Bảng",
+			"list": "Danh sách",
+			"gantt": "Gantt",
+			"sidebarDefault": "Thanh bên mặc định",
+			"sidebarDefaultDescription": "Giữ thanh bên mở rộng khi khởi động",
+			"displayOptions": "Tùy chọn hiển thị",
+			"displayOptionsDescription": "Chọn thông tin cần hiển thị trong chế độ xem công việc",
+			"taskNumbers": "Số công việc",
+			"taskNumbersDescription": "Hiển thị mã và số công việc",
+			"assignees": "Người được giao",
+			"assigneesDescription": "Hiển thị người được giao công việc",
+			"dueDates": "Ngày đến hạn",
+			"dueDatesDescription": "Hiển thị thời hạn công việc",
+			"labels": "Nhãn",
+			"labelsDescription": "Hiển thị nhãn và thẻ của công việc",
+			"priority": "Mức ưu tiên",
+			"priorityDescription": "Hiển thị chỉ báo mức ưu tiên"
+		},
+		"developerPage": {
+			"pageTitle": "Cài đặt nhà phát triển",
+			"title": "Cài đặt nhà phát triển",
+			"subtitle": "Quản lý khóa API và tài nguyên dành cho nhà phát triển của bạn.",
+			"apiKeysCardTitle": "Khóa API",
+			"apiKeysCardDescription": "Tạo và quản lý khóa API để truy cập Kaneo bằng chương trình.",
+			"createApiKey": "Tạo khóa API",
+			"unnamedKey": "Khóa chưa đặt tên"
+		},
+		"apiKey": {
+			"createdModal": {
+				"title": "Đã tạo khóa API",
+				"description": "Khóa API \"{{keyName}}\" của bạn đã được tạo thành công.",
+				"yourApiKey": "Khóa API của bạn",
+				"copy": "Sao chép",
+				"copied": "Đã sao chép",
+				"toastCopied": "Đã sao chép khóa API vào clipboard",
+				"alertTitle": "Thành công! Khóa API của bạn đã được tạo",
+				"alertDescription": "Hãy sao chép khóa này ngay. Bạn sẽ không thể xem lại nó nữa.",
+				"done": "Xong",
+				"copyToContinue": "Sao chép khóa để tiếp tục"
+			},
+			"table": {
+				"loading": "Đang tải khóa API...",
+				"empty": "Chưa có khóa API nào. Hãy tạo một khóa để bắt đầu.",
+				"columnName": "Tên",
+				"columnKey": "Khóa",
+				"columnCreated": "Ngày tạo",
+				"columnExpires": "Hết hạn",
+				"columnActions": "Hành động",
+				"unnamedKey": "Khóa chưa đặt tên",
+				"expiredBadge": "Đã hết hạn {{label}}",
+				"deleteConfirmTitle": "Xóa khóa API?",
+				"deleteConfirmDescription": "Hành động này không thể hoàn tác. Thao tác này sẽ xóa vĩnh viễn {{name}}.",
+				"deleteFallbackName": "khóa API này",
+				"delete": "Xóa",
+				"deleting": "Đang xóa...",
+				"deleteAria": "Xóa {{name}}",
+				"deleteAriaFallback": "Khóa API",
+				"toastDeleted": "Xóa khóa API thành công",
+				"toastDeleteError": "Không thể xóa khóa API"
+			},
+			"createDialog": {
+				"title": "Tạo khóa API",
+				"description": "Tạo một khóa API mới để truy cập Kaneo API bằng chương trình.",
+				"nameLabel": "Tên",
+				"namePlaceholder": "Khóa API của tôi",
+				"nameDescription": "Tên mô tả cho khóa API này",
+				"expirationLabel": "Thời hạn",
+				"expirationPlaceholder": "Chọn thời hạn",
+				"expirationDescription": "Chọn thời gian khóa API này có hiệu lực. Chọn Không bao giờ để tạo khóa không có ngày hết hạn tự động.",
+				"expiration1d": "1 ngày",
+				"expiration7d": "7 ngày",
+				"expiration30d": "30 ngày",
+				"expiration90d": "90 ngày",
+				"expirationNever": "Không bao giờ",
+				"create": "Tạo",
+				"creating": "Đang tạo...",
+				"failedCreate": "Không thể tạo khóa API",
+				"validation": {
+					"nameRequired": "Cần có tên",
+					"nameShort": "Tên phải có ít nhất 3 ký tự",
+					"expirationRequired": "Cần có thời hạn"
+				}
+			}
+		},
+		"workspaceGeneral": {
+			"pageTitle": "Cài đặt chung",
+			"title": "Cài đặt chung",
+			"subtitle": "Quản lý tên và mô tả không gian làm việc của bạn.",
+			"workspaceInfoTitle": "Thông tin không gian làm việc",
+			"workspaceInfoSubtitle": "Cấu hình chi tiết và tùy chọn cho không gian làm việc của bạn.",
+			"nameLabel": "Tên không gian làm việc",
+			"nameHint": "Tên của không gian làm việc",
+			"namePlaceholder": "Nhập tên không gian làm việc",
+			"descriptionLabel": "Mô tả",
+			"descriptionHint": "Mô tả ngắn gọn về không gian làm việc của bạn",
+			"descriptionPlaceholder": "Nhập mô tả không gian làm việc",
+			"dangerZone": "Vùng nguy hiểm",
+			"dangerZoneSubtitle": "Các hành động không thể hoàn tác và mang tính phá hủy.",
+			"deleteWorkspace": "Xóa không gian làm việc",
+			"deleteWorkspaceDescription": "Lên lịch xóa vĩnh viễn không gian làm việc",
+			"deleteModalTitle": "Xóa không gian làm việc?",
+			"deleteModalDescription": "Thao tác này sẽ xóa vĩnh viễn không gian làm việc \"{{name}}\" và toàn bộ dữ liệu của nó. Hành động này không thể hoàn tác.",
+			"deleteModalConfirm": "Xóa không gian làm việc",
+			"toastUpdated": "Cập nhật không gian làm việc thành công",
+			"toastUpdateError": "Không thể cập nhật không gian làm việc",
+			"toastDeleted": "Xóa không gian làm việc thành công",
+			"toastDeleteError": "Không thể xóa không gian làm việc",
+			"validation": {
+				"nameRequired": "Cần có tên không gian làm việc",
+				"nameShort": "Tên không gian làm việc phải có ít nhất 2 ký tự"
+			},
+			"transferOwnership": {
+				"toastSuccess": "Đã chuyển quyền sở hữu",
+				"toastError": "Không thể chuyển quyền sở hữu",
+				"title": "Chuyển quyền sở hữu",
+				"subtitle": "Bàn giao không gian làm việc này cho một thành viên khác. Bạn sẽ bị hạ xuống quản trị viên và mất các quyền chỉ dành cho chủ sở hữu.",
+				"pickerLabel": "Chủ sở hữu mới",
+				"noEligibleMembers": "Hãy mời ít nhất một thành viên khác trước khi bạn có thể chuyển quyền sở hữu.",
+				"pickerHint": "Họ sẽ trở thành chủ sở hữu duy nhất của không gian làm việc này.",
+				"pickerPlaceholder": "Chọn một thành viên",
+				"button": "Chuyển",
+				"dialogTitle": "Chuyển quyền sở hữu?",
+				"dialogDescription": "{{name}} sẽ trở thành chủ sở hữu duy nhất của {{workspace}}. Bạn sẽ giữ quyền quản trị viên nhưng mất các quyền chỉ dành cho chủ sở hữu như xóa không gian làm việc hoặc chuyển quyền sở hữu lần nữa.",
+				"transferring": "Đang chuyển…",
+				"confirm": "Chuyển quyền sở hữu"
+			}
+		},
+		"workspaceRoles": {
+			"pageTitle": "Vai trò",
+			"title": "Vai trò",
+			"subtitle": "Xác định các hành động mà thành viên có thể thực hiện trong {{workspaceName}}.",
+			"thisWorkspace": "không gian làm việc này",
+			"noAccess": "Bạn cần quyền quản trị viên hoặc chủ sở hữu để quản lý vai trò không gian làm việc.",
+			"sectionTitle": "Vai trò không gian làm việc",
+			"sectionSubtitle": "Chỉnh sửa vai trò mặc định hoặc thêm vai trò tùy chỉnh. Thành viên giữ nguyên tên vai trò đã gán qua các lần chỉnh sửa.",
+			"newRole": "Vai trò mới",
+			"loading": "Đang tải…",
+			"loadError": "Không thể tải vai trò.",
+			"emptyTitle": "Chưa có vai trò nào",
+			"emptyDescription": "Các vai trò mặc định sẽ xuất hiện ở đây khi được khởi tạo cho không gian làm việc này.",
+			"defaultBadge": "Mặc định",
+			"permissionCount_other": "{{count}} quyền",
+			"nameLabel": "Tên",
+			"nameHint": "Chữ thường. Không thể thay đổi sau này.",
+			"namePlaceholder": "ví dụ: reviewer",
+			"discard": "Hủy bỏ",
+			"createRole": "Tạo vai trò",
+			"deleteRole": "Xóa vai trò",
+			"defaultRoleHelp": "Vai trò mặc định: tên đã được giữ trước và không thể xóa hàng này.",
+			"unsavedChanges": "Bạn có thay đổi chưa lưu",
+			"allChangesSaved": "Đã lưu tất cả thay đổi",
+			"saveChanges": "Lưu thay đổi",
+			"defaultRoleDescriptions": {
+				"viewer": "Có thể xem và bình luận công việc.",
+				"member": "Có thể tạo và quản lý công việc, dự án.",
+				"admin": "Có toàn quyền truy cập không gian làm việc."
+			},
+			"resources": {
+				"project": "Dự án",
+				"task": "Công việc",
+				"label": "Nhãn",
+				"workspace": "Không gian làm việc",
+				"organization": "Quản trị không gian làm việc",
+				"member": "Thành viên",
+				"invitation": "Lời mời",
+				"team": "Nhóm",
+				"ac": "Vai trò và quyền"
+			},
+			"permissions": {
+				"project": {
+					"create": {
+						"label": "Tạo",
+						"description": "Có thể tạo dự án mới"
+					},
+					"read": {
+						"label": "Xem",
+						"description": "Có thể xem dự án"
+					},
+					"update": {
+						"label": "Cập nhật",
+						"description": "Có thể chỉnh sửa cài đặt dự án"
+					},
+					"delete": {
+						"label": "Xóa",
+						"description": "Có thể xóa dự án"
+					},
+					"share": {
+						"label": "Chia sẻ",
+						"description": "Có thể chia sẻ dự án"
+					}
+				},
+				"task": {
+					"create": {
+						"label": "Tạo",
+						"description": "Có thể tạo công việc"
+					},
+					"read": {
+						"label": "Xem",
+						"description": "Có thể xem công việc"
+					},
+					"update": {
+						"label": "Cập nhật",
+						"description": "Có thể chỉnh sửa công việc"
+					},
+					"delete": {
+						"label": "Xóa",
+						"description": "Có thể xóa công việc"
+					},
+					"assign": {
+						"label": "Giao việc",
+						"description": "Có thể giao công việc cho thành viên"
+					}
+				},
+				"label": {
+					"create": {
+						"label": "Tạo",
+						"description": "Có thể tạo nhãn"
+					},
+					"read": {
+						"label": "Xem",
+						"description": "Có thể xem nhãn"
+					},
+					"update": {
+						"label": "Cập nhật",
+						"description": "Có thể chỉnh sửa nhãn"
+					},
+					"delete": {
+						"label": "Xóa",
+						"description": "Có thể xóa nhãn"
+					}
+				},
+				"workspace": {
+					"read": {
+						"label": "Xem",
+						"description": "Có thể xem cài đặt không gian làm việc"
+					},
+					"update": {
+						"label": "Cập nhật",
+						"description": "Có thể cập nhật cài đặt không gian làm việc"
+					},
+					"delete": {
+						"label": "Xóa",
+						"description": "Có thể xóa không gian làm việc"
+					},
+					"manage_settings": {
+						"label": "Quản lý cài đặt",
+						"description": "Có thể quản lý cài đặt không gian làm việc"
+					}
+				},
+				"organization": {
+					"update": {
+						"label": "Sửa quản trị không gian làm việc",
+						"description": "Thay đổi cài đặt không gian làm việc qua dịch vụ tài khoản."
+					},
+					"delete": {
+						"label": "Xóa không gian làm việc",
+						"description": "Xóa vĩnh viễn không gian làm việc qua dịch vụ tài khoản."
+					}
+				},
+				"member": {
+					"create": {
+						"label": "Thêm thành viên",
+						"description": "Thêm người dùng vào không gian làm việc này."
+					},
+					"update": {
+						"label": "Đổi vai trò thành viên",
+						"description": "Thay đổi vai trò được gán cho thành viên của không gian làm việc."
+					},
+					"delete": {
+						"label": "Xóa thành viên",
+						"description": "Xóa người dùng khỏi không gian làm việc này."
+					}
+				},
+				"invitation": {
+					"create": {
+						"label": "Mời thành viên",
+						"description": "Gửi lời mời vào không gian làm việc."
+					},
+					"cancel": {
+						"label": "Hủy lời mời",
+						"description": "Thu hồi các lời mời đang chờ."
+					}
+				},
+				"team": {
+					"create": {
+						"label": "Tạo nhóm",
+						"description": "Tạo nhóm trong không gian làm việc này."
+					},
+					"update": {
+						"label": "Sửa nhóm",
+						"description": "Thay đổi nhóm và thành viên của nhóm."
+					},
+					"delete": {
+						"label": "Xóa nhóm",
+						"description": "Xóa nhóm trong không gian làm việc này."
+					}
+				},
+				"ac": {
+					"create": {
+						"label": "Tạo vai trò",
+						"description": "Tạo vai trò trong không gian làm việc và gán quyền cho chúng."
+					},
+					"read": {
+						"label": "Xem vai trò",
+						"description": "Đọc các vai trò trong không gian làm việc và quyền của chúng."
+					},
+					"update": {
+						"label": "Đổi quyền của vai trò",
+						"description": "Thay đổi quyền của vai trò, bao gồm cả quyền quản trị."
+					},
+					"delete": {
+						"label": "Xóa vai trò",
+						"description": "Xóa các vai trò tùy chỉnh của không gian làm việc."
+					}
+				}
+			},
+			"validation": {
+				"nameRequired": "Cần có tên vai trò",
+				"nameExists": "Đã tồn tại vai trò với tên này",
+				"permissionRequired": "Phải chọn ít nhất một quyền"
+			},
+			"toast": {
+				"created": "Đã tạo vai trò",
+				"createError": "Không thể tạo vai trò",
+				"updated": "Đã cập nhật vai trò",
+				"updateError": "Không thể cập nhật vai trò",
+				"deleted": "Đã xóa vai trò",
+				"deleteError": "Không thể xóa vai trò"
+			},
+			"deleteDialog": {
+				"title": "Xóa vai trò",
+				"description": "Thao tác này sẽ xóa vĩnh viễn vai trò \"{{role}}\". Các thành viên được gán vai trò này sẽ mất các quyền của nó."
+			}
+		},
+		"workspaceLabels": {
+			"pageTitle": "Cài đặt nhãn",
+			"title": "Nhãn",
+			"subtitle": "Tạo, chỉnh sửa và xóa nhãn cấp không gian làm việc.",
+			"cardDescription": "Quản lý các nhãn có thể gán cho công việc.",
+			"createLabel": "Tạo nhãn",
+			"editLabel": "Chỉnh sửa nhãn",
+			"deleteLabel": "Xóa",
+			"saveLabel": "Lưu",
+			"nameLabel": "Tên nhãn",
+			"namePlaceholder": "Nhập tên nhãn",
+			"colorLabel": "Màu",
+			"createDescription": "Tạo một nhãn mới có thể dùng cho các công việc trong không gian làm việc này.",
+			"editDescription": "Cập nhật tên hoặc màu của nhãn này.",
+			"deleteConfirmTitle": "Xóa nhãn này?",
+			"deleteConfirmDescription": "Thao tác này sẽ xóa vĩnh viễn nhãn này khỏi tất cả công việc. Hành động này không thể hoàn tác.",
+			"empty": "Chưa có nhãn nào. Hãy tạo nhãn đầu tiên để bắt đầu.",
+			"createSuccess": "Đã tạo nhãn",
+			"updateSuccess": "Đã cập nhật nhãn",
+			"deleteSuccess": "Đã xóa nhãn",
+			"createError": "Không thể tạo nhãn",
+			"updateError": "Không thể cập nhật nhãn",
+			"deleteError": "Không thể xóa nhãn",
+			"nameRequired": "Cần có tên nhãn",
+			"deletionPending": "Đang chờ xóa",
+			"resumeDeletion": "Tiếp tục xóa"
+		},
+		"projectGeneral": {
+			"pageTitle": "Cài đặt dự án",
+			"title": "Cài đặt chung",
+			"subtitle": "Quản lý tên, mã, biểu tượng và mô tả dự án của bạn.",
+			"projectInfoTitle": "Thông tin dự án",
+			"projectInfoSubtitle": "Cấu hình chi tiết và tùy chọn cho dự án của bạn.",
+			"iconLabel": "Biểu tượng",
+			"iconHint": "Hiển thị trên thanh bên và các bề mặt của dự án.",
+			"pickIconTitle": "Chọn biểu tượng",
+			"searchIconsPlaceholder": "Tìm biểu tượng...",
+			"projectNameLabel": "Tên dự án",
+			"projectNameHint": "Tên của dự án",
+			"projectNamePlaceholder": "Nhập tên dự án",
+			"keyLabel": "Mã",
+			"keyHint": "Dùng cho mã số phiếu (ví dụ: {{slug}}-123)",
+			"keyPlaceholder": "PRO",
+			"descriptionLabel": "Mô tả",
+			"descriptionHint": "Mô tả ngắn gọn về dự án của bạn",
+			"descriptionPlaceholder": "Nhập mô tả dự án",
+			"dangerZone": "Vùng nguy hiểm",
+			"dangerZoneSubtitle": "Các hành động không thể hoàn tác và mang tính phá hủy.",
+			"deleteProject": "Xóa dự án",
+			"deleteProjectDescription": "Lên lịch xóa vĩnh viễn dự án",
+			"deleteModalTitle": "Xóa dự án?",
+			"deleteModalDescription": "Thao tác này sẽ xóa vĩnh viễn dự án \"{{name}}\" và toàn bộ dữ liệu của nó. Hành động này không thể hoàn tác.",
+			"deleteModalConfirm": "Xóa dự án",
+			"toastUpdated": "Cập nhật dự án thành công",
+			"toastUpdateError": "Không thể cập nhật dự án",
+			"toastDeleted": "Xóa dự án thành công",
+			"toastDeleteError": "Không thể xóa dự án",
+			"validation": {
+				"nameRequired": "Cần có tên dự án",
+				"keyRequired": "Cần có mã",
+				"keyMax": "Mã tối đa 8 ký tự",
+				"iconRequired": "Cần có biểu tượng"
+			},
+			"importExportTasks": "Nhập/Xuất",
+			"importExportTasksDescription": "Nhập và xuất công việc.",
+			"moveModalConfirm": "Chuyển dự án",
+			"moveModalDescription": "Thao tác này sẽ chuyển dự án \"{{name}}\" và tất cả công việc của nó sang \"{{workspace}}\". Những công việc được giao cho người không phải là thành viên của không gian làm việc đó sẽ bị hủy phân công, và các đăng ký thông báo cho dự án này sẽ bị xóa.",
+			"moveModalTitle": "Chuyển dự án?",
+			"moveProject": "Chuyển đến không gian làm việc",
+			"moveProjectAction": "Chuyển",
+			"moveProjectDescription": "Chuyển dự án này, cùng với tất cả công việc của nó, sang không gian làm việc khác.",
+			"moveProjectPlaceholder": "Chọn không gian làm việc",
+			"toastMoved": "Đã chuyển dự án thành công",
+			"toastMovedWithUnassigned": "Đã chuyển dự án thành công. {{taskCount}} công việc đã bị hủy phân công.",
+			"toastMoveError": "Không thể chuyển dự án",
+			"moveTargetsError": "Không thể kiểm tra những không gian làm việc mà bạn có thể chuyển dự án này đến. Hãy tải lại trang để thử lại."
+		},
+		"projectIntegrations": {
+			"pageTitle": "Tích hợp dự án",
+			"title": "Tích hợp dự án",
+			"subtitle": "Kết nối dự án của bạn với các công cụ và dịch vụ bên ngoài để tối ưu quy trình làm việc.",
+			"githubSectionTitle": "Tích hợp GitHub",
+			"githubSectionSubtitle": "Đồng bộ công việc với GitHub issues và bật đồng bộ hai chiều.",
+			"giteaSectionTitle": "Tích hợp Gitea",
+			"giteaSectionSubtitle": "Đồng bộ công việc với phiên bản Gitea tự lưu trữ (issues, PR, webhook).",
+			"discordSectionTitle": "Tích hợp Discord",
+			"discordSectionSubtitle": "Gửi cập nhật công việc dự án vào kênh Discord bằng webhook.",
+			"genericWebhookSectionTitle": "Webhook chung",
+			"genericWebhookSectionSubtitle": "Gửi sự kiện công việc dự án đến bất kỳ điểm cuối HTTP nào dưới dạng JSON.",
+			"slackSectionTitle": "Tích hợp Slack",
+			"slackSectionSubtitle": "Gửi cập nhật công việc dự án vào kênh Slack bằng webhook đến.",
+			"telegramSectionTitle": "Tích hợp Telegram",
+			"telegramSectionSubtitle": "Gửi cập nhật công việc dự án vào cuộc trò chuyện hoặc chủ đề Telegram bằng bot.",
+			"mattermostSectionSubtitle": "Gửi cập nhật công việc dự án vào một kênh Mattermost bằng incoming webhook.",
+			"mattermostSectionTitle": "Tích hợp Mattermost"
+		},
+		"projectVisibility": {
+			"pageTitle": "Chế độ hiển thị dự án",
+			"title": "Chế độ hiển thị",
+			"subtitle": "Kiểm soát ai có thể xem và truy cập dự án của bạn.",
+			"sectionTitle": "Chế độ hiển thị",
+			"sectionSubtitle": "Bật/tắt truy cập công khai và chia sẻ URL công khai.",
+			"publicAccess": "Truy cập công khai",
+			"publicAccessHint": "Cho phép bất kỳ ai có URL xem dự án này",
+			"publicUrl": "URL công khai",
+			"publicUrlHint": "Chia sẻ liên kết này nếu dự án ở chế độ công khai",
+			"copy": "Sao chép",
+			"copiedToast": "Đã sao chép",
+			"toastUpdated": "Đã cập nhật chế độ hiển thị",
+			"toastUpdateError": "Không thể cập nhật chế độ hiển thị"
+		},
+		"projectWorkflow": {
+			"pageTitle": "Cài đặt quy trình làm việc",
+			"title": "Quy trình làm việc",
+			"subtitle": "Cấu hình các cột trên bảng và quy tắc tự động hóa cho dự án này.",
+			"columnsTitle": "Cột",
+			"columnsDescription": "Quản lý các cột xuất hiện trên bảng của bạn. Kéo để sắp xếp lại. Bật \"Cột hoàn thành\" cho các giai đoạn thể hiện công việc đã hoàn tất.",
+			"automationTitle": "Quy tắc tự động hóa",
+			"automationDescription": "Ánh xạ sự kiện tích hợp với các cột. Khi một sự kiện xảy ra, công việc liên kết sẽ chuyển sang cột được chỉ định.",
+			"customFieldsDescription": "Quản lý các trường tùy chỉnh của dự án này. Kéo để sắp xếp lại.",
+			"customFieldsTitle": "Trường tùy chỉnh"
+		},
+		"projectSwitcher": {
+			"selectProject": "Chọn dự án",
+			"noProjects": "Không có dự án"
+		},
+		"columnEditor": {
+			"toastCreated": "Đã tạo cột",
+			"toastCreateError": "Không thể tạo cột",
+			"toastRenamed": "Đã đổi tên cột",
+			"toastRenameError": "Không thể cập nhật cột",
+			"toastFinalOn": "Đã đánh dấu cột là hoàn thành",
+			"toastFinalOff": "Đã bỏ đánh dấu cột là hoàn thành",
+			"toastUpdateError": "Không thể cập nhật cột",
+			"toastIconUpdated": "Đã cập nhật biểu tượng cột",
+			"toastDeleted": "Đã xóa cột",
+			"toastDeleteError": "Không thể xóa cột",
+			"loading": "Đang tải cột...",
+			"pickIconTitle": "Chọn biểu tượng cột",
+			"searchIconsPlaceholder": "Tìm biểu tượng...",
+			"doneColumnTooltip": "Xem đây là cột hoàn thành",
+			"doneColumn": "Cột hoàn thành",
+			"markDoneAria": "Đánh dấu {{name}} là cột hoàn thành",
+			"on": "Bật",
+			"off": "Tắt",
+			"newColumnPlaceholder": "Tên cột mới...",
+			"add": "Thêm"
+		},
+		"githubIntegration": {
+			"validation": {
+				"ownerRequired": "Cần có chủ sở hữu kho lưu trữ",
+				"ownerInvalid": "Định dạng chủ sở hữu kho lưu trữ không hợp lệ",
+				"nameRequired": "Cần có tên kho lưu trữ",
+				"nameInvalid": "Định dạng tên kho lưu trữ không hợp lệ"
+			},
+			"toast": {
+				"installedOk": "Ứng dụng GitHub đã được cài đặt đúng cách!",
+				"installedMissingPerms": "Ứng dụng GitHub đã được cài đặt nhưng thiếu quyền cần thiết",
+				"needsInstallOnRepo": "Cần cài đặt ứng dụng GitHub trên kho lưu trữ này",
+				"repoNotFound": "Không tìm thấy kho lưu trữ hoặc không thể truy cập",
+				"verifyError": "Không thể xác minh cài đặt GitHub",
+				"installAppFirst": "Vui lòng cài đặt ứng dụng GitHub trên kho lưu trữ này trước",
+				"missingPermsDetail": "Ứng dụng GitHub thiếu các quyền cần thiết: {{list}}. Vui lòng cập nhật quyền của ứng dụng.",
+				"updated": "Cập nhật tích hợp GitHub thành công",
+				"updateError": "Không thể cập nhật tích hợp GitHub",
+				"removed": "Gỡ bỏ tích hợp GitHub thành công",
+				"removeError": "Không thể gỡ bỏ tích hợp GitHub",
+				"issuesImported": "Nhập issue thành công",
+				"importError": "Không thể nhập issue",
+				"commentOnEnabled": "Kaneo sẽ bình luận kèm liên kết công việc trên các issue mới",
+				"commentOnDisabled": "Đã tắt bình luận liên kết công việc trên issue mới",
+				"settingsUpdateError": "Không thể cập nhật tích hợp GitHub"
+			},
+			"connectionStatus": "Trạng thái kết nối",
+			"connectedActive": "Kho lưu trữ đã kết nối và đang hoạt động",
+			"notConnectedHint": "Chưa kết nối kho lưu trữ nào",
+			"badgeConnected": "Đã kết nối",
+			"badgeNotConnected": "Chưa kết nối",
+			"repository": "Kho lưu trữ",
+			"repositoryHint": "Kho lưu trữ GitHub đã kết nối",
+			"commentTaskLinkTitle": "Bình luận liên kết Kaneo trên issue mới",
+			"commentTaskLinkHint": "Khi bật, Kaneo sẽ đăng bình luận trên mỗi issue GitHub mới kèm liên kết đến công việc.",
+			"appStatusTitle": "Trạng thái ứng dụng GitHub",
+			"appStatusHint": "Trạng thái cài đặt và quyền",
+			"statusProperlyConfigured": "Đã cấu hình đúng",
+			"statusMissingPermissions": "Thiếu quyền",
+			"statusNotInstalled": "Chưa cài đặt",
+			"ownerLabel": "Chủ sở hữu kho lưu trữ",
+			"ownerHint": "Tên người dùng hoặc tổ chức GitHub",
+			"ownerPlaceholder": "ví dụ: octocat",
+			"repoNameLabel": "Tên kho lưu trữ",
+			"repoNameHint": "Tên của kho lưu trữ",
+			"repoNamePlaceholder": "ví dụ: my-project",
+			"actionsTitle": "Hành động",
+			"actionsHint": "Quản lý kết nối kho lưu trữ của bạn",
+			"browse": "Duyệt",
+			"verify": "Xác minh",
+			"update": "Cập nhật",
+			"connect": "Kết nối",
+			"disconnect": "Ngắt kết nối",
+			"missingPermissionsLabel": "Quyền còn thiếu:",
+			"updatePermissions": "Cập nhật quyền",
+			"installGithubApp": "Cài đặt ứng dụng GitHub",
+			"importSectionTitle": "Nhập issue từ GitHub",
+			"importSectionHint": "Nhập các issue hiện có từ kho lưu trữ GitHub của bạn thành công việc",
+			"importing": "Đang nhập...",
+			"importIssues": "Nhập issue",
+			"importDisabledHint": "Hoàn tất cấu hình kho lưu trữ ở trên để bật tính năng nhập",
+			"accountVerificationHint": "Kết nối tài khoản GitHub để xác minh bạn có quyền quản trị kho lưu trữ này.",
+			"enableGithubSignInHint": "Yêu cầu quản trị viên hệ thống bật đăng nhập bằng GitHub.",
+			"reverifyHint": "Kết nối lại kho lưu trữ này để xác minh quyền truy cập và tiếp tục đồng bộ hóa.",
+			"resumeImport": "Tiếp tục nhập",
+			"importPaused": "Lần nhập này đã lưu tiến độ. Bạn có thể tiếp tục.",
+			"importSummary": "Đã tạo: {{imported}} · Đã cập nhật: {{updated}} · Đã bỏ qua: {{skipped}}"
+		},
+		"giteaIntegration": {
+			"validation": {
+				"baseUrlRequired": "Cần có URL gốc Gitea",
+				"baseUrlInvalid": "Nhập một URL hợp lệ (ví dụ: https://gitea.example.com)",
+				"ownerRequired": "Cần có chủ sở hữu kho lưu trữ",
+				"ownerInvalid": "Định dạng chủ sở hữu kho lưu trữ không hợp lệ",
+				"nameRequired": "Cần có tên kho lưu trữ",
+				"nameInvalid": "Định dạng tên kho lưu trữ không hợp lệ"
+			},
+			"toast": {
+				"verifyOk": "Token Gitea có thể truy cập kho lưu trữ này",
+				"verifyWarning": "Hãy kiểm tra quyền token hoặc quyền truy cập kho lưu trữ",
+				"repoNotFound": "Không tìm thấy kho lưu trữ hoặc không thể truy cập",
+				"verifyError": "Không thể xác minh quyền truy cập Gitea",
+				"tokenRequired": "Cần có personal access token",
+				"tokenRequiredVerify": "Nhập token để xác minh",
+				"verifyFirst": "Xác minh quyền truy cập thất bại. Hãy kiểm tra URL, token và kho lưu trữ",
+				"updated": "Đã lưu tích hợp Gitea",
+				"updateError": "Không thể lưu tích hợp Gitea",
+				"removed": "Đã gỡ bỏ tích hợp Gitea",
+				"removeError": "Không thể gỡ bỏ tích hợp Gitea",
+				"issuesImported": "Nhập issue thành công",
+				"importError": "Không thể nhập issue",
+				"commentOnEnabled": "Kaneo sẽ bình luận kèm liên kết công việc trên các issue mới",
+				"commentOnDisabled": "Đã tắt bình luận liên kết công việc trên issue mới",
+				"settingsUpdateError": "Không thể cập nhật tích hợp Gitea",
+				"secretCopied": "Đã sao chép",
+				"unableToCopySecret": "Không thể sao chép khóa bí mật",
+				"notGiteaInstance": "URL này không trỏ tới một hệ thống Gitea",
+				"redirected": "URL Gitea đã bị chuyển hướng (thường sang HTTPS). Hãy dùng trực tiếp URL cuối cùng."
+			},
+			"webhookShow": "Hiện",
+			"webhookHide": "Ẩn",
+			"webhookCopy": "Sao chép",
+			"connectionStatus": "Trạng thái kết nối",
+			"connectedActive": "Kho lưu trữ đã kết nối và đang hoạt động",
+			"notConnectedHint": "Chưa kết nối kho lưu trữ Gitea nào",
+			"badgeConnected": "Đã kết nối",
+			"badgeNotConnected": "Chưa kết nối",
+			"repository": "Kho lưu trữ",
+			"repositoryHint": "Kho lưu trữ Gitea đã liên kết",
+			"commentTaskLinkTitle": "Bình luận liên kết Kaneo trên issue mới",
+			"commentTaskLinkHint": "Khi bật, Kaneo sẽ đăng bình luận trên mỗi issue mới kèm liên kết đến công việc.",
+			"webhookTitle": "Webhook",
+			"webhookHint": "Trong kho lưu trữ Gitea của bạn, hãy thêm một webhook với URL và khóa bí mật này. Bật push, pull request, issues, issue comments và create (cho nhãn).",
+			"webhookSecretLabel": "Khóa bí mật (phải khớp với khóa bí mật webhook trong Gitea)",
+			"baseUrlLabel": "URL Gitea",
+			"baseUrlHint": "URL gốc của phiên bản Gitea của bạn",
+			"tokenLabel": "Token truy cập cá nhân",
+			"tokenHint": "Token có quyền truy cập repo và issues",
+			"tokenPlaceholder": "Dán token",
+			"tokenPlaceholderUpdate": "Dán token mới để thay thế",
+			"currentToken": "đã lưu",
+			"ownerLabel": "Chủ sở hữu",
+			"ownerHint": "Tên người dùng hoặc tổ chức",
+			"repoNameLabel": "Tên kho lưu trữ",
+			"repoNameHint": "Chỉ tên kho lưu trữ (không có chủ sở hữu)",
+			"actionsTitle": "Hành động",
+			"actionsHint": "Xác minh quyền truy cập và kết nối",
+			"browse": "Duyệt",
+			"verify": "Xác minh",
+			"update": "Cập nhật",
+			"connect": "Kết nối",
+			"disconnect": "Ngắt kết nối",
+			"importSectionTitle": "Nhập issue từ Gitea",
+			"importSectionHint": "Nhập các issue và pull request đang mở từ kho lưu trữ",
+			"importing": "Đang nhập…",
+			"importIssues": "Nhập issue",
+			"importDisabledHint": "Hãy xác minh kho lưu trữ ở trên để bật tính năng nhập",
+			"browseModalTitle": "Kho lưu trữ của bạn",
+			"browseModalHint": "Các kho lưu trữ mà token của bạn có thể truy cập",
+			"searchRepos": "Tìm kiếm…",
+			"browseNeedsCredentials": "Nhập URL và token Gitea để duyệt",
+			"loadingRepos": "Đang tải kho lưu trữ…",
+			"retry": "Thử lại"
+		},
+		"slackIntegration": {
+			"validation": {
+				"webhookInvalid": "Nhập một URL webhook Slack hợp lệ"
+			},
+			"toast": {
+				"saved": "Đã lưu tích hợp Slack thành công",
+				"saveError": "Không thể lưu tích hợp Slack",
+				"enabled": "Đã bật thông báo Slack",
+				"disabled": "Đã tạm dừng thông báo Slack",
+				"updateError": "Không thể cập nhật tích hợp Slack",
+				"removed": "Gỡ bỏ tích hợp Slack thành công",
+				"removeError": "Không thể gỡ bỏ tích hợp Slack"
+			},
+			"connectionTitle": "Kết nối webhook Slack",
+			"connectionHint": "Dán URL webhook đến của Slack và chọn sự kiện công việc nào sẽ được đăng.",
+			"connected": "Đã kết nối",
+			"paused": "Đã tạm dừng",
+			"webhookLabel": "URL webhook đến",
+			"webhookPlaceholder": "https://hooks.slack.com/services/...",
+			"webhookHint": "Tạo một Incoming Webhook trong Slack và dán URL được tạo vào đây.",
+			"channelLabel": "Tên kênh",
+			"channelPlaceholder": "#cap-nhat-nhom",
+			"channelHint": "Nhãn tùy chọn để bạn tham khảo. Slack kiểm soát kênh đích thực tế từ cấu hình webhook.",
+			"eventsTitle": "Thông báo sự kiện",
+			"eventsHint": "Chọn thay đổi dự án nào sẽ đăng lên Slack.",
+			"events": {
+				"taskCreated": "Công việc mới",
+				"taskStatusChanged": "Thay đổi trạng thái",
+				"taskPriorityChanged": "Thay đổi mức ưu tiên",
+				"taskTitleChanged": "Thay đổi tiêu đề",
+				"taskDescriptionChanged": "Thay đổi mô tả",
+				"taskCommentCreated": "Bình luận mới"
+			},
+			"connect": "Kết nối Slack",
+			"saveChanges": "Lưu thay đổi",
+			"update": "Cập nhật Slack",
+			"disconnect": "Ngắt kết nối"
+		},
+		"discordIntegration": {
+			"validation": {
+				"webhookInvalid": "Nhập một URL webhook Discord hợp lệ"
+			},
+			"toast": {
+				"saved": "Đã lưu tích hợp Discord thành công",
+				"saveError": "Không thể lưu tích hợp Discord",
+				"enabled": "Đã bật thông báo Discord",
+				"disabled": "Đã tạm dừng thông báo Discord",
+				"updateError": "Không thể cập nhật tích hợp Discord",
+				"removed": "Gỡ bỏ tích hợp Discord thành công",
+				"removeError": "Không thể gỡ bỏ tích hợp Discord"
+			},
+			"connectionTitle": "Kết nối webhook Discord",
+			"connectionHint": "Dán URL webhook Discord và chọn sự kiện công việc nào sẽ được đăng.",
+			"connected": "Đã kết nối",
+			"paused": "Đã tạm dừng",
+			"webhookLabel": "URL webhook",
+			"webhookPlaceholder": "https://discord.com/api/webhooks/...",
+			"webhookHint": "Tạo một webhook kênh Discord và dán URL được tạo vào đây.",
+			"channelLabel": "Tên kênh",
+			"channelPlaceholder": "#cap-nhat-nhom",
+			"channelHint": "Nhãn tùy chọn để bạn tham khảo. Discord kiểm soát kênh đích thực tế từ cấu hình webhook.",
+			"eventsTitle": "Thông báo sự kiện",
+			"eventsHint": "Chọn thay đổi dự án nào sẽ đăng lên Discord.",
+			"events": {
+				"taskCreated": "Công việc mới",
+				"taskStatusChanged": "Thay đổi trạng thái",
+				"taskPriorityChanged": "Thay đổi mức ưu tiên",
+				"taskTitleChanged": "Thay đổi tiêu đề",
+				"taskDescriptionChanged": "Thay đổi mô tả",
+				"taskCommentCreated": "Bình luận mới"
+			},
+			"connect": "Kết nối Discord",
+			"saveChanges": "Lưu thay đổi",
+			"update": "Cập nhật Discord",
+			"disconnect": "Ngắt kết nối"
+		},
+		"genericWebhookIntegration": {
+			"validation": {
+				"webhookInvalid": "Nhập một URL webhook hợp lệ"
+			},
+			"toast": {
+				"saved": "Đã lưu tích hợp webhook chung thành công",
+				"saveError": "Không thể lưu tích hợp webhook chung",
+				"enabled": "Đã bật thông báo webhook chung",
+				"disabled": "Đã tạm dừng thông báo webhook chung",
+				"updateError": "Không thể cập nhật tích hợp webhook chung",
+				"removed": "Gỡ bỏ tích hợp webhook chung thành công",
+				"removeError": "Không thể gỡ bỏ tích hợp webhook chung"
+			},
+			"connectionTitle": "Kết nối webhook gửi đi",
+			"connectionHint": "Gửi sự kiện công việc đến điểm cuối của riêng bạn dưới dạng JSON. Tiêu đề X-Kaneo-Signature đã ký sẽ được thêm vào khi có cấu hình khóa bí mật.",
+			"connected": "Đã kết nối",
+			"paused": "Đã tạm dừng",
+			"webhookLabel": "URL điểm cuối",
+			"webhookPlaceholder": "https://example.com/webhooks/kaneo",
+			"webhookHint": "Kaneo gửi yêu cầu POST với nội dung JSON cho mỗi sự kiện đã bật.",
+			"secretLabel": "Khóa bí mật ký",
+			"secretPlaceholder": "Khóa bí mật dùng chung (không bắt buộc)",
+			"secretHint": "Không bắt buộc. Nếu được cung cấp, Kaneo sẽ ký nội dung yêu cầu và gửi mã băm hex trong tiêu đề X-Kaneo-Signature.",
+			"secretHintConfigured": "Đã cấu hình khóa bí mật ký ({{secret}}). Nhập khóa mới để thay thế.",
+			"eventsTitle": "Thông báo sự kiện",
+			"eventsHint": "Chọn thay đổi dự án nào sẽ kích hoạt webhook gửi đi.",
+			"events": {
+				"taskCreated": "Công việc mới",
+				"taskStatusChanged": "Thay đổi trạng thái",
+				"taskPriorityChanged": "Thay đổi mức ưu tiên",
+				"taskTitleChanged": "Thay đổi tiêu đề",
+				"taskDescriptionChanged": "Thay đổi mô tả",
+				"taskCommentCreated": "Bình luận mới",
+				"taskDeleted": "Xóa công việc",
+				"taskMoved": "Di chuyển công việc",
+				"taskDueDateChanged": "Thay đổi ngày đến hạn",
+				"taskAssigneeChanged": "Thay đổi người được giao",
+				"taskUnassigned": "Hủy giao công việc",
+				"dueDateReminder": "Nhắc nhở ngày đến hạn"
+			},
+			"reminderLeadTimeLabel": "Gửi webhook trước bao nhiêu giờ",
+			"connect": "Kết nối webhook",
+			"saveChanges": "Lưu thay đổi",
+			"disconnect": "Ngắt kết nối"
+		},
+		"telegramIntegration": {
+			"validation": {
+				"botTokenInvalid": "Nhập một token bot Telegram hợp lệ",
+				"chatIdRequired": "Cần có Chat ID",
+				"threadIdInvalid": "Nhập một ID luồng chủ đề Telegram hợp lệ"
+			},
+			"toast": {
+				"saved": "Đã lưu tích hợp Telegram thành công",
+				"saveError": "Không thể lưu tích hợp Telegram",
+				"enabled": "Đã bật thông báo Telegram",
+				"disabled": "Đã tạm dừng thông báo Telegram",
+				"updateError": "Không thể cập nhật tích hợp Telegram",
+				"removed": "Gỡ bỏ tích hợp Telegram thành công",
+				"removeError": "Không thể gỡ bỏ tích hợp Telegram"
+			},
+			"connectionTitle": "Kết nối bot Telegram",
+			"connectionHint": "Dùng token bot Telegram và Chat ID để gửi cập nhật công việc dự án vào một cuộc trò chuyện hoặc chủ đề.",
+			"connected": "Đã kết nối",
+			"paused": "Đã tạm dừng",
+			"botTokenLabel": "Token bot",
+			"botTokenPlaceholder": "123456789:AAExampleBotToken",
+			"botTokenHint": "Tạo một bot với BotFather và dán token của nó vào đây.",
+			"botTokenHintConfigured": "Đã cấu hình token bot ({{token}}). Nhập token mới để thay thế.",
+			"chatIdLabel": "Chat ID",
+			"chatIdPlaceholder": "-1001234567890 hoặc @team_updates",
+			"chatIdHint": "Nhập Chat ID Telegram hoặc tên người dùng kênh nơi cập nhật sẽ được đăng.",
+			"threadIdLabel": "ID luồng chủ đề",
+			"threadIdPlaceholder": "ID chủ đề (không bắt buộc)",
+			"threadIdHint": "Không bắt buộc. Dùng cho các chủ đề diễn đàn trong nhóm Telegram.",
+			"chatLabelLabel": "Nhãn cuộc trò chuyện",
+			"chatLabelPlaceholder": "Cập nhật kỹ thuật",
+			"chatLabelHint": "Nhãn tùy chọn để bạn tham khảo trong Kaneo.",
+			"eventsTitle": "Thông báo sự kiện",
+			"eventsHint": "Chọn thay đổi dự án nào sẽ đăng lên Telegram.",
+			"events": {
+				"taskCreated": "Công việc mới",
+				"taskStatusChanged": "Thay đổi trạng thái",
+				"taskPriorityChanged": "Thay đổi mức ưu tiên",
+				"taskTitleChanged": "Thay đổi tiêu đề",
+				"taskDescriptionChanged": "Thay đổi mô tả",
+				"taskCommentCreated": "Bình luận mới"
+			},
+			"connect": "Kết nối Telegram",
+			"saveChanges": "Lưu thay đổi",
+			"disconnect": "Ngắt kết nối"
+		},
+		"repositoryBrowser": {
+			"title": "Chọn kho lưu trữ",
+			"description": "Chọn một kho lưu trữ nơi ứng dụng GitHub của bạn được cài đặt để bật đồng bộ issue.",
+			"searchPlaceholder": "Tìm kho lưu trữ...",
+			"loadError": "Không thể tải kho lưu trữ",
+			"tryAgain": "Thử lại",
+			"emptyTitle": "Không tìm thấy kho lưu trữ nào",
+			"emptyHint": "Cài đặt ứng dụng GitHub trên các kho lưu trữ của bạn để thấy chúng ở đây.",
+			"installGithubApp": "Cài đặt ứng dụng GitHub",
+			"noSearchMatchTitle": "Không có kho lưu trữ khớp với tìm kiếm của bạn",
+			"noSearchMatchHint": "Hãy thử điều chỉnh từ khóa tìm kiếm hoặc xóa tìm kiếm để xem tất cả kho lưu trữ.",
+			"footerSummary": "{{repoCount}} kho lưu trữ trong {{installationCount}} lượt cài đặt",
+			"manageInstallations": "Quản lý cài đặt",
+			"updatedPrefix": "Đã cập nhật",
+			"relativeJustNow": "vừa xong",
+			"relativeMinutesAgo": "{{count}} phút trước",
+			"relativeHoursAgo": "{{count}} giờ trước",
+			"relativeDaysAgo": "{{count}} ngày trước"
+		},
+		"tasksImportExport": {
+			"exportTasks": "Xuất công việc",
+			"importTasks": "Nhập công việc",
+			"dialogTitle": "Nhập công việc",
+			"dialogDescription": "Tải lên một file JSON chứa công việc để nhập vào dự án này.",
+			"expectedFormat": "Định dạng mong đợi:",
+			"dropHint": "Kéo và thả file JSON của bạn vào đây",
+			"selectFile": "Chọn file",
+			"exporting": "Đang xuất công việc...",
+			"exportSuccess": "Xuất công việc thành công",
+			"exportError": "Không thể xuất công việc",
+			"importing": "Đang nhập công việc...",
+			"importSuccess": "Đã nhập {{count}} công việc thành công",
+			"importPartialError": "Không thể nhập {{count}} công việc",
+			"importError": "Không thể nhập công việc",
+			"invalidFormat": "Định dạng file nhập không hợp lệ",
+			"noFileDropped": "Không có file nào được thả",
+			"notJsonFile": "Vui lòng tải lên một file JSON"
+		},
+		"workflowEditor": {
+			"loading": "Đang tải...",
+			"createColumnsFirst": "Hãy tạo cột trước để cấu hình quy tắc tự động hóa.",
+			"githubHeading": "GitHub",
+			"githubHint": "Khi một sự kiện GitHub xảy ra, di chuyển công việc liên kết đến một cột.",
+			"giteaHeading": "Gitea",
+			"giteaHint": "Khi một sự kiện webhook Gitea xảy ra, di chuyển công việc liên kết đến một cột.",
+			"selectColumnPlaceholder": "Chọn cột...",
+			"toastUpdated": "Đã cập nhật quy tắc quy trình làm việc",
+			"toastError": "Không thể cập nhật quy tắc",
+			"events": {
+				"branch_push": "Push nhánh",
+				"pr_opened": "Mở PR",
+				"pr_merged": "Gộp PR",
+				"issue_opened": "Mở issue",
+				"issue_closed": "Đóng issue"
+			}
+		},
+		"externalLinks": {
+			"resources": "Tài nguyên",
+			"issue": "Issue",
+			"branch": "Nhánh",
+			"merged": "Đã gộp",
+			"draft": "Bản nháp",
+			"open": "Đang mở",
+			"adding": "Đang thêm...",
+			"addResource": "Thêm tài nguyên",
+			"cancel": "Hủy",
+			"empty": "Chưa có tài nguyên nào được liên kết với công việc này.",
+			"titleOptional": "Tiêu đề (không bắt buộc)",
+			"url": "URL",
+			"remove": "Gỡ {{title}}",
+			"removeError": "Không gỡ được liên kết tài nguyên.",
+			"addError": "Không thêm được liên kết tài nguyên.",
+			"invalidUrl": "Nhập URL http hoặc https hợp lệ.",
+			"urlPlaceholder": "https://github.com/owner/repo"
+		},
+		"mattermostIntegration": {
+			"channelHint": "Nhãn tùy chọn để bạn dễ nhận biết. Kênh đích thực tế do cấu hình webhook của Mattermost quyết định.",
+			"channelLabel": "Tên kênh",
+			"channelPlaceholder": "#cap-nhat-nhom",
+			"connect": "Kết nối Mattermost",
+			"connected": "Đã kết nối",
+			"connectionHint": "Dán URL incoming webhook của Mattermost và chọn những sự kiện công việc cần đăng.",
+			"connectionTitle": "Kết nối webhook Mattermost",
+			"disconnect": "Ngắt kết nối",
+			"events": {
+				"taskCommentCreated": "Bình luận mới",
+				"taskCreated": "Công việc mới",
+				"taskDescriptionChanged": "Thay đổi mô tả",
+				"taskPriorityChanged": "Thay đổi độ ưu tiên",
+				"taskStatusChanged": "Thay đổi trạng thái",
+				"taskTitleChanged": "Thay đổi tiêu đề"
+			},
+			"eventsHint": "Chọn những thay đổi của dự án sẽ được đăng lên Mattermost.",
+			"eventsTitle": "Thông báo sự kiện",
+			"paused": "Đã tạm dừng",
+			"saveChanges": "Lưu thay đổi",
+			"toast": {
+				"disabled": "Đã tạm dừng thông báo Mattermost",
+				"enabled": "Đã bật thông báo Mattermost",
+				"removed": "Đã gỡ tích hợp Mattermost",
+				"removeError": "Không gỡ được tích hợp Mattermost",
+				"saved": "Đã lưu tích hợp Mattermost",
+				"saveError": "Không lưu được tích hợp Mattermost",
+				"updateError": "Không cập nhật được tích hợp Mattermost"
+			},
+			"update": "Cập nhật Mattermost",
+			"validation": {
+				"webhookInvalid": "Hãy nhập URL webhook Mattermost hợp lệ"
+			},
+			"webhookHint": "Tạo một Incoming Webhook trong Mattermost rồi dán URL sinh ra vào đây.",
+			"webhookLabel": "URL incoming webhook",
+			"webhookPlaceholder": "https://your-mattermost-server.com/hooks/..."
+		},
+		"customFields": {
+			"addButton": "Thêm",
+			"createError": "Không tạo được trường tùy chỉnh.",
+			"createSuccess": "Đã tạo trường tùy chỉnh.",
+			"creating": "Đang tạo...",
+			"defaultLabel": "Mặc định",
+			"defaultValuePlaceholder": "Giá trị mặc định",
+			"deleteButton": "Xóa",
+			"deleteError": "Không xóa được trường tùy chỉnh.",
+			"deleteSuccess": "Đã xóa trường tùy chỉnh.",
+			"deleting": "Đang xóa...",
+			"empty": "Chưa cấu hình trường tùy chỉnh nào.",
+			"loading": "Đang tải trường tùy chỉnh...",
+			"namePlaceholder": "Tên trường",
+			"noOptionsPlaceholder": "Không có lựa chọn",
+			"optionsPlaceholder": "Các lựa chọn, phân tách bằng dấu phẩy",
+			"required": "Bắt buộc",
+			"typePlaceholder": "Chọn kiểu trường",
+			"types": {
+				"boolean": "Đúng/Sai",
+				"date": "Ngày",
+				"dropdown": "Danh sách chọn",
+				"number": "Số",
+				"text": "Văn bản"
+			}
+		},
+		"administration": "Quản trị",
+		"adminUsers": {
+			"actions": {
+				"deactivate": "Vô hiệu hóa tài khoản",
+				"edit": "Sửa tài khoản",
+				"open": "Thao tác với {{name}}",
+				"reactivate": "Kích hoạt lại tài khoản"
+			},
+			"clearSearch": "Xóa tìm kiếm",
+			"columns": {
+				"actions": "Thao tác",
+				"joined": "Ngày tham gia",
+				"role": "Vai trò toàn hệ thống",
+				"status": "Trạng thái",
+				"user": "Người dùng"
+			},
+			"confirm": {
+				"deactivate": {
+					"action": "Vô hiệu hóa tài khoản",
+					"description": "{{name}} sẽ bị đăng xuất và không đăng nhập được cho tới khi quản trị viên kích hoạt lại tài khoản.",
+					"title": "Vô hiệu hóa tài khoản này?"
+				},
+				"delete": {
+					"action": "Xóa vĩnh viễn",
+					"description": "Thao tác này xóa vĩnh viễn {{name}}, các phiên đăng nhập, tư cách thành viên và dữ liệu liên quan. Không thể hoàn tác.",
+					"title": "Xóa vĩnh viễn tài khoản này?"
+				},
+				"reactivate": {
+					"action": "Kích hoạt lại tài khoản",
+					"description": "{{name}} sẽ đăng nhập và truy cập lại được các không gian làm việc của họ.",
+					"title": "Kích hoạt lại tài khoản này?"
+				},
+				"working": "Đang xử lý…"
+			},
+			"directoryTitle": "Danh bạ người dùng",
+			"edit": {
+				"description": "Cập nhật thông tin và quyền truy cập toàn hệ thống của tài khoản này.",
+				"email": "Địa chỉ email",
+				"name": "Họ và tên",
+				"role": "Vai trò toàn hệ thống",
+				"save": "Lưu thay đổi",
+				"saving": "Đang lưu…",
+				"selfRoleHint": "Bạn không thể tự đổi vai trò toàn hệ thống của mình.",
+				"title": "Sửa người dùng"
+			},
+			"emptyDescription": "Hãy thử tên hoặc địa chỉ email khác.",
+			"emptyTitle": "Không tìm thấy người dùng nào",
+			"instanceBadge": "Hệ thống",
+			"loadError": "Không tải được danh sách người dùng.",
+			"next": "Sau",
+			"pagination": "Trang {{current}} / {{total}}",
+			"previous": "Trước",
+			"refreshing": "Đang làm mới danh sách người dùng",
+			"retry": "Thử lại",
+			"roles": {
+				"admin": "Quản trị hệ thống",
+				"user": "Người dùng"
+			},
+			"searchCount_other": "{{count}} người dùng khớp",
+			"searchLabel": "Tìm người dùng",
+			"searchPlaceholder": "Tìm theo tên hoặc email…",
+			"status": {
+				"active": "Đang hoạt động",
+				"deactivated": "Đã vô hiệu hóa"
+			},
+			"subtitle": "Quản lý mọi tài khoản đã đăng ký trên hệ thống Kaneo này.",
+			"title": "Quản lý người dùng",
+			"toast": {
+				"actionError": "Không cập nhật được trạng thái người dùng",
+				"deactivated": "Đã vô hiệu hóa người dùng",
+				"deleted": "Đã xóa người dùng",
+				"reactivated": "Đã kích hoạt lại người dùng",
+				"updated": "Đã cập nhật người dùng",
+				"updateError": "Không cập nhật được người dùng"
+			},
+			"userCount_other": "{{count}} người dùng đã đăng ký",
+			"you": "(bạn)"
+		},
+		"security": "Bảo mật",
+		"securityPage": {
+			"confirmPassword": "Xác nhận mật khẩu mới",
+			"confirmPasswordPlaceholder": "Nhập lại mật khẩu mới",
+			"currentPassword": "Mật khẩu hiện tại",
+			"currentPasswordPlaceholder": "Nhập mật khẩu hiện tại của bạn",
+			"newPassword": "Mật khẩu mới",
+			"newPasswordPlaceholder": "Nhập mật khẩu mới",
+			"noPassword": {
+				"description": "Tài khoản của bạn đăng nhập bằng phương thức khác nên không có mật khẩu để đổi.",
+				"title": "Không thể đổi mật khẩu"
+			},
+			"pageTitle": "Bảo mật",
+			"sectionSubtitle": "Đổi mật khẩu bạn dùng để đăng nhập.",
+			"sectionTitle": "Mật khẩu",
+			"submit": "Cập nhật mật khẩu",
+			"submitting": "Đang cập nhật...",
+			"subtitle": "Quản lý mật khẩu và bảo mật tài khoản của bạn.",
+			"title": "Bảo mật",
+			"updateError": "Không cập nhật được mật khẩu.",
+			"updateSuccess": "Đã cập nhật mật khẩu.",
+			"validation": {
+				"confirmRequired": "Hãy xác nhận mật khẩu mới của bạn.",
+				"currentRequired": "Hãy nhập mật khẩu hiện tại của bạn.",
+				"mismatch": "Mật khẩu không khớp.",
+				"tooShort": "Mật khẩu mới phải có ít nhất 8 ký tự.",
+				"sameAsCurrent": "Mật khẩu mới phải khác mật khẩu hiện tại."
+			}
+		},
+		"workspaceBilling": {
+			"pageTitle": "Thanh toán",
+			"title": "Thanh toán",
+			"disabledDescription": "Thanh toán chưa được bật trên hệ thống này. Bản Kaneo tự vận hành có đầy đủ mọi tính năng, miễn phí vĩnh viễn."
+		}
+	},
+	"navigation": {
+		"commandPalette": {
+			"suggestions": "Gợi ý",
+			"commands": "Lệnh",
+			"projects": "Dự án",
+			"search": "Tìm kiếm",
+			"members": "Thành viên",
+			"createTask": "Tạo công việc",
+			"createProject": "Tạo dự án",
+			"createWorkspace": "Tạo không gian làm việc",
+			"lightTheme": "Chủ đề sáng",
+			"darkTheme": "Chủ đề tối",
+			"systemTheme": "Chủ đề hệ thống",
+			"keyboardShortcuts": "Phím tắt",
+			"inputPlaceholder": "Tìm ứng dụng và lệnh...",
+			"empty": "Không tìm thấy kết quả nào.",
+			"footer": {
+				"navigate": "Điều hướng",
+				"open": "Mở",
+				"close": "Đóng"
+			}
+		},
+		"notifications": "Thông báo",
+		"sidebar": {
+			"overview": "Tổng quan",
+			"projects": "Dự án",
+			"members": "Thành viên",
+			"invitations": "Lời mời",
+			"more": "Thêm",
+			"backToBoard": "Quay lại bảng"
+		},
+		"projectList": {
+			"viewProject": "Xem dự án",
+			"shareProject": "Chia sẻ dự án",
+			"projectSettings": "Cài đặt dự án",
+			"linkCopied": "Đã sao chép liên kết dự án vào clipboard",
+			"addProject": "Thêm dự án",
+			"deleteConfirmTitle": "Xóa dự án?",
+			"deleteConfirmDescription": "Thao tác này sẽ xóa vĩnh viễn dự án và toàn bộ dữ liệu của nó. Bạn không thể hoàn tác hành động này.",
+			"deletedToast": "Đã xóa dự án",
+			"deleteProject": "Xóa dự án"
+		},
+		"search": {
+			"inputPlaceholder": "Tìm công việc, dự án, bình luận...",
+			"minCharsHint": "Nhập ít nhất 3 ký tự để tìm kiếm",
+			"groups": {
+				"task": "Công việc",
+				"project": "Dự án",
+				"workspace": "Không gian làm việc",
+				"comment": "Bình luận",
+				"activity": "Hoạt động",
+				"fallback": "Kết quả"
+			}
+		},
+		"settingsLayout": {
+			"toggleSidebar": "Bật/tắt thanh bên",
+			"back": "Quay lại"
+		},
+		"userMenu": {
+			"signedOutSuccess": "Đăng xuất thành công",
+			"signOutFailed": "Không thể đăng xuất",
+			"unnamedUser": "Người dùng",
+			"settings": "Cài đặt",
+			"signingOut": "Đang đăng xuất...",
+			"logOut": "Đăng xuất"
+		},
+		"workspaceSwitcher": {
+			"workspaces": "Không gian làm việc",
+			"switching": "Đang chuyển...",
+			"addWorkspace": "Thêm không gian làm việc",
+			"selectWorkspace": "Chọn không gian làm việc"
+		},
+		"page": {
+			"projectsTitle": "Dự án",
+			"settingsTitle": "Cài đặt",
+			"backToWorkspace": "Quay lại không gian làm việc",
+			"settingsWorkspaceTab": "Không gian làm việc"
+		},
+		"projectSettings": {
+			"projectLabel": "Dự án"
+		},
+		"keyboardShortcuts": {
+			"title": "Phím tắt",
+			"subtitle": "Tăng tốc quy trình làm việc của bạn với phím tắt",
+			"searchPlaceholder": "Tìm phím tắt...",
+			"footer": "Nhấn <kbd>Escape</kbd> để đóng",
+			"categories": {
+				"general": "Chung",
+				"create": "Tạo",
+				"views": "Chế độ xem",
+				"navigation": "Điều hướng",
+				"quickSelect": "Chọn nhanh (trong popover)"
+			},
+			"items": {
+				"openCommandPalette": "Mở bảng lệnh",
+				"globalSearch": "Tìm kiếm toàn cục",
+				"toggleSidebar": "Bật/tắt thanh bên",
+				"showShortcuts": "Hiện phím tắt",
+				"closeModal": "Đóng modal/popover",
+				"createTask": "Tạo công việc",
+				"createProject": "Tạo dự án",
+				"createWorkspace": "Tạo không gian làm việc",
+				"boardView": "Chuyển sang chế độ xem bảng",
+				"listView": "Chuyển sang chế độ xem danh sách",
+				"backlogView": "Chuyển sang chế độ xem backlog",
+				"nextTask": "Công việc tiếp theo",
+				"prevTask": "Công việc trước đó",
+				"openTask": "Mở công việc đã chọn",
+				"quickSelectNumber": "Chọn tùy chọn theo số",
+				"calendarView": "Chuyển sang xem lịch"
+			}
+		}
+	},
+	"notifications": {
+		"title": "Thông báo",
+		"newCount_other": "{{count}} mới",
+		"emptyTitle": "Chưa có thông báo nào",
+		"emptySubtitle": "Bạn sẽ thấy các cập nhật và hoạt động ở đây.",
+		"clearAll": "Xóa tất cả thông báo",
+		"clearDialogTitle": "Xóa tất cả thông báo?",
+		"clearDialogDescription": "Thao tác này sẽ xóa vĩnh viễn tất cả thông báo. Bạn không thể hoàn tác hành động này.",
+		"shortcuts": {
+			"open": "Mở thông báo"
+		},
+		"reminderLeadTime": {
+			"minutes_other": "{{count}} phút",
+			"hours_other": "{{count}} giờ",
+			"days_other": "{{count}} ngày"
+		},
+		"events": {
+			"task_created": {
+				"title": "Công việc mới được tạo",
+				"content": "Công việc \"{{taskTitle}}\" đã được tạo"
+			},
+			"workspace_created": {
+				"title": "Đã tạo không gian làm việc",
+				"content": "Không gian làm việc \"{{workspaceName}}\" của bạn đã được tạo thành công"
+			},
+			"task_status_changed": {
+				"title": "Trạng thái công việc đã thay đổi",
+				"content": "Trạng thái công việc \"{{taskTitle}}\" đã thay đổi từ \"{{oldStatus}}\" sang \"{{newStatus}}\""
+			},
+			"task_assignee_changed": {
+				"title": "Công việc được giao cho bạn",
+				"content": "Bạn đã được giao công việc: {{taskTitle}}"
+			},
+			"task_mention": {
+				"title": "{{mentionerName}} đã nhắc đến bạn",
+				"content": "{{mentionerName}} đã nhắc đến bạn trong: {{taskTitle}}"
+			},
+			"task_comment": {
+				"title": "{{commenterName}} đã bình luận công việc của bạn",
+				"content": "Bình luận mới trên {{taskTitle}}: {{commentPreview}}"
+			},
+			"due_date_reminder": {
+				"title": "Công việc sắp đến hạn",
+				"content": "{{taskTitle}} sẽ đến hạn trong {{leadTime}}"
+			},
+			"task_overdue": {
+				"title": "Công việc quá hạn",
+				"content": "{{taskTitle}} đã quá ngày đến hạn"
+			},
+			"time_entry_created": {
+				"title": "Đã bắt đầu theo dõi thời gian",
+				"contentWithTask": "Đã bắt đầu theo dõi thời gian trên công việc: {{taskTitle}}",
+				"contentWithoutTask": "Đã bắt đầu theo dõi thời gian trên một công việc"
+			}
+		}
+	},
+	"activity": {
+		"assignedToSelf": "đã tự giao công việc này cho mình",
+		"unassigned": "đã hủy giao công việc",
+		"assignedTo": "đã giao công việc cho {{name}}",
+		"changedStatus": "đã thay đổi trạng thái từ {{from}} sang {{to}}",
+		"changedPriority": "đã thay đổi mức ưu tiên từ {{from}} sang {{to}}",
+		"clearedDueDate": "đã xóa ngày đến hạn",
+		"setDueDate": "đã đặt ngày đến hạn thành {{date}}",
+		"changedDueDate": "đã thay đổi ngày đến hạn từ {{from}} sang {{to}}",
+		"changedTitle": "đã thay đổi tiêu đề từ \"{{from}}\" sang \"{{to}}\"",
+		"moved": "đã di chuyển công việc từ \"{{from}}\" sang \"{{to}}\"",
+		"created": "đã tạo công việc này",
+		"githubUser": "Người dùng GitHub",
+		"comment": {
+			"github": "GitHub",
+			"viewGithubProfile": "Xem hồ sơ GitHub",
+			"commentedOnGithub": "đã bình luận trên GitHub",
+			"cannotBeEmpty": "Bình luận không được để trống",
+			"mustBeLoggedInToEdit": "Bạn phải đăng nhập để chỉnh sửa bình luận",
+			"updated": "Đã cập nhật bình luận",
+			"failedToUpdate": "Không thể cập nhật bình luận",
+			"edit": "Chỉnh sửa bình luận",
+			"editPlaceholder": "Chỉnh sửa bình luận...",
+			"save": "Lưu",
+			"added": "Đã thêm bình luận",
+			"failedToAdd": "Không thể thêm bình luận",
+			"leavePlaceholder": "Để lại bình luận...",
+			"attachFile": "Đính kèm file",
+			"submitShortcut": "Gửi bình luận",
+			"editor": {
+				"uploadsOnlyOnSavedTasks": "Chỉ có thể tải file lên các công việc đã lưu.",
+				"uploadingFile": "Đang tải file lên...",
+				"imageUploaded": "Đã tải ảnh lên",
+				"fileAttached": "Đã đính kèm file",
+				"failedToUploadFile": "Không thể tải file lên",
+				"enterUrl": "Nhập URL",
+				"plaintext": "Văn bản thuần",
+				"autoDetect": "Tự động nhận diện",
+				"slashGroupText": "Văn bản",
+				"slashGroupLists": "Danh sách",
+				"slashGroupInsert": "Chèn",
+				"slashParagraph": "Văn bản",
+				"slashHeading": "Tiêu đề",
+				"slashBulletList": "Danh sách dấu đầu dòng",
+				"slashTaskList": "Danh sách việc cần làm",
+				"slashOrderedList": "Danh sách đánh số",
+				"slashQuote": "Trích dẫn",
+				"slashCodeBlock": "Khối mã",
+				"slashTable": "Bảng",
+				"slashFile": "Tệp",
+				"searchParagraph": "văn bản đoạn văn bình thường",
+				"searchHeading": "tiêu đề heading h2",
+				"searchBulletList": "danh sách dấu đầu dòng không thứ tự",
+				"searchTaskList": "việc cần làm checklist checkbox danh sách công việc",
+				"searchOrderedList": "danh sách có thứ tự đánh số",
+				"searchQuote": "trích dẫn blockquote",
+				"searchCodeBlock": "mã đoạn mã code",
+				"searchTable": "bảng lưới grid",
+				"searchFile": "file đính kèm ảnh hình ảnh tải lên",
+				"embedErrorInvalidUrl": "Nhập một URL hợp lệ",
+				"embedErrorYoutubeOnly": "Chỉ có thể nhúng liên kết YouTube.",
+				"embedVideo": "Nhúng video",
+				"keepAsLink": "Giữ dạng liên kết",
+				"hintTab": "Tab",
+				"hintEsc": "Esc",
+				"pasteUrl": "Dán URL",
+				"asLink": "Dạng liên kết",
+				"embed": "Nhúng",
+				"noCommands": "Không có lệnh nào",
+				"ariaCommentContent": "Nội dung bình luận",
+				"ariaCommentEditor": "Trình soạn thảo bình luận",
+				"ariaCopyCode": "Sao chép mã",
+				"ariaCopied": "Đã sao chép",
+				"copy": "Sao chép",
+				"copied": "Đã sao chép",
+				"dropImageToUpload": "Thả ảnh để tải lên",
+				"previewImageAlt": "Xem trước ảnh",
+				"codeLang": {
+					"bash": "Bash",
+					"csharp": "C#",
+					"cpp": "C++",
+					"css": "CSS",
+					"go": "Golang",
+					"graphql": "GraphQL",
+					"html": "HTML",
+					"json": "JSON",
+					"java": "Java",
+					"javascript": "JavaScript",
+					"markdown": "Markdown",
+					"plaintext": "Văn bản thuần",
+					"python": "Python",
+					"rust": "Rust",
+					"sql": "SQL",
+					"swift": "Swift",
+					"typescript": "TypeScript",
+					"yaml": "YAML",
+					"mermaid": "Mermaid"
+				},
+				"table": {
+					"addColumnBefore": "Chèn cột bên trái",
+					"addColumnAfter": "Chèn cột bên phải",
+					"deleteColumn": "Xóa cột",
+					"addRowBefore": "Chèn hàng phía trên",
+					"addRowAfter": "Chèn hàng phía dưới",
+					"deleteRow": "Xóa hàng",
+					"deleteTable": "Xóa bảng"
+				},
+				"mermaid": {
+					"renderFailed": "Không dựng được sơ đồ Mermaid"
+				}
+			},
+			"importedFrom": "Nhập từ {{source}}",
+			"importedBy": "Nhập bởi {{name}}"
+		}
+	},
+	"tasks": {
+		"title": "Nhiệm vụ",
+		"status": {
+			"label": "Trạng thái",
+			"to-do": "Cần làm",
+			"in-progress": "Đang thực hiện",
+			"in-review": "Đang xem xét",
+			"done": "Hoàn thành",
+			"archived": "Đã lưu trữ",
+			"planned": "Đã lên kế hoạch"
+		},
+		"priority": {
+			"label": "Mức ưu tiên",
+			"no-priority": "Không ưu tiên",
+			"low": "Thấp",
+			"medium": "Trung bình",
+			"high": "Cao",
+			"urgent": "Khẩn cấp"
+		},
+		"boardSearchPlaceholder": "Tìm phiếu...",
+		"view": {
+			"label": "Chế độ xem",
+			"backlog": "Backlog",
+			"board": "Bảng",
+			"list": "Danh sách"
+		},
+		"common": {
+			"selectTask": "Chọn công việc",
+			"loadingTask": "Đang tải công việc...",
+			"taskNotFound": "Không tìm thấy công việc",
+			"taskNotFoundDescription": "Công việc bạn đang tìm không tồn tại hoặc đã bị xóa.",
+			"customFields": "Trường tùy chỉnh"
+		},
+		"detail": {
+			"subtaskOf": "Công việc con của",
+			"activity": "Hoạt động",
+			"noActivity": "Không tìm thấy hoạt động nào",
+			"openInFullPage": "Mở ở trang đầy đủ",
+			"titlePlaceholder": "Nhấp để thêm tiêu đề",
+			"addDescription": "Thêm mô tả...",
+			"editor": {
+				"ariaLabel": "Trình soạn thảo mô tả công việc",
+				"placeholder": "Viết mô tả...",
+				"previewImage": "Xem trước ảnh",
+				"enterUrl": "Nhập URL",
+				"autoDetect": "Tự động nhận diện",
+				"copyCode": "Sao chép mã",
+				"copy": "Sao chép",
+				"copied": "Đã sao chép",
+				"attachFile": "Đính kèm file",
+				"dropToUpload": "Thả ảnh để tải lên",
+				"checkbox": {
+					"markIncomplete": "Đánh dấu công việc chưa hoàn thành",
+					"markComplete": "Đánh dấu công việc đã hoàn thành"
+				},
+				"upload": {
+					"loading": "Đang tải file lên...",
+					"failed": "Không thể tải file lên",
+					"imageSuccess": "Đã tải ảnh lên",
+					"fileSuccess": "Đã đính kèm file"
+				},
+				"slash": {
+					"groups": {
+						"text": "Văn bản",
+						"lists": "Danh sách",
+						"insert": "Chèn"
+					},
+					"empty": "Không có lệnh nào",
+					"commands": {
+						"paragraph": "Văn bản",
+						"heading-2": "Tiêu đề",
+						"bullet-list": "Danh sách dấu đầu dòng",
+						"task-list": "Danh sách việc cần làm",
+						"ordered-list": "Danh sách đánh số",
+						"blockquote": "Trích dẫn",
+						"code-block": "Khối mã",
+						"table": "Bảng",
+						"file": "Tệp"
+					}
+				},
+				"languages": {
+					"bash": "Bash",
+					"csharp": "C#",
+					"cpp": "C++",
+					"css": "CSS",
+					"clojure": "Clojure",
+					"cypher": "Cypher",
+					"dart": "Dart",
+					"diff": "Diff",
+					"elixir": "Elixir",
+					"excel": "Excel",
+					"go": "Golang",
+					"graphql": "GraphQL",
+					"html": "HTML",
+					"haskell": "Haskell",
+					"json": "JSON",
+					"java": "Java",
+					"javascript": "JavaScript",
+					"kotlin": "Kotlin",
+					"makefile": "Makefile",
+					"markdown": "Markdown",
+					"ocaml": "OCaml",
+					"php": "PHP",
+					"perl": "Perl",
+					"plaintext": "Văn bản thuần",
+					"python": "Python",
+					"r": "R",
+					"reasonml": "ReasonML",
+					"ruby": "Ruby",
+					"rust": "Rust",
+					"sql": "SQL",
+					"swift": "Swift",
+					"toml": "TOML",
+					"terraform": "Terraform",
+					"typescript": "TypeScript",
+					"xml": "XML",
+					"yaml": "YAML",
+					"mermaid": "Mermaid"
+				},
+				"embed": {
+					"choice": {
+						"embedVideo": "Nhúng video",
+						"keepAsLink": "Giữ dạng liên kết"
+					},
+					"inputPlaceholder": "Dán URL",
+					"embeddedContent": "Nội dung đã nhúng",
+					"asLink": "Dạng liên kết",
+					"submit": "Nhúng",
+					"errors": {
+						"invalidUrl": "Nhập một URL hợp lệ",
+						"onlyYoutube": "Chỉ có thể nhúng liên kết YouTube."
+					},
+					"onlyYoutubeInline": "Chỉ có thể nhúng URL YouTube. Hãy dùng chế độ liên kết thay thế."
+				},
+				"mermaid": {
+					"renderFailed": "Không dựng được sơ đồ Mermaid"
+				},
+				"image": {
+					"large": "Lớn",
+					"medium": "Vừa",
+					"reset": "Cỡ gốc",
+					"resizeHandle": "Đổi kích thước ảnh",
+					"small": "Nhỏ"
+				}
+			},
+			"customFieldUpdated": "Đã cập nhật trường",
+			"selectOption": "Chọn giá trị"
+		},
+		"entity": {
+			"task": "Công việc"
+		},
+		"relations": {
+			"title": "Liên kết",
+			"tasksInProject": "Công việc trong dự án",
+			"linkError": "Không thể liên kết công việc",
+			"empty": "Không có công việc liên kết",
+			"searchPlaceholder": "Tìm công việc để liên kết...",
+			"noTasksFound": "Không tìm thấy công việc nào",
+			"openTask": "Mở công việc",
+			"removeRelation": "Gỡ liên kết",
+			"related": "Liên quan",
+			"blocks": "Chặn",
+			"selectTask": "Chọn một công việc để liên kết",
+			"types": {
+				"blocks": "chặn",
+				"blocked_by": "bị chặn bởi",
+				"related": "liên quan đến"
+			}
+		},
+		"subtasks": {
+			"title": "Công việc con",
+			"inputPlaceholder": "Tiêu đề công việc con...",
+			"addAction": "Thêm",
+			"empty": "Chưa có công việc con nào",
+			"createError": "Không thể tạo công việc con",
+			"deleteSuccess": "Xóa công việc thành công",
+			"deleteError": "Không thể xóa công việc",
+			"deleteDialogTitle": "Xóa công việc?",
+			"deleteDialogDescription": "Thao tác này sẽ xóa vĩnh viễn công việc và toàn bộ dữ liệu của nó. Bạn không thể hoàn tác hành động này.",
+			"deleteAction": "Xóa công việc",
+			"completeAria": "Đánh dấu hoàn thành công việc con"
+		},
+		"properties": {
+			"title": "Thuộc tính",
+			"labels": "Nhãn",
+			"copyTaskLink": "Sao chép liên kết công việc",
+			"copyTaskBranch": "Sao chép nhánh công việc",
+			"start": "Bắt đầu",
+			"startDate": "Ngày bắt đầu",
+			"noDate": "Không có ngày"
+		},
+		"move": {
+			"title": "Di chuyển công việc",
+			"projectLabel": "Dự án đích",
+			"projectPlaceholder": "Chọn một dự án",
+			"statusLabel": "Trạng thái đích",
+			"statusHintKeep": "Quy trình làm việc của dự án này đã hỗ trợ trạng thái hiện tại.",
+			"statusHintAdjust": "Chọn trạng thái để dùng ở dự án đích.",
+			"action": "Di chuyển công việc",
+			"success": "Di chuyển công việc thành công",
+			"error": "Không thể di chuyển công việc"
+		},
+		"popover": {
+			"assignee": {
+				"unassigned": "Chưa giao",
+				"updateError": "Không thể cập nhật người được giao công việc"
+			},
+			"status": {
+				"updateError": "Không thể cập nhật trạng thái công việc"
+			},
+			"priority": {
+				"updateError": "Không thể cập nhật mức ưu tiên công việc"
+			},
+			"dueDate": {
+				"updateSuccess": "Cập nhật ngày đến hạn công việc thành công",
+				"updateError": "Không thể cập nhật ngày đến hạn công việc",
+				"clear": "Xóa ngày"
+			},
+			"startDate": {
+				"updateSuccess": "Cập nhật ngày bắt đầu công việc thành công",
+				"updateError": "Không thể cập nhật ngày bắt đầu công việc",
+				"clear": "Xóa ngày bắt đầu"
+			},
+			"labels": {
+				"searchPlaceholder": "Tìm nhãn...",
+				"empty": "Không tìm thấy nhãn",
+				"create": "Tạo \"{{name}}\"",
+				"chooseColor": "Chọn màu",
+				"addSuccess": "Đã thêm nhãn",
+				"removeSuccess": "Đã gỡ nhãn",
+				"updateError": "Không thể cập nhật nhãn",
+				"createSuccess": "Đã tạo và thêm nhãn",
+				"createError": "Không thể tạo nhãn",
+				"colors": {
+					"stone": "Đá",
+					"slate": "Xám đá phiến",
+					"lavender": "Oải hương",
+					"sage": "Xanh xô thơm",
+					"forest": "Xanh rừng",
+					"amber": "Hổ phách",
+					"terracotta": "Đất nung",
+					"rose": "Hồng",
+					"crimson": "Đỏ thẫm"
+				}
+			}
+		},
+		"backlog": {
+			"pageTitle": "Backlog của {{name}}",
+			"noTasksToMove": "Không có công việc đã lên kế hoạch để di chuyển",
+			"moveAllConfirm": "Di chuyển tất cả {{count}} công việc đã lên kế hoạch sang Cần làm?",
+			"moveAllSuccess": "Đã di chuyển {{count}} công việc sang Cần làm",
+			"plan": "Lên kế hoạch",
+			"moveAllTooltip": "Di chuyển tất cả công việc đã lên kế hoạch sang Cần làm",
+			"moveAll": "Di chuyển tất cả",
+			"addTask": "Thêm công việc",
+			"filter": "Lọc",
+			"addFilter": "Thêm bộ lọc...",
+			"sections": {
+				"planned": "Đã lên kế hoạch",
+				"archived": "Đã lưu trữ"
+			},
+			"noTasksInSection": "Không có công việc {{section}}",
+			"filters": {
+				"priority": "Mức ưu tiên: {{name}}",
+				"assignee": "Người được giao: {{name}}",
+				"due": "Đến hạn: {{date}}",
+				"label": "Nhãn: {{name}}",
+				"dueThisWeek": "Đến hạn tuần này",
+				"dueNextWeek": "Đến hạn tuần sau",
+				"noDueDate": "Không có ngày đến hạn"
+			}
+		},
+		"sort": {
+			"label": "Sắp xếp",
+			"by": "Sắp xếp theo",
+			"direction": "Chiều",
+			"ascending": "Tăng dần",
+			"descending": "Giảm dần",
+			"fields": {
+				"position": "Thủ công (vị trí)",
+				"createdAt": "Ngày tạo",
+				"priority": "Mức ưu tiên",
+				"dueDate": "Ngày đến hạn",
+				"title": "Tiêu đề",
+				"number": "Số công việc"
+			}
+		},
+		"boardFilters": {
+			"filterBy": "Lọc theo",
+			"allStatuses": "Tất cả trạng thái",
+			"allPriorities": "Tất cả mức ưu tiên",
+			"allAssignees": "Tất cả người được giao",
+			"allDueDates": "Tất cả ngày đến hạn",
+			"allLabels": "Tất cả nhãn",
+			"selectedCount": "Đã chọn {{count}}",
+			"subjects": {
+				"status": "Trạng thái",
+				"priority": "Mức ưu tiên",
+				"assignee": "Người được giao",
+				"dueDate": "Ngày đến hạn",
+				"labels": "Nhãn"
+			},
+			"operators": {
+				"isAnyOf": "là một trong",
+				"includeAnyOf": "bao gồm một trong"
+			},
+			"all": "Tất cả",
+			"allCustomFieldValues": "Tất cả giá trị",
+			"noCustomFieldValues": "Không có giá trị trường tùy chỉnh",
+			"noValuesUsedYet": "Chưa có giá trị nào được dùng"
+		},
+		"gantt": {
+			"pageTitle": "{{name}} – Gantt",
+			"title": "Dòng thời gian Gantt",
+			"searchPlaceholder": "Tìm phiếu đã lên lịch...",
+			"hideTasks": "Ẩn công việc",
+			"showTasks": "Hiện công việc",
+			"noTasks": "Không có công việc đã lên lịch",
+			"noTasksSubtitle": "Thêm ngày bắt đầu, ngày đến hạn, hoặc cả hai cho công việc để đặt chúng lên dòng thời gian dự án.",
+			"noTasksFound": "Không tìm thấy công việc nào",
+			"noTasksMatch": "Không có công việc đã lên lịch khớp với \"{{query}}\"",
+			"taskHeader": "Công việc",
+			"updateDatesError": "Không thể cập nhật ngày của công việc",
+			"resizeStart": "Thay đổi kích thước ngày bắt đầu",
+			"resizeDue": "Thay đổi kích thước ngày đến hạn",
+			"taskAriaLabel": "{{title}}: mở hoặc kéo để di chuyển",
+			"jumpToToday": "Về hôm nay",
+			"previousPeriod": "Kỳ trước",
+			"nextPeriod": "Kỳ sau",
+			"periodStart": "Ngày bắt đầu dòng thời gian",
+			"showTaskDates": "Hiện ngày của công việc"
+		},
+		"delete": {
+			"title": "Xóa công việc?",
+			"description": "Thao tác này sẽ xóa vĩnh viễn công việc và toàn bộ dữ liệu của nó. Bạn không thể hoàn tác hành động này.",
+			"action": "Xóa công việc",
+			"success": "Xóa công việc thành công",
+			"error": "Không thể xóa công việc"
+		},
+		"duplicate": {
+			"titleSuffix": "{{title}} (bản sao)",
+			"success": "Nhân bản công việc thành công",
+			"error": "Không thể nhân bản công việc"
+		},
+		"archive": {
+			"success": "Đã lưu trữ {{count}} công việc"
+		},
+		"listView": {
+			"addTask": "Thêm công việc",
+			"archiveAllTooltip": "Lưu trữ tất cả công việc đã hoàn thành",
+			"noTasks": "Không có công việc"
+		},
+		"kanban": {
+			"addTask": "Thêm công việc"
+		},
+		"pr": {
+			"merged": "Đã gộp",
+			"draft": "Bản nháp",
+			"open": "Đang mở",
+			"label": "Pull Request",
+			"count_other": "{{count}} PR"
+		},
+		"assignee": {
+			"label": "Người được giao",
+			"unassigned": "Chưa giao"
+		},
+		"dueDate": {
+			"label": "Ngày đến hạn",
+			"clear": "Xóa ngày",
+			"updateSuccess": "Cập nhật ngày đến hạn công việc thành công",
+			"updateError": "Không thể cập nhật ngày đến hạn công việc",
+			"clearSuccess": "Đã xóa ngày đến hạn công việc",
+			"clearError": "Không thể xóa ngày đến hạn"
+		},
+		"labels": {
+			"label": "Nhãn",
+			"empty": "Không có nhãn khả dụng"
+		},
+		"update": {
+			"success": "Cập nhật công việc thành công",
+			"error": "Không thể cập nhật công việc"
+		},
+		"contextMenu": {
+			"copyLink": "Sao chép liên kết",
+			"copyLinkSuccess": "Đã sao chép liên kết công việc!"
+		},
+		"actions": {
+			"duplicate": "Nhân bản",
+			"archive": "Lưu trữ",
+			"markAsPlanned": "Đánh dấu đã lên kế hoạch",
+			"delete": "Xóa..."
+		},
+		"bulk": {
+			"selectedCount": "Đã chọn {{count}}",
+			"moveToBacklog": "Chuyển sang Backlog",
+			"moveToBacklogSuccess": "Đã chuyển {{count}} công việc sang backlog",
+			"moveToBacklogError": "Không thể chuyển công việc sang backlog",
+			"moveToBoard": "Chuyển sang Bảng",
+			"moveToBoardSuccess": "Đã chuyển {{count}} công việc sang bảng",
+			"moveToBoardError": "Không thể chuyển công việc sang bảng",
+			"delete": "Xóa công việc",
+			"deleteConfirm": "Xóa {{count}} công việc? Hành động này không thể hoàn tác.",
+			"deleteSuccess": "Đã xóa {{count}} công việc",
+			"deleteError": "Không thể xóa công việc",
+			"archive": "Lưu trữ công việc",
+			"archiveSuccess": "Đã lưu trữ {{count}} công việc",
+			"archiveError": "Không thể lưu trữ công việc",
+			"updateSuccess": "Đã cập nhật {{count}} công việc",
+			"updateError": "Không thể cập nhật công việc",
+			"assignTo": "Giao cho",
+			"assignSuccess": "Đã giao {{count}} công việc",
+			"assignError": "Không thể giao công việc",
+			"setPriority": "Đặt mức ưu tiên",
+			"updatePriorityError": "Không thể cập nhật mức ưu tiên",
+			"addLabel": "Thêm nhãn",
+			"addLabelSuccess": "Đã thêm nhãn vào {{count}} công việc",
+			"addLabelError": "Không thể thêm nhãn",
+			"setDueDate": "Đặt ngày đến hạn",
+			"updateDueDateError": "Không thể cập nhật ngày đến hạn",
+			"actions": "Hành động",
+			"searchActions": "Tìm hành động...",
+			"noActionsFound": "Không tìm thấy hành động nào.",
+			"changeStatus": "Đổi trạng thái",
+			"archiveModal": {
+				"description_other": "Bạn có chắc muốn lưu trữ {{count}} công việc đã hoàn thành? Thao tác này sẽ chuyển chúng khỏi bảng đang hoạt động vào kho lưu trữ.",
+				"title": "Lưu trữ công việc"
+			}
+		},
+		"editor": {
+			"table": {
+				"addColumnBefore": "Chèn cột bên trái",
+				"addColumnAfter": "Chèn cột bên phải",
+				"deleteColumn": "Xóa cột",
+				"addRowBefore": "Chèn hàng phía trên",
+				"addRowAfter": "Chèn hàng phía dưới",
+				"deleteRow": "Xóa hàng",
+				"deleteTable": "Xóa bảng"
+			}
+		},
+		"calendar": {
+			"dayTasksAriaLabel": "Xem tất cả công việc ngày {{date}}",
+			"moreTasks": "+{{count}} nữa",
+			"nextMonth": "Tháng sau",
+			"noTasks": "Chưa có công việc nào được lên lịch",
+			"noTasksSubtitle": "Thêm ngày bắt đầu, hạn chót hoặc cả hai cho công việc để chúng xuất hiện trên lịch.",
+			"pageTitle": "{{name}} – Lịch",
+			"previousMonth": "Tháng trước",
+			"taskAriaLabel": "{{title}}, {{range}}: mở công việc",
+			"title": "Lịch",
+			"today": "Hôm nay",
+			"loadError": "Không tải được danh sách công việc."
+		},
+		"descriptionSearchLoading": "Đang tìm trong toàn bộ mô tả…",
+		"descriptionSearchError": "Tìm trong mô tả thất bại. Kết quả có thể chưa đầy đủ.",
+		"descriptionRetry": "Thử lại",
+		"descriptionLoading": "Đang tải mô tả…",
+		"descriptionLoadError": "Không tải được mô tả. Hãy thử lại để tải phiên bản hiện tại."
+	},
+	"invitations": {
+		"email": {
+			"subject": "{{inviterName}} đã mời bạn tham gia {{workspaceName}} trên Kaneo",
+			"preview": "Bạn được mời tham gia {{workspaceName}} trên Kaneo",
+			"title": "Tham gia {{workspaceName}}",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) đã mời bạn cộng tác trên Kaneo.",
+			"cta": "Chấp nhận lời mời",
+			"sameEmail": "Bạn có thể chấp nhận bằng email đã nhận thư này.",
+			"ignore": "Nếu bạn không mong đợi email này, bạn có thể yên tâm bỏ qua.",
+			"footer": "Lời mời không gian làm việc Kaneo"
+		},
+		"pageTitle": "Lời mời",
+		"pendingInvitations": "Lời mời đang chờ",
+		"acceptSubtitle": "Chấp nhận lời mời để tham gia không gian làm việc",
+		"noPendingTitle": "Không có lời mời đang chờ",
+		"noPendingDescription": "Bạn hiện không có lời mời tham gia không gian làm việc nào đang chờ.",
+		"continueToSetup": "Tiếp tục thiết lập",
+		"skipForNow": "Bỏ qua lúc này",
+		"table": {
+			"workspace": "Không gian làm việc",
+			"invitedBy": "Được mời bởi",
+			"expires": "Hết hạn"
+		},
+		"toast": {
+			"acceptError": "Không thể chấp nhận lời mời",
+			"acceptSuccess": "Đã chấp nhận lời mời! Chào mừng bạn đến với nhóm.",
+			"rejectError": "Không thể từ chối lời mời",
+			"rejectSuccess": "Đã từ chối lời mời"
+		}
+	},
+	"workspace": {
+		"projects": {
+			"pageTitle": "Dự án",
+			"createProject": "Tạo dự án",
+			"title": "Tiêu đề",
+			"progress": "Tiến độ",
+			"targetDate": "Ngày mục tiêu",
+			"dueDate": "Ngày đến hạn",
+			"status": "Trạng thái",
+			"emptyTitle": "Chưa có dự án nào",
+			"emptyDescription": "Bắt đầu bằng cách tạo dự án đầu tiên của bạn.",
+			"emptyDescriptionReadOnly": "Không gian làm việc này chưa có dự án nào. Hãy nhờ quản trị viên tạo một dự án.",
+			"projectStatus": {
+				"notStarted": "Chưa bắt đầu",
+				"complete": "Hoàn thành",
+				"inProgress": "Đang thực hiện"
+			},
+			"noDueDate": "Không có ngày đến hạn",
+			"reorderHandle": "Sắp xếp lại dự án",
+			"reorderError": "Không thể sắp xếp lại dự án"
+		},
+		"search": {
+			"pageTitle": "Tìm kiếm",
+			"backToDashboard": "Quay lại bảng điều khiển",
+			"placeholder": "Tìm công việc theo tiêu đề hoặc mã ngắn (ví dụ: DEP-23)...",
+			"hint": "Tìm kiếm trong tất cả dự án của không gian làm việc này. Dùng mã ngắn như DEP-23 để tìm công việc cụ thể.",
+			"searching": "Đang tìm kiếm...",
+			"resultsFound_other": "Tìm thấy {{count}} kết quả",
+			"noResultsTitle": "Không tìm thấy kết quả nào",
+			"noResultsDescription": "Hãy thử điều chỉnh từ khóa tìm kiếm hoặc tìm nội dung khác",
+			"startTitle": "Bắt đầu tìm kiếm",
+			"startDescription": "Nhập từ khóa để tìm công việc trong tất cả dự án",
+			"quickSearchesLabel": "Tìm kiếm nhanh:",
+			"suggestionHighPriority": "Ưu tiên cao",
+			"suggestionBug": "Lỗi",
+			"suggestionFeature": "Tính năng",
+			"suggestionInProgress": "Đang thực hiện",
+			"suggestionCompleted": "Đã hoàn thành"
+		},
+		"create": {
+			"pageTitle": "Tạo không gian làm việc",
+			"heading": "Tạo một không gian làm việc mới",
+			"subtitle": "Không gian làm việc là môi trường chung nơi các nhóm có thể làm việc trên dự án, chu kỳ và vấn đề.",
+			"nameLabel": "Tên không gian làm việc",
+			"namePlaceholder": "Nhập tên không gian làm việc",
+			"descriptionLabel": "Mô tả (không bắt buộc)",
+			"descriptionPlaceholder": "Thêm mô tả cho không gian làm việc của bạn",
+			"required": "Bắt buộc",
+			"creating": "Đang tạo...",
+			"submit": "Tạo không gian làm việc",
+			"success": "Tạo không gian làm việc thành công",
+			"error": "Không thể tạo không gian làm việc"
+		}
+	},
+	"team": {
+		"roles": {
+			"owner": "Chủ sở hữu",
+			"admin": "Quản trị viên",
+			"member": "Thành viên",
+			"viewer": "Người xem"
+		},
+		"members": {
+			"pageTitle": "Thành viên",
+			"inviteMember": "Mời thành viên",
+			"you": "Bạn"
+		},
+		"invitations": {
+			"pendingBadge": "đang chờ",
+			"expires": "Hết hạn {{date}}",
+			"linkLabel": "Liên kết lời mời",
+			"copyLink": "Sao chép liên kết",
+			"linkCopied": "Đã sao chép liên kết lời mời",
+			"copyFailed": "Không thể sao chép tự động. Hãy chọn liên kết và nhấn Ctrl+C."
+		},
+		"inviteModal": {
+			"title": "Mời thành viên nhóm",
+			"emailLabel": "Email",
+			"emailPlaceholder": "colleague@company.com",
+			"sendInvitation": "Gửi lời mời",
+			"success": "Gửi lời mời thành công",
+			"error": "Không thể mời thành viên nhóm",
+			"createdTitle": "Đã tạo lời mời",
+			"shareLinkDescription": "Chia sẻ liên kết này với {{email}} để họ có thể tham gia không gian làm việc.",
+			"done": "Xong"
+		},
+		"membersTable": {
+			"emptyTitle": "Chưa có thành viên nhóm nào",
+			"emptyDescription": "Mời thành viên nhóm đầu tiên của bạn để bắt đầu.",
+			"columns": {
+				"name": "Tên",
+				"role": "Vai trò",
+				"joined": "Ngày tham gia",
+				"actions": "Hành động"
+			},
+			"memberRolePending": "{{role}} (Đang chờ)",
+			"ariaCancelInvitation": "Hủy lời mời",
+			"ariaInvitationActions": "Hành động lời mời",
+			"ariaRemoveMember": "Gỡ thành viên",
+			"removeDialogTitle": "Gỡ thành viên nhóm?",
+			"removeDialogDescription": "Bạn có chắc muốn gỡ {{name}} khỏi không gian làm việc? Hành động này không thể hoàn tác.",
+			"cancelDialogTitle": "Hủy lời mời?",
+			"cancelDialogDescription": "Bạn có chắc muốn hủy lời mời cho {{email}}? Hành động này không thể hoàn tác.",
+			"removeMember": "Gỡ thành viên",
+			"cancelInvitation": "Hủy lời mời",
+			"removeSuccess": "Gỡ thành viên nhóm thành công",
+			"removeError": "Không thể gỡ thành viên nhóm",
+			"cancelInviteSuccess": "Hủy lời mời thành công",
+			"cancelInviteError": "Không thể hủy lời mời",
+			"roleUpdateSuccess": "Đã cập nhật vai trò",
+			"roleUpdateError": "Không thể cập nhật vai trò"
+		},
+		"deleteMemberModal": {
+			"confirm": "Gỡ thành viên",
+			"description": "Bạn có chắc muốn gỡ {{name}} khỏi nhóm? Thao tác này không thể hoàn tác.",
+			"title": "Gỡ thành viên khỏi nhóm"
+		}
+	},
+	"publicProject": {
+		"pageTitle": "Xem công khai",
+		"badge": "Công khai",
+		"readOnly": "Chỉ đọc",
+		"error": {
+			"title": "Không tìm thấy dự án",
+			"description": "Dự án này không tồn tại hoặc không được công khai truy cập."
+		},
+		"taskCard": {
+			"viewDetailsAria": "Xem chi tiết công việc {{title}}"
+		},
+		"taskDetail": {
+			"labels": "Nhãn",
+			"externalLinks": "Liên kết ngoài",
+			"pullRequestFallback": "Pull Request",
+			"issueFallback": "Issue",
+			"prStatusMerged": "Đã gộp",
+			"prStatusDraft": "Bản nháp",
+			"prStatusOpen": "Đang mở",
+			"dueWithDate": "Đến hạn {{date}}",
+			"created": "Đã tạo",
+			"dueDateLabel": "Ngày đến hạn"
+		},
+		"theme": {
+			"switchToLight": "Chuyển sang chế độ sáng",
+			"switchToDark": "Chuyển sang chế độ tối"
+		},
+		"copyUrl": {
+			"successToast": "Đã sao chép URL",
+			"errorToast": "Không thể sao chép URL",
+			"copied": "Đã sao chép",
+			"share": "Chia sẻ"
+		},
+		"branding": {
+			"poweredBy": "Được vận hành bởi"
+		}
+	},
+	"press": {
+		"title": "Bộ tài nguyên báo chí",
+		"headline": "Bộ tài nguyên báo chí Kaneo",
+		"intro": "Logo và ảnh chụp sản phẩm Kaneo dành cho bài viết, video và các phương tiện truyền thông khác.",
+		"description": "Tài nguyên báo chí của Kaneo: thông tin sản phẩm, logo, ảnh chụp màn hình và thông tin liên hệ dành cho nhà báo và nhà sáng tạo nội dung.",
+		"downloadKit": "Tải toàn bộ tài nguyên",
+		"boilerplateTitle": "Về Kaneo",
+		"boilerplate": "Kaneo là nền tảng quản lý dự án mã nguồn mở do Andrej Acevski tạo ra. Các đội nhóm có thể sắp xếp công việc theo dạng bảng và danh sách, giao việc, đặt độ ưu tiên và hạn chót, đồng thời kết nối GitHub. Kaneo phát hành theo giấy phép MIT để tự vận hành, hoặc dùng dưới dạng dịch vụ quản lý qua Kaneo Cloud.",
+		"logosTitle": "Logo",
+		"darkLogo": "Chữ ký hiệu bản tối",
+		"darkLogoAlt": "Logo Kaneo bản tối trên nền sáng",
+		"darkLogoDetail": "SVG",
+		"lightLogo": "Chữ ký hiệu bản sáng",
+		"lightLogoAlt": "Logo Kaneo bản sáng trên nền tối",
+		"lightLogoDetail": "SVG",
+		"icon": "Biểu tượng ứng dụng",
+		"iconAlt": "Biểu tượng ứng dụng Kaneo",
+		"iconDetail": "PNG, 512 × 512",
+		"download": "Tải xuống",
+		"screenshotsTitle": "Ảnh chụp màn hình",
+		"lightScreenshot": "Bảng (nền sáng)",
+		"lightScreenshotAlt": "Bảng Kaneo ở giao diện sáng, với các thẻ công việc sắp xếp theo trạng thái",
+		"darkScreenshot": "Bảng (nền tối)",
+		"darkScreenshotAlt": "Bảng Kaneo ở giao diện tối, với các thẻ công việc sắp xếp theo trạng thái",
+		"contactTitle": "Liên hệ báo chí",
+		"contactBody": "Liên hệ đội ngũ Kaneo để hỏi về sản phẩm, đặt phỏng vấn hoặc xin thêm tài liệu.",
+		"usageContrast": "Dùng chữ ký hiệu bản sáng trên nền tối và bản tối trên nền sáng.",
+		"usageProportions": "Giữ nguyên tỷ lệ và màu sắc gốc, không kéo giãn hay thêm hiệu ứng.",
+		"usageSpace": "Chừa đủ khoảng trống quanh logo để logo luôn rõ ràng, dễ đọc.",
+		"darkListScreenshot": "Danh sách (nền tối)",
+		"darkListScreenshotAlt": "Danh sách công việc Kaneo ở giao diện tối, nhóm theo trạng thái kèm người phụ trách, độ ưu tiên, nhãn và hạn chót",
+		"darkTaskScreenshot": "Chi tiết công việc (nền tối)",
+		"darkTaskScreenshotAlt": "Chi tiết công việc Kaneo ở giao diện tối, gồm mô tả, danh sách kiểm, bình luận của nhóm và các thuộc tính công việc",
+		"darkTimelineScreenshot": "Dòng thời gian (nền tối)",
+		"darkTimelineScreenshotAlt": "Dòng thời gian Gantt của Kaneo ở giao diện tối, hiển thị các công việc đã lên lịch và thời lượng của chúng",
+		"lightListScreenshot": "Danh sách (nền sáng)",
+		"lightListScreenshotAlt": "Danh sách công việc Kaneo ở giao diện sáng, nhóm theo trạng thái kèm người phụ trách, độ ưu tiên, nhãn và hạn chót",
+		"lightTaskScreenshot": "Chi tiết công việc (nền sáng)",
+		"lightTaskScreenshotAlt": "Chi tiết công việc Kaneo ở giao diện sáng, gồm mô tả, danh sách kiểm, bình luận của nhóm và các thuộc tính công việc",
+		"lightTimelineScreenshot": "Dòng thời gian (nền sáng)",
+		"lightTimelineScreenshotAlt": "Dòng thời gian Gantt của Kaneo ở giao diện sáng, hiển thị các công việc đã lên lịch và thời lượng của chúng"
+	},
+	"landing": {
+		"sponsors": {
+			"ciSponsor": "Đối tác"
+		},
+		"founder": {
+			"title": "Vì sao Kaneo ra đời",
+			"intro": "Tôi là Andrej, và tôi tạo ra Kaneo vì đã quá mệt với những công cụ quản lý dự án gây cản trở nhiều hơn là giúp ích. Sau nhiều năm dùng các nền tảng cồng kềnh, phức tạp quá mức khiến mình xao nhãng khỏi công việc thật, tôi tin chắc phải có cách tốt hơn.",
+			"problem": "Vấn đề không phải là các công cụ đó thiếu tính năng — mà là chúng có quá nhiều. Mỗi thông báo, mỗi nút thừa, mỗi quy trình rườm rà đều kéo đội của tôi ra xa điều thực sự quan trọng: làm ra sản phẩm tốt.",
+			"principle": "Tôi tin công cụ tốt nhất là công cụ vô hình. Nó phải khuếch đại cách làm việc tự nhiên của đội bạn, chứ không bắt bạn thích nghi với nó. Kaneo được xây trên nguyên tắc ít mà chất — mỗi tính năng tồn tại vì nó giải quyết một vấn đề có thật, không phải vì trông ấn tượng khi demo."
+		},
+		"hero": {
+			"cloudCta": "Dùng thử Kaneo Cloud",
+			"selfHostCta": "Tự vận hành Kaneo",
+			"trialNote": "Dùng thử bản Cloud 14 ngày. Không cần thẻ tín dụng.",
+			"github": "GitHub",
+			"productHunt": "Product Hunt",
+			"title": "Quản lý dự án",
+			"titleAccent": "mà không biến thành dự án.",
+			"description": "Quản lý dự án mã nguồn mở với bảng, biểu đồ Gantt và tích hợp GitHub. Tự vận hành miễn phí kèm sẵn SSO, hoặc để Kaneo Cloud lo phần hạ tầng."
+		},
+		"navigation": {
+			"product": "Sản phẩm",
+			"pricing": "Bảng giá",
+			"resources": "Tài nguyên",
+			"docs": "Tài liệu",
+			"blog": "Blog",
+			"guides": "Hướng dẫn",
+			"comparisons": "So sánh công cụ",
+			"roadmap": "Lộ trình",
+			"menu": "Menu",
+			"closeMenu": "Đóng menu",
+			"home": "Trang chủ Kaneo",
+			"signIn": "Đăng nhập",
+			"getStarted": "Bắt đầu"
+		},
+		"showcase": {
+			"label": "Các giao diện sản phẩm Kaneo",
+			"controls": "Chọn một giao diện sản phẩm",
+			"play": "Phát các giao diện sản phẩm",
+			"pause": "Tạm dừng các giao diện sản phẩm",
+			"board": "Bảng",
+			"list": "Danh sách chờ",
+			"gantt": "Gantt"
+		},
+		"features": {
+			"tasks": {
+				"label": "Công việc con và ngữ cảnh",
+				"title": "Việc lớn. Bước kế tiếp rõ ràng.",
+				"description": "Chia việc thành các công việc con, giao từng phần và theo dõi tiến độ mà không lạc mất yêu cầu ban đầu. Mọi chi tiết luôn đi cùng công việc."
+			},
+			"github": {
+				"label": "Tích hợp GitHub",
+				"title": "Từ pull request đến hoàn thành.",
+				"description": "Issue và nhãn đồng bộ hai chiều. Pull request đã liên kết sẽ đưa công việc qua khâu review tới hoàn thành khi mã của bạn được mở và gộp.",
+				"link": "Thiết lập GitHub"
+			},
+			"hosting": {
+				"title": "Chạy trên máy chủ của riêng bạn.",
+				"description": "Triển khai bằng Docker và giữ không gian làm việc trên hạ tầng bạn kiểm soát.",
+				"link": "Tự vận hành Kaneo"
+			},
+			"source": {
+				"title": "Mã nguồn cũng mở.",
+				"description": "Đọc mã nguồn, báo lỗi hoặc đóng góp thay đổi. Việc phát triển diễn ra trên GitHub.",
+				"link": "Xem mã nguồn"
+			},
+			"preview": {
+				"taskAlt": "Bản xem trước tương tác về công việc và công việc con trong Kaneo.",
+				"githubAlt": "Bản xem trước tương tác về một lần gộp GitHub cập nhật công việc Kaneo.",
+				"taskTitle": "Xuất bản trang chủ mới",
+				"taskDescription": "Cập nhật nội dung và kiểm tra bố cục trước bản phát hành kế tiếp.",
+				"checklistDone": "Rà soát nội dung",
+				"checklistOpen": "Kiểm tra bố cục trên di động",
+				"inProgress": "Đang làm",
+				"high": "Cao",
+				"date": "12 thg 10",
+				"design": "thiết kế",
+				"done": "Hoàn thành",
+				"relationsAlt": "Bản xem trước tương tác về các phụ thuộc giữa công việc trong Kaneo.",
+				"inReview": "Đang review",
+				"trySubtasks": "Thử tích hoàn thành một công việc con.",
+				"tryGithub": "Xem trước một lần gộp để thấy công việc được cập nhật.",
+				"tryRelations": "Mở một công việc đã liên kết để lần theo mối liên hệ.",
+				"mergeAction": "Xem trước lần gộp",
+				"resetAction": "Đặt lại bản xem trước",
+				"mergedHint": "Pull request đã được gộp. Công việc chuyển sang Hoàn thành.",
+				"progress": "Đã xong {{completed}}/{{total}} công việc con",
+				"backToTask": "Quay lại công việc trang chủ",
+				"releaseNotes": "Viết ghi chú phát hành",
+				"dependencyDescription": "Trang chủ đang chờ khâu review trên di động. Hãy giữ liên kết tới ghi chú ra mắt để có ngữ cảnh.",
+				"mobileDescription": "Kiểm tra trang chủ mới trên màn hình hẹp trước khi phát hành.",
+				"notesDescription": "Ghi lại những gì đã thay đổi cho thông báo ra mắt."
+			},
+			"relations": {
+				"label": "Công việc liên kết và phụ thuộc",
+				"title": "Thấy rõ điều gì đang cản tiến độ.",
+				"description": "Kết nối các yếu tố cản trở, lần theo phụ thuộc và giữ những việc liên quan ở gần nhau. Mở một công việc đã liên kết để thấy ngữ cảnh phía sau bước kế tiếp."
+			}
+		},
+		"seo": {
+			"title": "Kaneo — Quản lý dự án mã nguồn mở, tự vận hành",
+			"description": "Quản lý dự án mã nguồn mở với bảng, biểu đồ Gantt và tích hợp GitHub. Tự vận hành miễn phí kèm sẵn SSO, hoặc dùng Kaneo Cloud."
+		},
+		"resources": {
+			"eyebrow": "Biến nó thành của bạn",
+			"title": "Lộ trình rõ ràng từ dùng thử đến dùng thật.",
+			"description": "Dựng máy chủ, kết nối công cụ của bạn, hoặc so sánh Kaneo với công cụ bạn đang dùng.",
+			"docker": {
+				"title": "Tự vận hành bằng Docker",
+				"description": "Cài đặt, sao lưu và cập nhật cho một hệ thống bạn kiểm soát."
+			},
+			"sso": {
+				"title": "Dùng nhà cung cấp danh tính của riêng bạn",
+				"description": "Cấu hình đăng nhập một lần OIDC trong bản tự vận hành miễn phí."
+			},
+			"mcp": {
+				"title": "Kết nối các công cụ AI của bạn",
+				"description": "Dùng MCP để làm việc với công việc và dự án thông qua một ứng dụng AI."
+			},
+			"linear": {
+				"title": "So sánh Kaneo và Linear",
+				"description": "Xem khác biệt về cách vận hành, giấy phép và quy trình làm việc."
+			}
+		},
+		"product": {
+			"title": "Trước khi bạn bắt đầu",
+			"description": "Những thông tin thực tế về vận hành, lập kế hoạch và kết nối đội của bạn.",
+			"overview": "Kaneo là nền tảng quản lý dự án mã nguồn mở theo giấy phép MIT, có bảng, danh sách chờ, chế độ xem Gantt và lịch, trường tùy chỉnh, theo dõi thời gian và tích hợp GitHub. Bạn có thể tự vận hành trên hạ tầng của mình hoặc dùng Kaneo Cloud.",
+			"hosting": {
+				"question": "Tự vận hành Kaneo có miễn phí không?",
+				"answer": "Có. Kaneo dùng giấy phép MIT và miễn phí khi tự vận hành, đã bao gồm đăng nhập một lần. Hãy chạy ứng dụng cùng PostgreSQL bằng Docker Compose, hoặc triển khai bằng Helm chart chính thức. Bạn tự quản lý hạ tầng, cập nhật và sao lưu.",
+				"link": "Đọc hướng dẫn cài đặt"
+			},
+			"planning": {
+				"question": "Kaneo có biểu đồ Gantt không?",
+				"answer": "Có. Kaneo có chế độ xem Gantt và lịch bên cạnh bảng, danh sách và lập kế hoạch danh sách chờ. Dùng ngày bắt đầu và hạn chót của công việc để lên kế hoạch trên dòng thời gian. Lập ngân sách, so sánh với đường cơ sở và báo cáo burndown theo sprint hiện chưa nằm trong phạm vi sản phẩm.",
+				"link": "So sánh tính năng lập kế hoạch"
+			},
+			"sso": {
+				"question": "Có sẵn đăng nhập một lần không?",
+				"answer": "Có. Bản tự vận hành miễn phí hỗ trợ Google, GitHub, Discord và các nhà cung cấp OAuth/OIDC tùy chỉnh. Bạn cấu hình nhà cung cấp ngay trên hệ thống của mình mà không cần mua phiên bản Kaneo riêng.",
+				"link": "Cấu hình OIDC"
+			},
+			"agents": {
+				"question": "Ứng dụng AI có làm việc được với Kaneo không?",
+				"answer": "Có. Kaneo cung cấp máy chủ MCP qua gói @kaneo/mcp và một endpoint HTTP. Các ứng dụng AI tương thích có thể đọc và cập nhật công việc bằng API key gắn với một người dùng, trong giới hạn quyền của không gian làm việc.",
+				"link": "Đọc hướng dẫn MCP"
+			}
+		},
+		"comparison": {
+			"feature": "Tính năng",
+			"yes": "Có",
+			"no": "Không"
+		},
+		"selfHostingGuide": {
+			"summary": "Tự vận hành gồm những gì, kèm liên kết tới cấu hình Docker Compose được duy trì sẵn và các bước cài đặt.",
+			"answer": "Để tự vận hành Kaneo, hãy chạy ứng dụng và PostgreSQL bằng Docker Compose, cấu hình URL công khai cùng các khóa bí mật, rồi đặt một reverse proxy có TLS ở phía trước. Hướng dẫn cài đặt yêu cầu tối thiểu 2 GB RAM và 10 GB dung lượng đĩa. Hãy tính trước cho việc cập nhật định kỳ, sao lưu cơ sở dữ liệu và lưu trữ tệp tải lên.",
+			"requirements": "Mức tối thiểu theo tài liệu là 2 GB RAM và 10 GB dung lượng đĩa, với Docker 20.10 trở lên và Docker Compose V2. Hãy dự phòng thêm cho khối lượng công việc, mức tăng của cơ sở dữ liệu và tệp tải lên.",
+			"compose": "Hãy dùng tệp compose.yml được duy trì trong hướng dẫn Docker Compose. Tệp này định nghĩa PostgreSQL, một volume lưu cơ sở dữ liệu lâu dài, ứng dụng Kaneo và các health check. Hãy cấu hình tệp môi trường trước khi khởi động dịch vụ; với môi trường production, nên ghim phiên bản image để việc cập nhật là chủ động.",
+			"backups": "Hãy sao lưu cả PostgreSQL lẫn kho lưu trữ đối tượng dùng cho tệp tải lên. Chọn lịch sao lưu dựa trên lượng công việc đội bạn chấp nhận mất, lưu bản sao ở ngoài máy chủ ứng dụng, và thử khôi phục trước khi thực sự cần đến.",
+			"worth": "Tự vận hành hợp lý khi bạn cần kiểm soát hạ tầng và dữ liệu, và có người chịu trách nhiệm bảo trì. Khi so chi phí với dịch vụ quản lý, hãy tính cả năng lực máy chủ, lưu trữ, sao lưu và thời gian bảo trì đó.",
+			"minimum": "Hướng dẫn cài đặt yêu cầu Docker 20.10 trở lên, Docker Compose V2, tối thiểu 2 GB RAM và 10 GB dung lượng đĩa. Bộ Compose đã bao gồm PostgreSQL. Redis là tùy chọn nếu chỉ chạy một instance API.",
+			"composeLink": "Cấu hình Docker Compose",
+			"composeLinkDescription": "Tệp compose.yml được duy trì, kèm lưu trữ lâu dài và health check.",
+			"startLink": "Khởi động và kiểm tra dịch vụ",
+			"startLinkDescription": "Khởi động hệ thống, xem trạng thái và kiểm tra ứng dụng đã sẵn sàng chưa."
+		}
+	}
+}

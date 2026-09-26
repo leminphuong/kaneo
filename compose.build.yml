@@ -1,0 +1,13 @@
+# Overlay for running a fork: builds the bundled image from this working tree
+# instead of pulling ghcr.io/usekaneo/kaneo, which only ever contains upstream.
+#
+#   docker compose -f compose.yml -f compose.build.yml up -d --build
+#
+# scripts/deploy/deploy.sh does this for you.
+services:
+  kaneo:
+    build:
+      context: .
+      dockerfile: Dockerfile.kaneo
+    image: kaneo-local:latest
+    pull_policy: never

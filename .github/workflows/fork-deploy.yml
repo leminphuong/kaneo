@@ -1,0 +1,112 @@
+# CI and deployment for this fork.
+#
+# The upstream workflows in this directory publish to usekaneo's registries and
+# need secrets a fork does not have, so they fail noisily. This one is
+# self-contained: it checks the code on every push, and deploys only once you
+# opt in by setting the DEPLOY_ENABLED repository variable to "true".
+name: Fork CI and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# A later push supersedes an in-flight run rather than racing it onto the server.
+concurrency:
+  group: fork-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Typecheck and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Locales in sync
+        run: pnpm i18n:check
+
+  deploy:
+    name: Deploy to server
+    needs: check
+    # Opt-in: set the repository variable DEPLOY_ENABLED to "true"
+    # (Settings -> Secrets and variables -> Actions -> Variables).
+    if: ${{ github.event_name != 'pull_request' && vars.DEPLOY_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Deploy over SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          SSH_HOST: ${{ secrets.DEPLOY_HOST }}
+          SSH_USER: ${{ secrets.DEPLOY_USER }}
+          SSH_PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+          # Passed through env, never interpolated into the script body: a
+          # ${{ }} expansion inside `run` is substituted as raw text and a
+          # value containing shell metacharacters would be executed.
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          APP_DIR: ${{ vars.DEPLOY_PATH || '/opt/kaneo' }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          for required in SSH_KEY SSH_HOST SSH_USER; do
+            if [ -z "${!required}" ]; then
+              echo "::error::$required is not set. Add it under Settings -> Secrets and variables -> Actions."
+              exit 1
+            fi
+          done
+
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          # Trust on first use. For a stricter check, set DEPLOY_KNOWN_HOSTS to
+          # the output of `ssh-keyscan -p <port> <host>` and it is used instead.
+          if [ -n "$KNOWN_HOSTS" ]; then
+            printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          fi
+          chmod 600 ~/.ssh/known_hosts
+
+          # The remote script reads APP_DIR and REF_NAME from the runner via the
+          # quoted heredoc's arguments, so nothing is string-interpolated in.
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            bash -s -- "$APP_DIR" "$REF_NAME" <<'REMOTE'
+          set -euo pipefail
+          app_dir="$1"
+          ref_name="$2"
+          cd "$app_dir"
+          git fetch --prune origin
+          # --ff-only: refuse to deploy a merge nobody reviewed. If this fails,
+          # the server has local commits and needs a human.
+          git merge --ff-only "origin/$ref_name"
+          bash scripts/deploy/deploy.sh
+          REMOTE
+
+      - name: Remove the deploy key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
