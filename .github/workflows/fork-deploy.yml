@@ -109,14 +109,44 @@ jobs:
           # "Permission denied (publickey)", which points at the server rather
           # than at the secret that is actually wrong.
           if ! ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null 2>&1; then
-            echo "::error::DEPLOY_SSH_KEY is not a usable private key."
-            echo "Checks, in the order they usually fail:" >> "$GITHUB_STEP_SUMMARY"
-            echo "1. It must be the PRIVATE key (the file with no .pub), including the BEGIN and END lines." >> "$GITHUB_STEP_SUMMARY"
-            echo "2. Paste it as-is over multiple lines. A single-line paste, or one with literal \\\\n, cannot be parsed." >> "$GITHUB_STEP_SUMMARY"
-            echo "3. Regenerate it if it is passphrase-protected: this job cannot type a passphrase." >> "$GITHUB_STEP_SUMMARY"
-            head -1 ~/.ssh/deploy_key | grep -q 'BEGIN' \
-              && echo "The value does start with a BEGIN line, so it is most likely truncated or re-wrapped." >> "$GITHUB_STEP_SUMMARY" \
-              || echo "The value does not start with a BEGIN line - it looks like a public key or a partial paste." >> "$GITHUB_STEP_SUMMARY"
+            # Describe the SHAPE of the value, never its contents: enough to
+            # say which paste mistake happened without printing the key.
+            lines=$(wc -l < ~/.ssh/deploy_key)
+            chars=$(wc -c < ~/.ssh/deploy_key)
+            first_ok=no; last_ok=no; literal_backslash_n=no
+            head -1 ~/.ssh/deploy_key | grep -q -- '-----BEGIN .*PRIVATE KEY-----' && first_ok=yes
+            grep -q -- '-----END .*PRIVATE KEY-----' ~/.ssh/deploy_key && last_ok=yes
+            # -F: a plain two-character backslash-n. As a regex the same
+            # pattern matches any "n" and would mislabel every failure.
+            grep -qF '\n' ~/.ssh/deploy_key && literal_backslash_n=yes
+            looks_public=no
+            head -1 ~/.ssh/deploy_key | grep -qE '^(ssh-|ecdsa-)' && looks_public=yes
+
+            {
+              echo "DEPLOY_SSH_KEY is not a usable private key."
+              echo "  lines: $lines   characters: $chars"
+              echo "  starts with a BEGIN line : $first_ok"
+              echo "  contains an END line     : $last_ok"
+              echo "  contains a literal \\n    : $literal_backslash_n"
+              echo "  looks like a public key  : $looks_public"
+              echo
+              if [ "$looks_public" = yes ]; then
+                echo "=> That is the PUBLIC key. Use the file WITHOUT the .pub extension."
+              elif [ "$literal_backslash_n" = yes ]; then
+                echo "=> The newlines were escaped. Paste the key as real multiple lines, not one line with \\n."
+              elif [ "$first_ok" = no ]; then
+                echo "=> The BEGIN line is missing. The paste started too late; include it."
+              elif [ "$last_ok" = no ]; then
+                echo "=> The END line is missing. The paste stopped too early; include it."
+              elif [ "$lines" -lt 4 ]; then
+                echo "=> Too few lines: the body was collapsed onto one line. Re-copy preserving line breaks."
+              else
+                echo "=> Shape looks right, so the key is probably passphrase-protected."
+                echo "   Regenerate with: ssh-keygen -t ed25519 -f /root/.ssh/gh_actions_kaneo -N \"\""
+              fi
+            } | tee -a "$GITHUB_STEP_SUMMARY"
+
+            echo "::error::DEPLOY_SSH_KEY is not a usable private key - see the log above."
             exit 1
           fi
 
