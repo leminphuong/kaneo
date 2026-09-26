@@ -99,8 +99,26 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p ~/.ssh
-          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          # tr -d '\r': a key pasted from a Windows terminal carries CRLF line
+          # endings, which OpenSSH rejects with "error in libcrypto" and then
+          # silently falls back to password auth.
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
+
+          # Validate before connecting. Without this the only symptom is
+          # "Permission denied (publickey)", which points at the server rather
+          # than at the secret that is actually wrong.
+          if ! ssh-keygen -y -f ~/.ssh/deploy_key >/dev/null 2>&1; then
+            echo "::error::DEPLOY_SSH_KEY is not a usable private key."
+            echo "Checks, in the order they usually fail:" >> "$GITHUB_STEP_SUMMARY"
+            echo "1. It must be the PRIVATE key (the file with no .pub), including the BEGIN and END lines." >> "$GITHUB_STEP_SUMMARY"
+            echo "2. Paste it as-is over multiple lines. A single-line paste, or one with literal \\\\n, cannot be parsed." >> "$GITHUB_STEP_SUMMARY"
+            echo "3. Regenerate it if it is passphrase-protected: this job cannot type a passphrase." >> "$GITHUB_STEP_SUMMARY"
+            head -1 ~/.ssh/deploy_key | grep -q 'BEGIN' \
+              && echo "The value does start with a BEGIN line, so it is most likely truncated or re-wrapped." >> "$GITHUB_STEP_SUMMARY" \
+              || echo "The value does not start with a BEGIN line - it looks like a public key or a partial paste." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
 
           # Trust on first use. For a stricter check, set DEPLOY_KNOWN_HOSTS to
           # the output of `ssh-keyscan -p <port> <host>` and it is used instead.
