@@ -1,6 +1,6 @@
 {
 	"common": {
-		"appName": "Kaneo",
+		"appName": "JOYDIGI TASK",
 		"actions": {
 			"cancel": "キャンセル",
 			"close": "閉じる",
@@ -102,7 +102,7 @@
 				"errorToast": "プロジェクトの作成に失敗しました"
 			},
 			"createWorkspace": {
-				"breadcrumbKaneo": "KANEO",
+				"breadcrumbKaneo": "JOYDIGI TASK",
 				"title": "新しいワークスペースを作成",
 				"description": "名前を入力して新しいワークスペースを作成します。",
 				"namePlaceholder": "ワークスペース名",
@@ -235,7 +235,7 @@
 			"toggleMessage": "すでにアカウントをお持ちですか？",
 			"toggleLink": "サインイン",
 			"instanceStatusError": "サーバーに接続できませんでした。しばらくしてから再試行してください。",
-			"instanceAdminTitle": "Kaneo インスタンスのセットアップ",
+			"instanceAdminTitle": "JOYDIGI TASK インスタンスのセットアップ",
 			"instanceAdminSubtitle": "このアカウントはフルアクセス権を持つインスタンス管理者になります。"
 		},
 		"verifyOtp": {
@@ -293,7 +293,7 @@
 			"workspaceLabel": "ワークスペース: {{workspaceName}}",
 			"joinWorkspace": "{{workspaceName}} に参加",
 			"inviteBodySignedIn": "<inviter>{{inviterName}}</inviter> さんからワークスペースへの招待が届いています。",
-			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> さんから Kaneo のワークスペースへの招待が届いています。",
+			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> さんから JOYDIGI TASK のワークスペースへの招待が届いています。",
 			"createAccountOrSignIn": "この招待を承諾するにはアカウントを作成するか、すでにお持ちの場合はサインインしてください。",
 			"createAccount": "アカウント作成",
 			"accepting": "承諾中...",
@@ -309,7 +309,7 @@
 			}
 		},
 		"onboarding": {
-			"pageTitle": "Kaneo へようこそ",
+			"pageTitle": "JOYDIGI TASK へようこそ",
 			"workspacePageTitle": "ワークスペースを作成",
 			"createWorkspaceTitle": "ワークスペースを作成",
 			"createWorkspaceSubtitle": "プロジェクトの管理を始めるためにワークスペースをセットアップしましょう",
@@ -428,7 +428,7 @@
 		"notificationsPage": {
 			"pageTitle": "通知",
 			"title": "通知",
-			"subtitle": "Kaneo からのアカウント通知の配信方法と使用するチャンネルを選択します。",
+			"subtitle": "JOYDIGI TASK からのアカウント通知の配信方法と使用するチャンネルを選択します。",
 			"statusConnected": "接続済み",
 			"statusPaused": "一時停止中",
 			"emailTitle": "メール",
@@ -464,7 +464,7 @@
 			"webhookUrlPlaceholder": "https://example.com/webhooks/kaneo",
 			"webhookSecretPlaceholder": "共有シークレット（任意）",
 			"webhookSecretHintConfigured": "署名シークレットはすでに設定されています ({{masked}})。変更する場合は新しいシークレットを入力してください。",
-			"webhookSecretHintOptional": "任意。シークレットを設定すると、Kaneo はリクエスト本文に署名を付与します。",
+			"webhookSecretHintOptional": "任意。シークレットを設定すると、JOYDIGI TASK はリクエスト本文に署名を付与します。",
 			"connectWebhook": "Webhook を接続",
 			"workspaceRulesTitle": "ワークスペースの配信ルール",
 			"workspaceRulesDescription": "全体設定のチャンネルを使用し、ワークスペースやプロジェクトごとに通知の送信条件を設定します。",
@@ -529,7 +529,7 @@
 		},
 		"preferencesPage": {
 			"title": "環境設定",
-			"subtitle": "Kaneo の利用環境をカスタマイズします。",
+			"subtitle": "JOYDIGI TASK の利用環境をカスタマイズします。",
 			"appearanceTitle": "外観",
 			"appearanceSubtitle": "外観とレイアウトの設定を行います。",
 			"theme": "テーマ",
@@ -573,7 +573,7 @@
 			"title": "開発者設定",
 			"subtitle": "APIキーと開発者向けリソースを管理します。",
 			"apiKeysCardTitle": "APIキー",
-			"apiKeysCardDescription": "Kaneo にプログラムからアクセスするための API キーを作成・管理します。",
+			"apiKeysCardDescription": "JOYDIGI TASK にプログラムからアクセスするための API キーを作成・管理します。",
 			"createApiKey": "APIキーを作成",
 			"unnamedKey": "名称未設定のキー"
 		},
@@ -612,7 +612,7 @@
 			},
 			"createDialog": {
 				"title": "APIキーを作成",
-				"description": "Kaneo API にプログラムからアクセスするための新しい API キーを作成します。",
+				"description": "JOYDIGI TASK API にプログラムからアクセスするための新しい API キーを作成します。",
 				"nameLabel": "名前",
 				"namePlaceholder": "マイAPIキー",
 				"nameDescription": "この API キーのわかりやすい名前",
@@ -1053,7 +1053,7 @@
 				"removeError": "GitHub 連携の解除に失敗しました",
 				"issuesImported": "Issue をインポートしました",
 				"importError": "Issue のインポートに失敗しました",
-				"commentOnEnabled": "新しい Issue に Kaneo がタスクリンク付きのコメントを投稿します",
+				"commentOnEnabled": "新しい Issue に JOYDIGI TASK がタスクリンク付きのコメントを投稿します",
 				"commentOnDisabled": "新しい Issue へのタスクリンクのコメント投稿をオフにしました",
 				"settingsUpdateError": "GitHub 連携の更新に失敗しました"
 			},
@@ -1064,8 +1064,8 @@
 			"badgeNotConnected": "未接続",
 			"repository": "リポジトリ",
 			"repositoryHint": "接続されている GitHub リポジトリ",
-			"commentTaskLinkTitle": "新しい Issue に Kaneo リンクをコメント",
-			"commentTaskLinkHint": "有効にすると、Kaneo は新しい GitHub Issue ごとにタスクへのリンクを含むコメントを投稿します。",
+			"commentTaskLinkTitle": "新しい Issue に JOYDIGI TASK リンクをコメント",
+			"commentTaskLinkHint": "有効にすると、JOYDIGI TASK は新しい GitHub Issue ごとにタスクへのリンクを含むコメントを投稿します。",
 			"appStatusTitle": "GitHub App ステータス",
 			"appStatusHint": "インストールおよび権限のステータス",
 			"statusProperlyConfigured": "適切に設定されています",
@@ -1124,7 +1124,7 @@
 				"removeError": "Gitea 連携の解除に失敗しました",
 				"issuesImported": "Issue をインポートしました",
 				"importError": "Issue のインポートに失敗しました",
-				"commentOnEnabled": "新しい Issue に Kaneo がタスクリンク付きのコメントを投稿します",
+				"commentOnEnabled": "新しい Issue に JOYDIGI TASK がタスクリンク付きのコメントを投稿します",
 				"commentOnDisabled": "新しい Issue へのタスクリンクのコメント投稿をオフにしました",
 				"settingsUpdateError": "Gitea 連携の更新に失敗しました",
 				"secretCopied": "コピーしました",
@@ -1140,8 +1140,8 @@
 			"badgeNotConnected": "未接続",
 			"repository": "リポジトリ",
 			"repositoryHint": "リンクされた Gitea リポジトリ",
-			"commentTaskLinkTitle": "新しい Issue に Kaneo のリンクをコメントする",
-			"commentTaskLinkHint": "有効にすると、Kaneo は新しい Issue ごとにタスクへのリンクを含むコメントを投稿します。",
+			"commentTaskLinkTitle": "新しい Issue に JOYDIGI TASK のリンクをコメントする",
+			"commentTaskLinkHint": "有効にすると、JOYDIGI TASK は新しい Issue ごとにタスクへのリンクを含むコメントを投稿します。",
 			"webhookTitle": "Webhook",
 			"webhookHint": "Gitea リポジトリで、この URL とシークレットを使用して Webhook を追加します。プッシュ、プルリクエスト、Issue、Issue コメント、作成 (ラベル用) を有効にしてください。",
 			"webhookSecretLabel": "シークレット (Gitea の Webhook シークレットと一致する必要があります)",
@@ -1270,10 +1270,10 @@
 			"paused": "一時停止中",
 			"webhookLabel": "エンドポイント URL",
 			"webhookPlaceholder": "https://example.com/webhooks/kaneo",
-			"webhookHint": "Kaneo は有効になっているイベントごとに JSON ペイロードを含む POST リクエストを送信します。",
+			"webhookHint": "JOYDIGI TASK は有効になっているイベントごとに JSON ペイロードを含む POST リクエストを送信します。",
 			"secretLabel": "署名シークレット",
 			"secretPlaceholder": "共有シークレット（任意）",
-			"secretHint": "任意。指定した場合、Kaneo はリクエスト本文に署名し、その 16 進ダイジェストを X-Kaneo-Signature ヘッダーで送信します。",
+			"secretHint": "任意。指定した場合、JOYDIGI TASK はリクエスト本文に署名し、その 16 進ダイジェストを X-Kaneo-Signature ヘッダーで送信します。",
 			"secretHintConfigured": "署名シークレットは既に設定されています ({{secret}})。置き換えるには新しいシークレットを入力してください。",
 			"eventsTitle": "イベント通知",
 			"eventsHint": "送信 Webhook をトリガーするプロジェクトの変更を選択します。",
@@ -1327,7 +1327,7 @@
 			"threadIdHint": "任意。Telegram グループ内のフォーラムトピックに使用します。",
 			"chatLabelLabel": "チャットラベル",
 			"chatLabelPlaceholder": "開発チームの更新",
-			"chatLabelHint": "Kaneo 内での参照用の任意のラベルです。",
+			"chatLabelHint": "JOYDIGI TASK 内での参照用の任意のラベルです。",
 			"eventsTitle": "イベント通知",
 			"eventsHint": "Telegram に投稿するプロジェクトの変更を選択します。",
 			"events": {
@@ -1546,7 +1546,7 @@
 				"active": "Active",
 				"deactivated": "Deactivated"
 			},
-			"subtitle": "Manage every account registered on this Kaneo instance.",
+			"subtitle": "Manage every account registered on this JOYDIGI TASK instance.",
 			"title": "User management",
 			"toast": {
 				"actionError": "Failed to update user status",
@@ -1589,7 +1589,7 @@
 			}
 		},
 		"workspaceBilling": {
-			"disabledDescription": "Billing isn't enabled on this instance. Self-hosted Kaneo includes every feature, free forever.",
+			"disabledDescription": "Billing isn't enabled on this instance. Self-hosted JOYDIGI TASK includes every feature, free forever.",
 			"pageTitle": "Billing",
 			"title": "Billing"
 		}
@@ -2338,14 +2338,14 @@
 	},
 	"invitations": {
 		"email": {
-			"subject": "{{inviterName}} さんが Kaneo の「{{workspaceName}}」にあなたを招待しました",
-			"preview": "Kaneo の「{{workspaceName}}」に招待されました",
+			"subject": "{{inviterName}} さんが JOYDIGI TASK の「{{workspaceName}}」にあなたを招待しました",
+			"preview": "JOYDIGI TASK の「{{workspaceName}}」に招待されました",
 			"title": "「{{workspaceName}}」に参加",
-			"subtitle": "{{inviterName}} ({{inviterEmail}}) さんが Kaneo でのコラボレーションにあなたを招待しました。",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) さんが JOYDIGI TASK でのコラボレーションにあなたを招待しました。",
 			"cta": "招待を承諾",
 			"sameEmail": "このメッセージを受信したメールアドレスで承諾できます。",
 			"ignore": "心当たりがない場合は、このメールを無視していただいて構いません。",
-			"footer": "Kaneo ワークスペース招待"
+			"footer": "JOYDIGI TASK ワークスペース招待"
 		},
 		"pageTitle": "招待",
 		"pendingInvitations": "保留中の招待",

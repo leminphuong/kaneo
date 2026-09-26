@@ -1,6 +1,6 @@
 {
 	"common": {
-		"appName": "Kaneo",
+		"appName": "JOYDIGI TASK",
 		"actions": {
 			"cancel": "Ləğv et",
 			"close": "Bağla",
@@ -102,7 +102,7 @@
 				"errorToast": "Layihəni yaratmaq alınmadı"
 			},
 			"createWorkspace": {
-				"breadcrumbKaneo": "KANEO",
+				"breadcrumbKaneo": "JOYDIGI TASK",
 				"title": "Yeni iş sahəsi yarat",
 				"description": "İş sahəniz üçün ad daxil edərək yeni iş sahəsi yaradın.",
 				"namePlaceholder": "İş sahəsinin adı",
@@ -235,7 +235,7 @@
 			"toggleMessage": "Artıq hesabınız var?",
 			"toggleLink": "Daxil ol",
 			"instanceStatusError": "Serverə çatmaq mümkün olmadı. Bir az sonra yenidən cəhd edin.",
-			"instanceAdminTitle": "Kaneo quraşdırmanızı hazırlayın",
+			"instanceAdminTitle": "JOYDIGI TASK quraşdırmanızı hazırlayın",
 			"instanceAdminSubtitle": "Bu hesab tam giriş hüququ ilə quraşdırmanın inzibatçısı olur."
 		},
 		"verifyOtp": {
@@ -293,7 +293,7 @@
 			"workspaceLabel": "İş sahəsi: {{workspaceName}}",
 			"joinWorkspace": "{{workspaceName}} iş sahəsinə qoşul",
 			"inviteBodySignedIn": "<inviter>{{inviterName}}</inviter> sizi öz iş sahəsinə qoşulmağa dəvət edib.",
-			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> sizi Kaneo-da öz iş sahəsinə qoşulmağa dəvət edib.",
+			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> sizi JOYDIGI TASK-da öz iş sahəsinə qoşulmağa dəvət edib.",
 			"createAccountOrSignIn": "Bu dəvəti qəbul etmək üçün hesab yaradın və ya hesabınız varsa, daxil olun.",
 			"createAccount": "Hesab yarat",
 			"accepting": "Qəbul edilir...",
@@ -309,7 +309,7 @@
 			}
 		},
 		"onboarding": {
-			"pageTitle": "Kaneo-ya xoş gəlmisiniz",
+			"pageTitle": "JOYDIGI TASK-ya xoş gəlmisiniz",
 			"workspacePageTitle": "İş sahəsi yarat",
 			"createWorkspaceTitle": "İş sahəsi yarat",
 			"createWorkspaceSubtitle": "Layihələri idarə etməyə başlamaq üçün iş sahənizi qurun",
@@ -428,7 +428,7 @@
 		"notificationsPage": {
 			"pageTitle": "Bildirişlər",
 			"title": "Bildirişlər",
-			"subtitle": "Kaneo-nun hesab bildirişlərinizi necə çatdıracağını və hansı kanallardan istifadə edəcəyini seçin.",
+			"subtitle": "JOYDIGI TASK-nun hesab bildirişlərinizi necə çatdıracağını və hansı kanallardan istifadə edəcəyini seçin.",
 			"statusConnected": "Qoşulub",
 			"statusPaused": "Dayandırılıb",
 			"emailTitle": "E-poçt",
@@ -464,7 +464,7 @@
 			"webhookUrlPlaceholder": "https://example.com/webhooks/kaneo",
 			"webhookSecretPlaceholder": "İstəyə bağlı ortaq sirr",
 			"webhookSecretHintConfigured": "İmzalama sirri artıq təyin edilib ({{masked}}). Əvəzləmək üçün yenisini daxil edin.",
-			"webhookSecretHintOptional": "İstəyə bağlıdır. Sirr təyin edildikdə Kaneo sorğunun gövdəsini imzalayır.",
+			"webhookSecretHintOptional": "İstəyə bağlıdır. Sirr təyin edildikdə JOYDIGI TASK sorğunun gövdəsini imzalayır.",
 			"connectWebhook": "Webhook-a qoşul",
 			"workspaceRulesTitle": "İş sahəsi üzrə çatdırılma qaydaları",
 			"workspaceRulesDescription": "Ümumi kanallarınızdan yenidən istifadə edin, sonra hansı iş sahələrinin və layihələrin hesab bildirişləri göndərə biləcəyini seçin.",
@@ -529,7 +529,7 @@
 		},
 		"preferencesPage": {
 			"title": "Tərcihlər",
-			"subtitle": "Kaneo təcrübənizi fərdiləşdirin.",
+			"subtitle": "JOYDIGI TASK təcrübənizi fərdiləşdirin.",
 			"appearanceTitle": "Görünüş",
 			"appearanceSubtitle": "Görünüş parametrləri və düzülüş tərcihləri.",
 			"theme": "Tema",
@@ -573,7 +573,7 @@
 			"title": "Proqramçı parametrləri",
 			"subtitle": "API açarlarınızı və proqramçı resurslarını idarə edin.",
 			"apiKeysCardTitle": "API açarları",
-			"apiKeysCardDescription": "Kaneo-ya proqram vasitəsilə giriş üçün API açarları yaradın və idarə edin.",
+			"apiKeysCardDescription": "JOYDIGI TASK-ya proqram vasitəsilə giriş üçün API açarları yaradın və idarə edin.",
 			"createApiKey": "API açarı yarat",
 			"unnamedKey": "Adsız açar"
 		},
@@ -612,7 +612,7 @@
 			},
 			"createDialog": {
 				"title": "API açarı yarat",
-				"description": "Kaneo API-sinə proqram vasitəsilə giriş üçün yeni API açarı yaradın.",
+				"description": "JOYDIGI TASK API-sinə proqram vasitəsilə giriş üçün yeni API açarı yaradın.",
 				"nameLabel": "Ad",
 				"namePlaceholder": "API açarım",
 				"nameDescription": "Bu API açarını təsvir edən ad",
@@ -1054,7 +1054,7 @@
 				"removeError": "GitHub inteqrasiyasını çıxarmaq alınmadı",
 				"issuesImported": "Məsələlər uğurla idxal edildi",
 				"importError": "Məsələləri idxal etmək alınmadı",
-				"commentOnEnabled": "Kaneo yeni məsələlərə tapşırıq keçidi olan şərh yazacaq",
+				"commentOnEnabled": "JOYDIGI TASK yeni məsələlərə tapşırıq keçidi olan şərh yazacaq",
 				"commentOnDisabled": "Yeni məsələlərdə tapşırıq keçidi olan şərhlər söndürülüb",
 				"settingsUpdateError": "GitHub inteqrasiyasını yeniləmək alınmadı"
 			},
@@ -1065,8 +1065,8 @@
 			"badgeNotConnected": "Qoşulmayıb",
 			"repository": "Repozitoriya",
 			"repositoryHint": "Qoşulmuş GitHub repozitoriyası",
-			"commentTaskLinkTitle": "Yeni məsələlərə Kaneo keçidi ilə şərh yaz",
-			"commentTaskLinkHint": "Aktiv olduqda Kaneo hər yeni GitHub məsələsinə tapşırığa keçid olan şərh yazır.",
+			"commentTaskLinkTitle": "Yeni məsələlərə JOYDIGI TASK keçidi ilə şərh yaz",
+			"commentTaskLinkHint": "Aktiv olduqda JOYDIGI TASK hər yeni GitHub məsələsinə tapşırığa keçid olan şərh yazır.",
 			"appStatusTitle": "GitHub tətbiqinin vəziyyəti",
 			"appStatusHint": "Quraşdırma və icazələrin vəziyyəti",
 			"statusProperlyConfigured": "Düzgün tənzimlənib",
@@ -1125,7 +1125,7 @@
 				"removeError": "Gitea inteqrasiyasını çıxarmaq alınmadı",
 				"issuesImported": "Məsələlər uğurla idxal edildi",
 				"importError": "Məsələləri idxal etmək alınmadı",
-				"commentOnEnabled": "Kaneo yeni məsələlərə tapşırıq keçidi olan şərh yazacaq",
+				"commentOnEnabled": "JOYDIGI TASK yeni məsələlərə tapşırıq keçidi olan şərh yazacaq",
 				"commentOnDisabled": "Yeni məsələlərdə tapşırıq keçidi olan şərhlər söndürülüb",
 				"settingsUpdateError": "Gitea inteqrasiyasını yeniləmək alınmadı",
 				"secretCopied": "Kopyalandı",
@@ -1141,8 +1141,8 @@
 			"badgeNotConnected": "Qoşulmayıb",
 			"repository": "Repozitoriya",
 			"repositoryHint": "Əlaqələndirilmiş Gitea repozitoriyası",
-			"commentTaskLinkTitle": "Yeni məsələlərə Kaneo keçidi ilə şərh yaz",
-			"commentTaskLinkHint": "Aktiv olduqda Kaneo hər yeni məsələyə tapşırığa keçid olan şərh yazır.",
+			"commentTaskLinkTitle": "Yeni məsələlərə JOYDIGI TASK keçidi ilə şərh yaz",
+			"commentTaskLinkHint": "Aktiv olduqda JOYDIGI TASK hər yeni məsələyə tapşırığa keçid olan şərh yazır.",
 			"webhookTitle": "Webhook",
 			"webhookHint": "Gitea repozitoriyanızda bu URL və sirr ilə Webhook əlavə edin. Göndərmə, birləşdirmə sorğusu, məsələlər, məsələ şərhləri və yaratma (etiketlər üçün) hadisələrini aktivləşdirin.",
 			"webhookSecretLabel": "Sirr (Gitea-dakı Webhook-un sirri ilə uyğun olmalıdır)",
@@ -1309,10 +1309,10 @@
 			"paused": "Dayandırılıb",
 			"webhookLabel": "Son nöqtənin URL-i",
 			"webhookPlaceholder": "https://example.com/webhooks/kaneo",
-			"webhookHint": "Kaneo hər aktiv hadisə üçün JSON məlumatları ilə POST sorğuları göndərir.",
+			"webhookHint": "JOYDIGI TASK hər aktiv hadisə üçün JSON məlumatları ilə POST sorğuları göndərir.",
 			"secretLabel": "İmzalama sirri",
 			"secretPlaceholder": "İstəyə bağlı ortaq sirr",
-			"secretHint": "İstəyə bağlıdır. Təyin edildikdə Kaneo sorğunun gövdəsini imzalayır və onaltılıq heş dəyərini X-Kaneo-Signature başlığında göndərir.",
+			"secretHint": "İstəyə bağlıdır. Təyin edildikdə JOYDIGI TASK sorğunun gövdəsini imzalayır və onaltılıq heş dəyərini X-Kaneo-Signature başlığında göndərir.",
 			"secretHintConfigured": "İmzalama sirri artıq təyin edilib ({{secret}}). Əvəzləmək üçün yenisini daxil edin.",
 			"eventsTitle": "Hadisə bildirişləri",
 			"eventsHint": "Hansı layihə dəyişikliklərinin gedən Webhook-ları işə salacağını seçin.",
@@ -1366,7 +1366,7 @@
 			"threadIdHint": "İstəyə bağlıdır. Telegram qruplarındakı forum mövzuları üçün istifadə edin.",
 			"chatLabelLabel": "Söhbət etiketi",
 			"chatLabelPlaceholder": "Mühəndislik yenilikləri",
-			"chatLabelHint": "Kaneo daxilində istinad üçün istəyə bağlı etiket.",
+			"chatLabelHint": "JOYDIGI TASK daxilində istinad üçün istəyə bağlı etiket.",
 			"eventsTitle": "Hadisə bildirişləri",
 			"eventsHint": "Hansı layihə dəyişikliklərinin Telegram-a göndəriləcəyini seçin.",
 			"events": {
@@ -1548,7 +1548,7 @@
 				"active": "Active",
 				"deactivated": "Deactivated"
 			},
-			"subtitle": "Manage every account registered on this Kaneo instance.",
+			"subtitle": "Manage every account registered on this JOYDIGI TASK instance.",
 			"title": "User management",
 			"toast": {
 				"actionError": "Failed to update user status",
@@ -1592,7 +1592,7 @@
 			}
 		},
 		"workspaceBilling": {
-			"disabledDescription": "Billing isn't enabled on this instance. Self-hosted Kaneo includes every feature, free forever.",
+			"disabledDescription": "Billing isn't enabled on this instance. Self-hosted JOYDIGI TASK includes every feature, free forever.",
 			"pageTitle": "Billing",
 			"title": "Billing"
 		}
@@ -2347,14 +2347,14 @@
 	},
 	"invitations": {
 		"email": {
-			"subject": "{{inviterName}} sizi Kaneo-da {{workspaceName}} iş sahəsinə qoşulmağa dəvət etdi",
-			"preview": "Kaneo-da {{workspaceName}} iş sahəsinə dəvət almısınız",
+			"subject": "{{inviterName}} sizi JOYDIGI TASK-da {{workspaceName}} iş sahəsinə qoşulmağa dəvət etdi",
+			"preview": "JOYDIGI TASK-da {{workspaceName}} iş sahəsinə dəvət almısınız",
 			"title": "{{workspaceName}} iş sahəsinə qoşul",
-			"subtitle": "{{inviterName}} ({{inviterEmail}}) sizi Kaneo-da əməkdaşlığa dəvət etdi.",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) sizi JOYDIGI TASK-da əməkdaşlığa dəvət etdi.",
 			"cta": "Dəvəti qəbul et",
 			"sameEmail": "Dəvəti bu məktubu aldığınız e-poçt ünvanı ilə qəbul edə bilərsiniz.",
 			"ignore": "Bu məktubu gözləmirdinizsə, ona məhəl qoymaya bilərsiniz.",
-			"footer": "Kaneo iş sahəsi dəvəti"
+			"footer": "JOYDIGI TASK iş sahəsi dəvəti"
 		},
 		"pageTitle": "Dəvətlər",
 		"pendingInvitations": "Gözləyən dəvətlər",

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="JOYDIGI TASK">
+  <!-- Rounded-square plate. The ring's hole is left empty so the plate shows
+       through, which keeps the mark correct on any backdrop. -->
+  <rect width="1024" height="1024" rx="232" ry="232" fill="#ECF0EE"/>
+
+  <!-- Ring split into four quadrants: outer r=420, inner r=150, centre 512,512.
+       Each quadrant is an annular sector: outer arc clockwise, straight edge in
+       to the inner radius, inner arc back counter-clockwise. -->
+  <g>
+    <!-- top-right -->
+    <path d="M512 92 A420 420 0 0 1 932 512 L662 512 A150 150 0 0 0 512 362 Z" fill="#D0402F"/>
+    <!-- bottom-right -->
+    <path d="M932 512 A420 420 0 0 1 512 932 L512 662 A150 150 0 0 0 662 512 Z" fill="#F5A623"/>
+    <!-- bottom-left -->
+    <path d="M512 932 A420 420 0 0 1 92 512 L362 512 A150 150 0 0 0 512 662 Z" fill="#12A07D"/>
+    <!-- top-left -->
+    <path d="M92 512 A420 420 0 0 1 512 92 L512 362 A150 150 0 0 0 362 512 Z" fill="#6C3BF5"/>
+  </g>
+</svg>

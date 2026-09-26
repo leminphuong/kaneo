@@ -21,26 +21,7 @@ import { routeTree } from "./routeTree.gen";
 // router runs and strips it across the sign-up → onboarding redirect chain.
 captureCheckoutIntent();
 
-console.log(`
-                     ////////  
-              /////  ////////  
-            //////// ////////  
-  //////// ///////// ///////   
-  //////// ///////// //////    
-  //////// ///////// ////      
-  //////// ///////// ///       
-  //////// ///////// /////     
-  //////// ///////// //////    
-  //////// ///////// ////////  
-  //////// ///////// ////////  
-  //////// ///////// ////////  
-  //////// ////////            
-  ////////  /////              
-  ///////                      
-                   
-  
-  All you need. Nothing you don't.
-`);
+console.log("%cJOYDIGI TASK", "font-weight:bold;font-size:14px");
 
 const router = createRouter({
   routeTree,
