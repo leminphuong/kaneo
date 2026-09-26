@@ -1,13 +1,5 @@
 import { apiKey } from "@better-auth/api-key";
 import {
-  isSmtpConfigured,
-  OTP_EXPIRY_SECONDS,
-  sendMagicLinkEmail,
-  sendOtpEmail,
-  sendPasswordResetEmail,
-  sendWorkspaceInvitationEmail,
-} from "@kaneo/email";
-import {
   ac,
   DEFAULT_ROLE_NAMES,
   defaultRolePayloads,
@@ -25,10 +17,8 @@ import {
   anonymous,
   bearer,
   deviceAuthorization,
-  emailOTP,
   genericOAuth,
   lastLoginMethod,
-  magicLink,
   openAPI,
   organization,
 } from "better-auth/plugins";
@@ -46,17 +36,12 @@ import { authDatabaseAdapter } from "./database/auth-adapter";
 import { publishEvent } from "./events";
 import deleteAccountData from "./user/controllers/delete-account-data";
 import { resolveAuthSecret } from "./utils/auth-secret";
-import {
-  canSendSignInEmail,
-  checkRegistrationAllowed,
-  userExistsByEmail,
-} from "./utils/check-registration-allowed";
+import { checkRegistrationAllowed } from "./utils/check-registration-allowed";
 import { checkWorkspaceName } from "./utils/check-workspace-name";
 import { mapCustomOAuthProfileToUser } from "./utils/custom-oauth-profile";
 import { generateDemoName } from "./utils/generate-demo-name";
 import { getDefaultCookieAttributes } from "./utils/get-default-cookie-attributes";
 import { getInvitationEmailSubject } from "./utils/get-invitation-email-subject";
-import { getWorkspaceInvitationEmailCopy } from "./utils/get-workspace-invitation-email-copy";
 import { getGithubSsoOAuthCredentials } from "./utils/github-sso-env";
 import {
   hasRegisteredUsers,
@@ -65,13 +50,12 @@ import {
 import { isCloud } from "./utils/is-cloud";
 import { isDisposableEmail } from "./utils/is-disposable-email";
 import { isLocalSignInPath } from "./utils/is-local-sign-in-path";
-import { trackPasswordResetDelivery } from "./utils/password-reset-delivery";
+import { notifyAccountByEmail } from "./utils/notify-account-by-email";
 import {
   assertGuestRegistrationAllowed,
   assertUserRegistrationAllowed,
   normalizeInvitationId,
 } from "./utils/registration-policy";
-import { queueSignInEmail } from "./utils/sign-in-email-tasks";
 import { authCaptchaPaths, verifyTurnstile } from "./utils/verify-turnstile";
 
 config();
@@ -82,8 +66,6 @@ const isRegistrationDisabled = process.env.DISABLE_REGISTRATION === "true";
 const isPasswordRegistrationDisabled =
   process.env.DISABLE_PASSWORD_REGISTRATION === "true";
 const isLoginFormDisabled = process.env.DISABLE_LOGIN_FORM === "true";
-const isEmailOtpSignInDisabled =
-  process.env.DISABLE_EMAIL_OTP_SIGN_IN === "true";
 const isWorkspaceCreationDisabled =
   process.env.DISABLE_WORKSPACE_CREATION === "true";
 
@@ -125,64 +107,6 @@ async function getUserLocale(email: string) {
     .limit(1);
 
   return user?.locale ?? null;
-}
-
-function getLocaleKey(locale?: string | null) {
-  const normalized = locale?.toLowerCase();
-  if (normalized?.startsWith("de")) return "de";
-  if (normalized?.startsWith("vi")) return "vi";
-  if (normalized?.startsWith("ja")) return "ja";
-  return "en";
-}
-
-// Reads env at call time (not module scope) so tests can stub it.
-async function shouldDeliverSignInEmail(email: string) {
-  if (process.env.DISABLE_PASSWORD_REGISTRATION === "true") {
-    return userExistsByEmail(email);
-  }
-  if (process.env.DISABLE_REGISTRATION === "true") {
-    // Mirror `assertUserRegistrationAllowed`: the first non-guest user can
-    // always complete initial instance setup.
-    if (!(await hasRegisteredUsers())) {
-      return true;
-    }
-    return canSendSignInEmail(email);
-  }
-  return true;
-}
-
-function getAuthEmailCopy(locale?: string | null) {
-  const localeKey = getLocaleKey(locale);
-
-  if (localeKey === "de") {
-    return {
-      magicLinkSubject: "Anmeldelink für Kaneo",
-      otpSubject: "Bestätigungscode für Kaneo",
-      passwordResetSubject: "Kaneo-Passwort zurücksetzen",
-    };
-  }
-
-  if (localeKey === "vi") {
-    return {
-      magicLinkSubject: "Liên kết đăng nhập Kaneo",
-      otpSubject: "Mã xác minh Kaneo",
-      passwordResetSubject: "Đặt lại mật khẩu Kaneo",
-    };
-  }
-
-  if (localeKey === "ja") {
-    return {
-      magicLinkSubject: "Kaneo ログインリンク",
-      otpSubject: "Kaneo 認証コード",
-      passwordResetSubject: "Kaneo のパスワードをリセット",
-    };
-  }
-
-  return {
-    magicLinkSubject: "Login for Kaneo",
-    otpSubject: "Authentication code for Kaneo",
-    passwordResetSubject: "Reset your Kaneo password",
-  };
 }
 
 function getDeviceAuthClientIds(): Set<string> {
@@ -256,20 +180,10 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
-    revokeSessionsOnPasswordReset: true,
-    resetPasswordTokenExpiresIn: 60 * 60,
-    sendResetPassword: async ({ user, url }) => {
-      // Keep SMTP latency out of the response so it cannot reveal accounts.
-      trackPasswordResetDelivery(
-        getUserLocale(user.email).then((locale) =>
-          sendPasswordResetEmail(
-            user.email,
-            getAuthEmailCopy(locale).passwordResetSubject,
-            { resetLink: url, userName: user.name, locale },
-          ),
-        ),
-      );
-    },
+    // Self-service password reset is off: the reset link can only be delivered
+    // by email, and this instance sends none. An instance administrator changes
+    // a forgotten password from Settings > Administration > User management.
+    // Without sendResetPassword, Better Auth's reset endpoints are not mounted.
     password: {
       hash: async (password) => {
         return await bcrypt.hash(password, 10);
@@ -304,45 +218,10 @@ export const auth = betterAuth({
         ]
       : []),
     lastLoginMethod(),
-    magicLink({
-      disableSignUp: isPasswordRegistrationDisabled,
-      sendMagicLink: async ({ email, url }) => {
-        queueSignInEmail(async () => {
-          if (!(await shouldDeliverSignInEmail(email))) {
-            return;
-          }
-          const locale = await getUserLocale(email);
-          const copy = getAuthEmailCopy(locale);
-          await sendMagicLinkEmail(email, copy.magicLinkSubject, {
-            magicLink: url,
-            locale,
-          });
-        });
-      },
-    }),
-    ...(isEmailOtpSignInDisabled
-      ? []
-      : [
-          emailOTP({
-            expiresIn: OTP_EXPIRY_SECONDS,
-            disableSignUp: isPasswordRegistrationDisabled,
-            async sendVerificationOTP({ email, otp, type }) {
-              if (type === "sign-in") {
-                queueSignInEmail(async () => {
-                  if (!(await shouldDeliverSignInEmail(email))) {
-                    return;
-                  }
-                  const locale = await getUserLocale(email);
-                  const copy = getAuthEmailCopy(locale);
-                  await sendOtpEmail(email, copy.otpSubject, {
-                    otp,
-                    locale,
-                  });
-                });
-              }
-            },
-          }),
-        ]),
+    // Magic links and one-time codes are deliberately not registered. Both are
+    // credentials for someone who is *not* signed in yet, so they cannot be
+    // delivered as an in-app notification, and this instance sends no email.
+    // Sign-in is email + password only.
     organization({
       // `ac` is created with a narrow `statement` shape (project/task/label/
       // workspace + the default org statements), which makes its inferred
@@ -506,35 +385,32 @@ export const auth = betterAuth({
         },
       },
       async sendInvitationEmail(data) {
+        // No real email leaves this instance. An invitee who already has an
+        // account is notified in-app; anyone else is reached by the inviter
+        // passing on the invitation link the invite dialog shows them.
         const inviteLink = `${process.env.KANEO_CLIENT_URL}/invitation/accept/${data.id}`;
         const locale = await getUserLocale(data.email);
-        const copy = getWorkspaceInvitationEmailCopy(locale);
 
-        const result = await sendWorkspaceInvitationEmail(
-          data.email,
-          getInvitationEmailSubject(
+        const result = await notifyAccountByEmail(data.email, {
+          title: getInvitationEmailSubject(
             locale,
             data.inviter.user.name,
             data.organization.name,
           ),
-          {
-            inviterEmail: data.inviter.user.email,
-            inviterName: data.inviter.user.name,
-            workspaceName: data.organization.name,
+          content: inviteLink,
+          type: "workspace_invitation",
+          eventData: {
+            invitationId: data.id,
             invitationLink: inviteLink,
-            to: data.email,
-            copy,
+            workspaceName: data.organization.name,
+            inviterName: data.inviter.user.name,
           },
-        );
+        });
 
-        if (
-          result?.success === false &&
-          result.reason === "SMTP_NOT_CONFIGURED"
-        ) {
-          console.warn(
-            "Invitation created but email not sent due to SMTP not being configured",
+        if (!result.delivered) {
+          console.info(
+            "Invitation created for an address with no account; the inviter must share the link.",
           );
-          return;
         }
       },
     }),
@@ -653,9 +529,17 @@ export const auth = betterAuth({
         });
       }
 
-      if (ctx.path === "/request-password-reset" && !isSmtpConfigured()) {
+      // Belt and braces: without sendResetPassword these endpoints are not
+      // mounted, but reject them explicitly so a Better Auth upgrade that
+      // starts mounting them by default cannot quietly re-open the flow.
+      if (
+        ctx.path === "/request-password-reset" ||
+        ctx.path === "/reset-password" ||
+        ctx.path === "/forget-password"
+      ) {
         throw new APIError("FORBIDDEN", {
-          message: "Password reset requires email delivery to be configured.",
+          message:
+            "Password reset is disabled on this instance. Ask an administrator to set a new password.",
         });
       }
 

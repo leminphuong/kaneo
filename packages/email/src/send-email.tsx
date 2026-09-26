@@ -22,7 +22,33 @@ import WorkspaceInvitationEmail, {
 
 config();
 
-const transporter = nodemailer.createTransport(getSmtpTransportOptions());
+/**
+ * No SMTP transport is created: this instance sends no real email.
+ *
+ * Only two of the send helpers below ever checked isSmtpConfigured(), so
+ * disabling mail through configuration alone would still have let the other
+ * four reach a relay. Refusing here is what actually guarantees nothing
+ * leaves, whatever SMTP_* variables are set.
+ *
+ * Callers are unchanged: they still await a send and still get a result, so
+ * an address with no account simply produces a log line rather than an error.
+ * Delivery that must reach a person goes through notifyAccountByEmail in the
+ * API, which creates an in-app notification for the matching account.
+ */
+const transporter = {
+  async sendMail(options: {
+    from?: string;
+    to?: string;
+    subject?: string;
+    html?: string;
+  }) {
+    console.info("Outbound email suppressed (email delivery is disabled)", {
+      to: options.to,
+      subject: options.subject,
+    });
+    return { messageId: "suppressed", accepted: [], rejected: [] };
+  },
+};
 
 export const sendMagicLinkEmail = async (
   to: string,

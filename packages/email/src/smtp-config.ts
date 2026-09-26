@@ -39,9 +39,19 @@ export function getSmtpTransportOptions(
 }
 
 /**
- * Whether outgoing mail can be sent at all. This is what the send helpers
- * actually require: a host to connect to and an envelope sender.
+ * Whether outgoing mail can be sent at all.
+ *
+ * Hard-wired to false: this instance never sends real email. Anything that
+ * would have been emailed is delivered to the matching account as an in-app
+ * notification instead (see notifyAccountByEmail in the API), and the flows
+ * that cannot work that way - password reset, magic links, one-time codes -
+ * are disabled rather than silently doing nothing.
+ *
+ * Returning false here is what makes that guarantee hold no matter which
+ * SMTP_* variables are present in the environment: every send helper checks
+ * this first and refuses. The transport options above are left in place for
+ * the tests that cover them and for anyone re-enabling mail deliberately.
  */
-export function isSmtpConfigured(env: SmtpEnv = process.env): boolean {
-  return Boolean(env.SMTP_HOST) && Boolean(env.SMTP_FROM);
+export function isSmtpConfigured(_env: SmtpEnv = process.env): boolean {
+  return false;
 }

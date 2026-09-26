@@ -123,6 +123,9 @@ async function getWorkspacesNeedingReminder(
 }
 
 export async function checkTrialReminders(): Promise<{ degraded: boolean }> {
+  // Trial reminders are hosted-billing only and email is their only channel,
+  // so this never runs here: billing is off self-hosted, and isSmtpConfigured
+  // is hard-wired false because no transport exists any more.
   if (!isBillingEnabled() || !isSmtpConfigured()) {
     return { degraded: false };
   }

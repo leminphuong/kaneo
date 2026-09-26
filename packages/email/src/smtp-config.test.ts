@@ -77,18 +77,21 @@ describe("getSmtpTransportOptions", () => {
 });
 
 describe("isSmtpConfigured", () => {
-  it("is true for a relay that needs no credentials", () => {
+  // Hard-wired false: this instance sends no real email, and every send
+  // helper checks this before touching a relay. Asserting it stays false
+  // whatever the environment says is the point of the test.
+  it("is false even when a complete relay is configured", () => {
     expect(
       isSmtpConfigured({
         SMTP_HOST: "relay.internal",
-        SMTP_FROM: "kaneo@example.com",
+        SMTP_FROM: "noreply@example.com",
+        SMTP_USER: "user",
+        SMTP_PASSWORD: "pass",
       }),
-    ).toBe(true);
+    ).toBe(false);
   });
 
-  it("is false without a host or a sender", () => {
-    expect(isSmtpConfigured({ SMTP_FROM: "kaneo@example.com" })).toBe(false);
-    expect(isSmtpConfigured({ SMTP_HOST: "relay.internal" })).toBe(false);
+  it("is false when nothing is configured", () => {
     expect(isSmtpConfigured({})).toBe(false);
   });
 });

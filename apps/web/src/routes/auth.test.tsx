@@ -13,18 +13,6 @@ const beforeLoad = Route.options.beforeLoad as (context: {
 
 beforeEach(() => mocks.getSession.mockReset());
 
-it.each([
-  "/auth/reset-password",
-  "/auth/forgot-password",
-  "/auth/reset-password/",
-])("allows an existing session to open %s", async (pathname) => {
-  const session = { user: { id: "existing-user" } };
-  mocks.getSession.mockResolvedValue({ data: session });
-  await expect(beforeLoad({ location: { pathname } })).resolves.toEqual({
-    session,
-  });
-});
-
 it.each(["/auth/sign-in", "/auth/sign-up", "/auth/verify-otp"])(
   "keeps the authenticated redirect on %s",
   async (pathname) => {
@@ -37,9 +25,21 @@ it.each(["/auth/sign-in", "/auth/sign-up", "/auth/verify-otp"])(
   },
 );
 
-it("allows signed-out visitors to recover their password", async () => {
-  mocks.getSession.mockResolvedValue({ data: null });
+// Password recovery used to be exempt from that redirect. The routes are gone
+// now, so a signed-in visitor is sent to the dashboard from anywhere under
+// /auth with no exceptions left to get wrong.
+it("redirects a signed-in visitor away from every auth path", async () => {
+  mocks.getSession.mockResolvedValue({
+    data: { user: { id: "existing-user" } },
+  });
   await expect(
     beforeLoad({ location: { pathname: "/auth/reset-password" } }),
+  ).rejects.toThrow("Redirect to /dashboard");
+});
+
+it("lets signed-out visitors through", async () => {
+  mocks.getSession.mockResolvedValue({ data: null });
+  await expect(
+    beforeLoad({ location: { pathname: "/auth/sign-in" } }),
   ).resolves.toEqual({ session: null });
 });

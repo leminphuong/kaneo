@@ -1,5 +1,4 @@
 import { createHmac } from "node:crypto";
-import { sendNotificationEmail } from "@kaneo/email";
 import { and, eq } from "drizzle-orm";
 import db from "../database";
 import {
@@ -475,17 +474,11 @@ export async function deliverNotification(
 
   const deliveries: Array<Promise<void>> = [];
 
-  if (decryptedPreference.emailEnabled && rule.emailEnabled && user.email) {
-    deliveries.push(
-      sendNotificationEmail(user.email, content.title, {
-        title: content.title,
-        message: content.body,
-        actionUrl: context.taskUrl,
-        actionLabel: context.taskUrl ? "Open in Kaneo" : undefined,
-        locale: user.locale ?? null,
-      }).then(() => undefined),
-    );
-  }
+  // No email channel: this instance sends no real email. The notification this
+  // function is delivering already exists in-app and has been pushed over the
+  // notification WebSocket, so the address the user signed up with needs no
+  // second copy. The remaining channels below are outbound webhooks the user
+  // configured themselves.
 
   if (
     decryptedPreference.ntfyEnabled &&
