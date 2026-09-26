@@ -49,12 +49,16 @@ runs typecheck, tests and the locale check, so dropping `ci.yml` too is fine.
 
 ### Deploy automatically on push
 
-`.github/workflows/fork-deploy.yml` typechecks and tests every push. It deploys
-only when you opt in. Under **Settings → Secrets and variables → Actions**:
+`.github/workflows/fork-deploy.yml` typechecks and tests every push, then
+deploys if — and only if — the three SSH secrets are present. Nothing else has
+to be switched on: with the secrets missing, the deploy job still runs and its
+summary names what it needs, so an unconfigured deployment is visible instead
+of looking like a deploy that ran and changed nothing.
+
+Under **Settings → Secrets and variables → Actions**:
 
 | Kind | Name | Value |
 | --- | --- | --- |
-| Variable | `DEPLOY_ENABLED` | `true` |
 | Variable | `DEPLOY_PATH` | server path, default `/opt/kaneo` |
 | Secret | `DEPLOY_HOST` | server IP or hostname |
 | Secret | `DEPLOY_USER` | SSH user |
