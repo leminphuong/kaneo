@@ -243,7 +243,7 @@ jobs:
         uses: useblacksmith/checkout@v1 # v7.0.1
 
       - name: Setup Blacksmith Builder
-        uses: useblacksmith/setup-docker-builder@v1
+        uses: useblacksmith/setup-docker-builder@v2
 
       - name: Build bundled image for runtime tests
         uses: useblacksmith/build-push-action@v2 # v7
@@ -389,7 +389,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Blacksmith Builder
-        uses: useblacksmith/setup-docker-builder@v1
+        uses: useblacksmith/setup-docker-builder@v2
       - name: Build standalone image
         uses: useblacksmith/build-push-action@v2 # v7
         with:
