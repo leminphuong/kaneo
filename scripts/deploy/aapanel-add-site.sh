@@ -109,20 +109,80 @@ reload_nginx
 step "Verifying the ACME challenge path"
 token="probe-$(date +%s)"
 echo "$token" > "$ACME_ROOT/.well-known/acme-challenge/$token.txt"
-local_body="$(curl -s --max-time 10 --resolve "$DOMAIN:80:127.0.0.1" \
-  "http://$DOMAIN/.well-known/acme-challenge/$token.txt" || true)"
-[ "$local_body" = "$token" ] || die "Local ACME probe failed. The vhost is not serving $ACME_ROOT."
+probe_url="http://$DOMAIN/.well-known/acme-challenge/$token.txt"
+
+# `/etc/init.d/nginx reload` returns before the new workers are actually
+# serving, so a probe fired immediately after can still be answered by the old
+# config, which has no vhost for this domain. Retry instead of failing on it.
+local_body=""
+for _ in $(seq 1 15); do
+  local_body="$(curl -s --max-time 10 --resolve "$DOMAIN:80:127.0.0.1" "$probe_url" || true)"
+  [ "$local_body" = "$token" ] && break
+  sleep 1
+done
+
+if [ "$local_body" != "$token" ]; then
+  status="$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 \
+    --resolve "$DOMAIN:80:127.0.0.1" "$probe_url" || echo 000)"
+  printf '\n'
+  warn "Local ACME probe failed (HTTP $status). Diagnosis:"
+
+  if ! "$NGINX_BIN" -T -c "$NGINX_CONF" 2>/dev/null | grep -q "server_name $DOMAIN"; then
+    warn "  * The running config does not contain this vhost."
+    warn "    nginx -t passes whether or not the file is included, so check the"
+    warn "    include line in $NGINX_CONF actually globs $VHOST_DIR/*.conf:"
+    warn "      grep -n 'include.*vhost' $NGINX_CONF"
+  else
+    warn "  * The vhost IS loaded, so the request is being answered by it."
+  fi
+
+  if [ ! -r "$ACME_ROOT/.well-known/acme-challenge/$token.txt" ]; then
+    warn "  * The probe file is not readable at $ACME_ROOT/.well-known/acme-challenge/"
+  fi
+
+  nginx_user="$(ps -o user= -C nginx 2>/dev/null | sort -u | grep -v '^root$' | head -1)"
+  if [ -n "$nginx_user" ] && ! su -s /bin/sh -c "test -r '$ACME_ROOT/.well-known/acme-challenge/$token.txt'" "$nginx_user" 2>/dev/null; then
+    warn "  * nginx runs as '$nginx_user' and cannot read the probe file."
+    warn "    Every directory down to it needs +x for that user:"
+    warn "      namei -l $ACME_ROOT/.well-known/acme-challenge/$token.txt"
+  fi
+
+  case "$status" in
+    403) warn "  * 403 usually means an aaPanel rule denying dotfile paths (location ~ /\\.)" ;;
+    404) warn "  * 404 means the alias resolved but the file is not under it." ;;
+  esac
+
+  warn "  Full response headers:"
+  curl -sS -o /dev/null -D - --max-time 10 --resolve "$DOMAIN:80:127.0.0.1" "$probe_url" 2>&1 | sed 's/^/      /' | head -12
+  die "Fix the above, then re-run. The HTTP vhost is left in place."
+fi
 ok "Served locally"
 
-public_body="$(curl -s --max-time 15 "http://$DOMAIN/.well-known/acme-challenge/$token.txt" || true)"
+public_body=""
+for _ in $(seq 1 10); do
+  public_body="$(curl -s --max-time 15 "$probe_url" || true)"
+  [ "$public_body" = "$token" ] && break
+  sleep 2
+done
 rm -f "$ACME_ROOT/.well-known/acme-challenge/$token.txt"
+
 if [ "$public_body" != "$token" ]; then
-  warn "Public probe did not return the token."
-  warn "DNS for $DOMAIN must point at this server before a certificate can be issued:"
-  warn "  dig +short A $DOMAIN"
-  die "Fix DNS (and any Cloudflare proxying) first, then re-run."
+  resolved="$(getent hosts "$DOMAIN" | awk '{print $1}' | tr '\n' ' ')"
+  warn "Public probe did not return the token. Resolved to: ${resolved:-nothing}"
+  case "$resolved" in
+    104.2*|172.6*|172.7*|188.114.*|162.159.*)
+      warn "  Those are Cloudflare addresses, so the domain is proxied."
+      warn "  Cloudflare normally passes /.well-known/acme-challenge/ through,"
+      warn "  but 'Always Use HTTPS' or a cached 404 can break HTTP-01."
+      warn "  Either grey-cloud the record while issuing, or use a DNS-01 challenge."
+      ;;
+    *)
+      warn "  DNS must point at this server before a certificate can be issued."
+      ;;
+  esac
+  die "Fix the above, then re-run. The HTTP vhost is left in place."
 fi
-ok "Served publicly - DNS points here"
+ok "Served publicly"
 
 # --- certificate ----------------------------------------------------------
 CERT_DIR="/etc/letsencrypt/live/$DOMAIN"
