@@ -158,8 +158,11 @@ step "Starting services"
 $COMPOSE up -d
 
 # --- wait for health ------------------------------------------------------
-step "Waiting for Kaneo to become healthy"
-deadline=$(( $(date +%s) + 300 ))
+# Startup runs the database migrations, so the first boot after a schema
+# change is far slower than a restart. Override with KANEO_HEALTH_TIMEOUT.
+HEALTH_TIMEOUT="${KANEO_HEALTH_TIMEOUT:-900}"
+step "Waiting for Kaneo to become healthy (up to $((HEALTH_TIMEOUT / 60)) min)"
+deadline=$(( $(date +%s) + HEALTH_TIMEOUT ))
 while :; do
   if curl -fsS -o /dev/null http://127.0.0.1:5173/api/health 2>/dev/null; then
     ok "Kaneo is responding on port 5173"
@@ -167,7 +170,7 @@ while :; do
   fi
   if [ "$(date +%s)" -ge "$deadline" ]; then
     printf '\n'
-    warn "Did not become healthy within 5 minutes. Recent logs:"
+    warn "Did not become healthy within $((HEALTH_TIMEOUT / 60)) minutes. Recent logs:"
     $COMPOSE logs --tail 60 kaneo
     die "Startup failed."
   fi

@@ -13,10 +13,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# A later push supersedes an in-flight run rather than racing it onto the server.
+# Runs queue instead of cancelling each other. Cancelling mid-deploy would
+# kill the SSH session during `docker compose build` or a database migration
+# and leave the server half-updated, which is worse than waiting.
 concurrency:
   group: fork-deploy-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -58,7 +60,10 @@ jobs:
     # did nothing. This way the summary says which secret is missing.
     if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # GitHub caps a job at 6 hours and there is no way to opt out, so this is
+    # the longest a deploy can be given. A build on a small VPS takes minutes,
+    # not hours: if this limit is ever reached something is stuck, not slow.
+    timeout-minutes: 360
     steps:
       - name: Check whether deployment is configured
         id: configured
@@ -161,7 +166,15 @@ jobs:
 
           # The remote script reads APP_DIR and REF_NAME from the runner via the
           # quoted heredoc's arguments, so nothing is string-interpolated in.
-          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+          # A docker build prints nothing for long stretches. Without
+          # keepalives an idle NAT or firewall drops the session and the job
+          # fails with a broken pipe while the build is still running on the
+          # server. 30s x 240 tolerates two hours of silence.
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" \
+            -o ServerAliveInterval=30 \
+            -o ServerAliveCountMax=240 \
+            -o TCPKeepAlive=yes \
+            "$SSH_USER@$SSH_HOST" \
             bash -s -- "$APP_DIR" "$REF_NAME" <<'REMOTE'
           set -euo pipefail
           app_dir="$1"
