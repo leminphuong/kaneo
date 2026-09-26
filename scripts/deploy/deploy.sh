@@ -64,8 +64,17 @@ if [ "$total_mb" -lt 3500 ]; then
   warn "  sudo fallocate -l 4G /swapfile && sudo chmod 600 /swapfile"
   warn "  sudo mkswap /swapfile && sudo swapon /swapfile"
   warn "  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab"
-  read -r -p "Continue anyway? [y/N] " reply
-  [[ "$reply" =~ ^[Yy]$ ]] || exit 1
+  if [ "${KANEO_ASSUME_YES:-}" = "1" ]; then
+    warn "KANEO_ASSUME_YES=1, continuing anyway."
+  elif [ -t 0 ]; then
+    read -r -p "Continue anyway? [y/N] " reply
+    [[ "$reply" =~ ^[Yy]$ ]] || exit 1
+  else
+    # Run from CI over SSH there is no one to answer, and stdin is already
+    # spent on the remote script. Stopping here beats letting the OOM killer
+    # pick a victim, which on a shared box can be another service entirely.
+    die "Not enough memory and nothing attached to ask. Add swap, or set KANEO_ASSUME_YES=1 to build anyway."
+  fi
 else
   ok "${total_mb} MB RAM + swap"
 fi
@@ -81,12 +90,13 @@ if [ -f .env ]; then
   [ -z "$missing" ] || die "These are empty or missing in .env:$missing"
 else
   public_url="${KANEO_PUBLIC_URL:-}"
-  if [ -z "$public_url" ]; then
+  if [ -z "$public_url" ] && [ -t 0 ]; then
     echo "Public URL users will open, including the scheme."
     echo "Examples: https://kaneo.example.com   or   http://203.0.113.10:5173"
     read -r -p "Public URL: " public_url
   fi
-  [ -n "$public_url" ] || die "A public URL is required."
+  [ -n "$public_url" ] || die \
+    "A public URL is required. Interactively you are asked for it; from CI set KANEO_PUBLIC_URL."
   case "$public_url" in
     http://*|https://*) ;;
     *) die "The URL must start with http:// or https://" ;;
