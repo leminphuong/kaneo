@@ -1559,6 +1559,26 @@
 			"userCount_other": "{{count}} người dùng đã đăng ký",
 			"you": "(bạn)"
 		},
+		"importUsers": {
+			"title": "Import tài khoản",
+			"description": "Tải lên file JSON xuất từ JoyDigi Workspace để tạo hàng loạt tài khoản. Địa chỉ đã có tài khoản sẽ được giữ nguyên, nên chạy lại cùng một file không bao giờ đặt lại mật khẩu.",
+			"chooseFile": "Chọn file JSON",
+			"ready": "{{file}} — {{count}} tài khoản sẵn sàng",
+			"import": "Import {{count}} tài khoản",
+			"importing": "Đang import...",
+			"summary": "Đã tạo {{created}} · Đã tồn tại {{existing}} · Lỗi {{failed}}",
+			"status": {
+				"created": "Đã tạo",
+				"exists": "Đã tồn tại",
+				"error": "Lỗi"
+			},
+			"errors": {
+				"notJson": "File này không phải JSON hợp lệ.",
+				"notArray": "Cần một danh sách tài khoản, hoặc một object có trường \"users\".",
+				"missingFields": "Dòng {{row}} thiếu ho_ten, ten_dang_nhap, email hoặc mat_khau_mac_dinh.",
+				"failed": "Không hoàn tất được việc import."
+			}
+		},
 		"security": "Bảo mật",
 		"securityPage": {
 			"confirmPassword": "Xác nhận mật khẩu mới",

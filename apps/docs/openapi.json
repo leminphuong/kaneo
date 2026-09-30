@@ -3592,6 +3592,56 @@
         "required": [
           "deleted"
         ]
+      },
+      "ImportUsersResult": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "integer",
+            "description": "Accounts created."
+          },
+          "existing": {
+            "type": "integer",
+            "description": "Addresses that already had an account."
+          },
+          "failed": {
+            "type": "integer",
+            "description": "Rows that failed."
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "created",
+                    "exists",
+                    "error"
+                  ]
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Why the row failed. Never contains the password from the file."
+                }
+              },
+              "required": [
+                "email",
+                "status"
+              ]
+            }
+          }
+        },
+        "required": [
+          "created",
+          "existing",
+          "failed",
+          "results"
+        ]
       }
     },
     "parameters": {}
@@ -15654,6 +15704,107 @@
           },
           "401": {
             "description": "Missing or invalid credentials"
+          }
+        }
+      }
+    },
+    "/import/users": {
+      "post": {
+        "operationId": "importUsers",
+        "tags": [
+          "Administration"
+        ],
+        "summary": "Import user accounts",
+        "description": "Create accounts in bulk from a JoyDigi Workspace export.\n\nAn address that already has an account is reported as existing and left\nuntouched, so re-running the same file never resets a password somebody has\nalready changed. Created accounts are marked email-verified, which is what\nlets an SSO identity attach to them later; the API refuses this route to\nanyone who is not an instance administrator.\n\nPasswords are hashed on the way in and are never logged or returned.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "users": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ho_ten": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "description": "Full name, stored as the account name.",
+                          "example": "Le Minh Phuong"
+                        },
+                        "ten_dang_nhap": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100,
+                          "description": "Username in the source system. Recorded for reference only: accounts here are identified by email.",
+                          "example": "phuong"
+                        },
+                        "email": {
+                          "type": "string",
+                          "maxLength": 254,
+                          "format": "email",
+                          "description": "Identity of the account. Matched case-insensitively against existing accounts.",
+                          "example": "phuong@joydigi.net"
+                        },
+                        "mat_khau_mac_dinh": {
+                          "type": "string",
+                          "minLength": 8,
+                          "maxLength": 128,
+                          "description": "Initial password, used only when the account is created. Never stored in plain text and never returned."
+                        }
+                      },
+                      "required": [
+                        "ho_ten",
+                        "ten_dang_nhap",
+                        "email",
+                        "mat_khau_mac_dinh"
+                      ]
+                    },
+                    "minItems": 1,
+                    "maxItems": 500,
+                    "description": "Accounts to import. Capped at 500 per request so one upload cannot tie up the API."
+                  }
+                },
+                "required": [
+                  "users"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Import finished",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportUsersResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Instance administrators only",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }

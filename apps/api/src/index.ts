@@ -63,6 +63,7 @@ import telegramIntegration from "./telegram-integration";
 import timeEntry from "./time-entry";
 import user from "./user";
 import getAvatar from "./user/controllers/get-avatar";
+import userImport from "./user-import";
 import { authenticateApiRequest } from "./utils/authenticate-api-request";
 import {
   authorizeAssetAccess,
@@ -752,6 +753,7 @@ export function createApp() {
   const workspaceApi = api.route("/workspace", workspace);
   const customFieldApi = api.route("/custom-field", customField);
   const userApi = api.route("/user", user);
+  const userImportApi = api.route("/import", userImport);
 
   app.route(
     "/",
@@ -889,6 +891,7 @@ export function createApp() {
     telegramIntegrationApi,
     timeEntryApi,
     userApi,
+    userImportApi,
     workflowRuleApi,
     workspaceApi,
     customFieldApi,
@@ -1016,6 +1019,7 @@ const {
   telegramIntegrationApi,
   timeEntryApi,
   userApi,
+  userImportApi,
   workflowRuleApi,
   workspaceApi,
   customFieldApi,
@@ -1059,6 +1063,7 @@ export type AppType =
   | typeof workspaceApi
   | typeof customFieldApi
   | typeof userApi
+  | typeof userImportApi
   | typeof publicProjectApi
   | typeof invitationPublicApi
   | typeof oauthApi;

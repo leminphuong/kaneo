@@ -1595,6 +1595,26 @@
 			"disabledDescription": "Billing isn't enabled on this instance. Self-hosted JOYDIGI TASK includes every feature, free forever.",
 			"pageTitle": "Billing",
 			"title": "Billing"
+		},
+		"importUsers": {
+			"chooseFile": "Choose JSON file",
+			"description": "Upload a JoyDigi Workspace JSON export to create accounts in bulk. An address that already has an account is left untouched, so re-running the same file never resets a password.",
+			"errors": {
+				"failed": "The import could not be completed.",
+				"missingFields": "Row {{row}} is missing ho_ten, ten_dang_nhap, email or mat_khau_mac_dinh.",
+				"notArray": "Expected a list of accounts, or an object with a \"users\" list.",
+				"notJson": "That file is not valid JSON."
+			},
+			"import": "Import {{count}} account(s)",
+			"importing": "Importing...",
+			"ready": "{{file}} — {{count}} account(s) ready",
+			"status": {
+				"created": "Created",
+				"error": "Failed",
+				"exists": "Already existed"
+			},
+			"summary": "Created {{created}} · Already existed {{existing}} · Failed {{failed}}",
+			"title": "Import accounts"
 		}
 	},
 	"navigation": {

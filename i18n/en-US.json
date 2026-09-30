@@ -463,6 +463,26 @@
 				"actionError": "Failed to update user status"
 			}
 		},
+		"importUsers": {
+			"title": "Import accounts",
+			"description": "Upload a JoyDigi Workspace JSON export to create accounts in bulk. An address that already has an account is left untouched, so re-running the same file never resets a password.",
+			"chooseFile": "Choose JSON file",
+			"ready": "{{file}} — {{count}} account(s) ready",
+			"import": "Import {{count}} account(s)",
+			"importing": "Importing...",
+			"summary": "Created {{created}} · Already existed {{existing}} · Failed {{failed}}",
+			"status": {
+				"created": "Created",
+				"exists": "Already existed",
+				"error": "Failed"
+			},
+			"errors": {
+				"notJson": "That file is not valid JSON.",
+				"notArray": "Expected a list of accounts, or an object with a \"users\" list.",
+				"missingFields": "Row {{row}} is missing ho_ten, ten_dang_nhap, email or mat_khau_mac_dinh.",
+				"failed": "The import could not be completed."
+			}
+		},
 		"informationPage": {
 			"pageTitle": "Personal Information",
 			"title": "Personal Information",
