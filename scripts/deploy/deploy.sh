@@ -184,7 +184,7 @@ ok "Deployed."
 echo
 echo "  Open:      $client_url"
 echo "  Logs:      docker compose -f compose.yml -f compose.build.yml logs -f kaneo"
-echo "  Update:    git pull && bash scripts/deploy/deploy.sh"
+echo "  Update:    push to GitHub; the deploy workflow does the rest"
 echo "  Stop:      docker compose -f compose.yml -f compose.build.yml down"
 echo
 echo "The first account registered becomes the instance administrator."

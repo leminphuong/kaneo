@@ -86,6 +86,33 @@ which a network attacker can exploit; pin it with
 The deploy step runs `git merge --ff-only` on the server, so the server must be
 a **git clone** of your repo (not an rsync copy) and must have no local commits.
 
+### A private repo needs no credentials on the server
+
+The workflow fetches using the job's own `GITHUB_TOKEN`, which is scoped to this
+repository and expires when the job ends, so the server is never given a
+standing credential for GitHub. It fetches from an explicit URL rather than from
+whatever `origin` points at, so the clone's remote can stay as it is.
+
+What this does *not* fix is a **manual** `git pull` while you are SSHed in: on a
+private repo that still fails with `could not read Username for
+'https://github.com'`, because your server has no GitHub credentials of its own.
+The automated deploy is unaffected. If you want manual pulls to work too, give
+the server a read-only deploy key:
+
+```bash
+ssh-keygen -t ed25519 -C "kaneo-server" -f ~/.ssh/github_kaneo -N ""
+cat ~/.ssh/github_kaneo.pub
+```
+
+Add that public key under your repo's **Settings → Deploy keys → Add deploy
+key** (leave write access off), then point the clone and SSH at it:
+
+```bash
+printf 'Host github.com\n  IdentityFile ~/.ssh/github_kaneo\n  IdentitiesOnly yes\n' >> ~/.ssh/config
+git -C /opt/kaneo remote set-url origin git@github.com:YOUR_USER/kaneo.git
+ssh -T git@github.com   # accept the host key once, so later pulls are not prompted
+```
+
 ## 1. Get the code onto the server
 
 Push this branch to your own Git remote, then on the server:

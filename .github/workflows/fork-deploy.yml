@@ -101,6 +101,10 @@ jobs:
           KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
           APP_DIR: ${{ vars.DEPLOY_PATH || '/opt/kaneo' }}
           REF_NAME: ${{ github.ref_name }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          # Scoped to this repository and expires when the job ends, so the
+          # server is never given a standing credential for GitHub.
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           mkdir -p ~/.ssh
@@ -164,28 +168,57 @@ jobs:
           fi
           chmod 600 ~/.ssh/known_hosts
 
-          # The remote script reads APP_DIR and REF_NAME from the runner via the
-          # quoted heredoc's arguments, so nothing is string-interpolated in.
+          # The remote script reads its inputs as the arguments of a quoted
+          # heredoc, so nothing is string-interpolated into it.
           # A docker build prints nothing for long stretches. Without
           # keepalives an idle NAT or firewall drops the session and the job
           # fails with a broken pipe while the build is still running on the
           # server. 30s x 240 tolerates two hours of silence.
-          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" \
-            -o ServerAliveInterval=30 \
-            -o ServerAliveCountMax=240 \
-            -o TCPKeepAlive=yes \
-            "$SSH_USER@$SSH_HOST" \
-            bash -s -- "$APP_DIR" "$REF_NAME" <<'REMOTE'
+          #
+          # The token is prepended to the script as its first line, an ordinary
+          # shell assignment, rather than passed as an argument: an argument is
+          # visible in `ps` to every local user, and this server also runs
+          # somebody else's web app. The heredoc body and its REMOTE terminator
+          # stay at this block's base indentation even though they sit inside
+          # the brace group - an indented terminator does not close a <<
+          # heredoc.
+          {
+            printf 'GH_TOKEN=%q\n' "$GH_TOKEN"
+            cat <<'REMOTE'
           set -euo pipefail
+          export GH_TOKEN
+          # Fail loudly instead of hanging or emitting the confusing
+          # "could not read Username" if authentication is ever wrong again.
+          export GIT_TERMINAL_PROMPT=0
           app_dir="$1"
           ref_name="$2"
+          repo_url="$3"
           cd "$app_dir"
-          git fetch --prune origin
+
+          # Fetch from an explicitly authenticated URL instead of whatever
+          # `origin` happens to be. The clone on the server has an https origin
+          # for a private repository and no credentials of its own, so plain
+          # `git fetch origin` asks for a username and dies on a session with
+          # no terminal. Credentials go through an inline helper, so the token
+          # never reaches this process's arguments, .git/config, or the reflog;
+          # the empty first helper drops any helper already configured on the
+          # box so it cannot answer first with something stale.
+          git -c credential.helper= \
+              -c 'credential.helper=!f() { echo username=x-access-token; echo "password=$GH_TOKEN"; }; f' \
+              fetch --no-tags "$repo_url" \
+              "+refs/heads/$ref_name:refs/remotes/origin/$ref_name"
+
           # --ff-only: refuse to deploy a merge nobody reviewed. If this fails,
           # the server has local commits and needs a human.
           git merge --ff-only "origin/$ref_name"
           bash scripts/deploy/deploy.sh
           REMOTE
+          } | ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" \
+            -o ServerAliveInterval=30 \
+            -o ServerAliveCountMax=240 \
+            -o TCPKeepAlive=yes \
+            "$SSH_USER@$SSH_HOST" \
+            bash -s -- "$APP_DIR" "$REF_NAME" "$REPO_URL"
 
       - name: Remove the deploy key
         if: always()
