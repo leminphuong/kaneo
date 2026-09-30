@@ -147,6 +147,29 @@ Docker layer cache.
 Re-run the same command after `git pull` to update. It never overwrites an
 existing `.env`, so secrets and data survive.
 
+### Never run bare `docker compose up` without the build overlay
+
+`compose.yml` names `ghcr.io/usekaneo/kaneo:latest`, which only ever contains
+**upstream** Kaneo. A plain `docker compose up -d` therefore pulls that image
+and silently replaces this fork with stock Kaneo — the branding, the seeded
+accounts and the `frame-ancestors` header all vanish, and the site can come
+back broken. This happened once already.
+
+`compose.override.yml` is committed to make that impossible: Compose loads it
+automatically, so a bare `docker compose up -d` now builds this working tree
+instead of pulling anything. It is the same content as `compose.build.yml`,
+which stays for the explicit `-f` form used by `deploy.sh` (passing `-f` turns
+automatic discovery off).
+
+If a server ever does come up on the upstream image, rebuild with
+`bash scripts/deploy/deploy.sh`, then check the database took no upstream
+schema changes — the count should match the number of files in
+`apps/api/drizzle/`:
+
+```bash
+docker compose exec -T postgres psql -U kaneo -d kaneo -c 'select count(*) from drizzle.__drizzle_migrations;'
+```
+
 ## 3a. Adding this as a second site on an aaPanel VPS
 
 If the server already runs another site through aaPanel's nginx (for example a
