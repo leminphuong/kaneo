@@ -52,6 +52,11 @@ backups/
 
 # Overrides
 compose.override.yml
+# ...except this fork's, which is committed on purpose. compose.yml names the
+# upstream image, so a plain `docker compose up -d` pulls usekaneo/kaneo and
+# silently replaces this fork with upstream. Compose loads the override
+# automatically, so shipping it makes that mistake impossible.
+!compose.override.yml
 
 # IntelliJ IDE
 .idea

@@ -1,0 +1,19 @@
+# Docker Compose loads this file automatically next to compose.yml, with no
+# -f flags. That is the whole point of it being here.
+#
+# compose.yml names `ghcr.io/usekaneo/kaneo:latest`, which only ever contains
+# upstream Kaneo. Without this override a plain `docker compose up -d` on the
+# server pulls that image and replaces this fork with upstream: the JOYDIGI
+# branding, the seeded accounts and the frame-ancestors header all disappear
+# and the site comes back as stock Kaneo. That has already happened once.
+#
+# Same content as compose.build.yml, which stays for the explicit invocation
+# in scripts/deploy/deploy.sh - passing -f turns automatic discovery off, so
+# the two files cover the two ways this gets run.
+services:
+  kaneo:
+    build:
+      context: .
+      dockerfile: Dockerfile.kaneo
+    image: kaneo-local:latest
+    pull_policy: never
