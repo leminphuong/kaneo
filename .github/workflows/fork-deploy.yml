@@ -208,24 +208,6 @@ jobs:
               fetch --no-tags "$repo_url" \
               "+refs/heads/$ref_name:refs/remotes/origin/$ref_name"
 
-          # A tracked file edited directly on the server aborts the merge with
-          # a message that names the files but not what changed in them, which
-          # means an SSH session just to find out. Say it here instead.
-          # Nothing is discarded: an edit somebody made on the server may be
-          # the only copy of it.
-          if ! git diff --quiet || ! git diff --cached --quiet; then
-            echo "::error::$app_dir has uncommitted changes; refusing to overwrite them."
-            echo "Someone edited tracked files directly on the server:"
-            git status --short
-            echo
-            git diff --stat
-            echo
-            echo "Inspect them first:  git -C $app_dir diff"
-            echo "Then either keep them (commit and push from the server) or drop"
-            echo "them (git -C $app_dir checkout -- <file>) and re-run this workflow."
-            exit 1
-          fi
-
           # --ff-only: refuse to deploy a merge nobody reviewed. If this fails,
           # the server has local commits and needs a human.
           git merge --ff-only "origin/$ref_name"
