@@ -15,6 +15,10 @@ import { ErrorBoundary } from "./components/ui/error-boundary";
 import { KeyboardShortcutsProvider } from "./hooks/use-keyboard-shortcuts";
 import { captureCheckoutIntent } from "./lib/checkout-intent";
 import { AppI18nProvider } from "./lib/i18n/provider";
+import {
+  completeWorkspaceSsoSignIn,
+  consumeWorkspaceSsoCode,
+} from "./lib/workspace-sso";
 import { routeTree } from "./routeTree.gen";
 
 // Capture a pricing-page `?checkout=<plan>-<interval>` deep link before the
@@ -72,8 +76,8 @@ function RootCrashFallback({
 }
 
 const rootElement = document.getElementById("root") as HTMLElement;
-if (!rootElement.innerHTML) {
-  const root = createRoot(rootElement);
+
+function renderApp(root: ReturnType<typeof createRoot>) {
   root.render(
     <StrictMode>
       <ErrorBoundary fallback={RootCrashFallback}>
@@ -92,4 +96,18 @@ if (!rootElement.innerHTML) {
       </ErrorBoundary>
     </StrictMode>,
   );
+}
+
+if (!rootElement.innerHTML) {
+  const root = createRoot(rootElement);
+  // When JoyDigi Workspace frames this app it puts a one-time sign-in code in
+  // the URL fragment. Redeem it before the first render, otherwise the app
+  // boots signed-out, shows its own sign-in form, and the hand-off is wasted.
+  // Nothing is delayed when there is no code: the common path never awaits.
+  const workspaceSsoCode = consumeWorkspaceSsoCode();
+  if (workspaceSsoCode) {
+    completeWorkspaceSsoSignIn(workspaceSsoCode).finally(() => renderApp(root));
+  } else {
+    renderApp(root);
+  }
 }

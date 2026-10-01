@@ -57,10 +57,17 @@ import {
   normalizeInvitationId,
 } from "./utils/registration-policy";
 import { authCaptchaPaths, verifyTurnstile } from "./utils/verify-turnstile";
+import { getWorkspaceSsoConfig } from "./workspace-sso/config";
+import { workspaceSso } from "./workspace-sso/plugin";
 
 config();
 
 const githubSso = getGithubSsoOAuthCredentials();
+
+// Null unless WORKSPACE_SSO_EXCHANGE_URL is set, and the plugin is left out
+// entirely in that case, so an instance that does not front JoyDigi Workspace
+// never exposes the endpoint at all.
+const workspaceSsoConfig = getWorkspaceSsoConfig();
 
 const isRegistrationDisabled = process.env.DISABLE_REGISTRATION === "true";
 const isPasswordRegistrationDisabled =
@@ -453,6 +460,7 @@ export const auth = betterAuth({
       adminRoles: ["admin"],
     }),
     openAPI(),
+    ...(workspaceSsoConfig ? [workspaceSso(workspaceSsoConfig)] : []),
   ],
   session: {
     cookieCache: {
