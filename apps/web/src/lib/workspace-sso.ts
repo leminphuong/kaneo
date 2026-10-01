@@ -23,6 +23,43 @@ const RETURN_FRAGMENT_KEY = "joydigi_sso_return_fragment";
 export const WORKSPACE_SSO_ERROR_KEY = "joydigi.sso.error";
 
 /**
+ * Reasons the API (or the hand-off itself) can report. The sign-in page has
+ * copy for each; anything else collapses to "generic" so a new server reason
+ * never surfaces as a missing-translation key.
+ */
+export const WORKSPACE_SSO_FAILURE_REASONS = [
+  "NO_MATCHING_ACCOUNT",
+  "ACCOUNT_NOT_VERIFIED",
+  "ACCOUNT_BANNED",
+  "INVALID_CODE",
+  "UNAVAILABLE",
+  "NETWORK",
+] as const;
+
+export type WorkspaceSsoFailureReason =
+  | (typeof WORKSPACE_SSO_FAILURE_REASONS)[number]
+  | "generic";
+
+/**
+ * Read, and clear, the reason the last hand-off failed. The sign-in page
+ * shows it once: a person who arrived through Workspace and still sees a
+ * password form deserves to know why, and so does the administrator they
+ * will ask. Without this the only trace is a console line nobody opens.
+ */
+export function takeWorkspaceSsoFailure(): WorkspaceSsoFailureReason | null {
+  try {
+    const stored = sessionStorage.getItem(WORKSPACE_SSO_ERROR_KEY);
+    if (!stored) return null;
+    sessionStorage.removeItem(WORKSPACE_SSO_ERROR_KEY);
+    return (WORKSPACE_SSO_FAILURE_REASONS as readonly string[]).includes(stored)
+      ? (stored as WorkspaceSsoFailureReason)
+      : "generic";
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Take the code out of the address bar and hand it back exactly once.
  *
  * The fragment is rewritten before anything else happens, so the code is not

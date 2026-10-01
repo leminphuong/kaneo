@@ -1,5 +1,9 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { consumeWorkspaceSsoCode } from "./workspace-sso";
+import {
+  consumeWorkspaceSsoCode,
+  takeWorkspaceSsoFailure,
+  WORKSPACE_SSO_ERROR_KEY,
+} from "./workspace-sso";
 
 const CODE = "f".repeat(64);
 
@@ -66,5 +70,29 @@ describe("taking the Workspace sign-in code out of the URL", () => {
     visit("#joydigi_sso_code=&joydigi_sso_app=task");
 
     expect(consumeWorkspaceSsoCode()).toBeNull();
+  });
+});
+
+describe("telling the sign-in page why a hand-off failed", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  it("hands the recorded reason over exactly once", () => {
+    sessionStorage.setItem(WORKSPACE_SSO_ERROR_KEY, "NO_MATCHING_ACCOUNT");
+
+    expect(takeWorkspaceSsoFailure()).toBe("NO_MATCHING_ACCOUNT");
+    expect(takeWorkspaceSsoFailure()).toBeNull();
+  });
+
+  // A reason the server grows later must not become a missing i18n key.
+  it("collapses an unknown reason to generic", () => {
+    sessionStorage.setItem(WORKSPACE_SSO_ERROR_KEY, "SOMETHING_NEW");
+
+    expect(takeWorkspaceSsoFailure()).toBe("generic");
+  });
+
+  it("is silent when no hand-off happened", () => {
+    expect(takeWorkspaceSsoFailure()).toBeNull();
   });
 });

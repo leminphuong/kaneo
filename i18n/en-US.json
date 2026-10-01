@@ -374,6 +374,16 @@
 			"resetError": "Could not reset your password. Please try again.",
 			"success": "Your password has been reset. Sign in with your new password.",
 			"backToSignIn": "Back to sign in"
+		},
+		"workspaceSso": {
+			"title": "Sign-in through Workspace did not complete",
+			"NO_MATCHING_ACCOUNT": "No account on this instance uses your Workspace email address. Ask an administrator to add you.",
+			"ACCOUNT_NOT_VERIFIED": "The account with this email was self-registered and never verified, so it cannot be claimed through Workspace. An administrator needs to import it.",
+			"ACCOUNT_BANNED": "This account is suspended.",
+			"INVALID_CODE": "The sign-in code from Workspace is invalid, expired or already used. Press Reload in Workspace to get a fresh one.",
+			"UNAVAILABLE": "Workspace could not be reached to verify the sign-in. Try again in a moment.",
+			"NETWORK": "The sign-in request could not be sent. Check your connection and press Reload.",
+			"generic": "Signing in through Workspace failed. You can still sign in with your email and password."
 		}
 	},
 	"settings": {

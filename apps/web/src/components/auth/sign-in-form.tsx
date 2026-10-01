@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "@/lib/toast";
+import { takeWorkspaceSsoFailure } from "@/lib/workspace-sso";
 
 export type SignInFormValues = {
   email: string;
@@ -36,6 +37,10 @@ export function SignInForm({ onSuccess, defaultEmail }: SignInFormProps) {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  // Read once on mount: the hand-off from Workspace ran before this page
+  // rendered, and if it failed this form is what the person sees instead of
+  // their board. Say why, or they will assume Workspace itself is broken.
+  const [workspaceSsoFailure] = useState(() => takeWorkspaceSsoFailure());
   const form = useForm<SignInFormValues>({
     resolver: standardSchemaResolver(signInSchema),
     defaultValues: {
@@ -75,6 +80,19 @@ export function SignInForm({ onSuccess, defaultEmail }: SignInFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+        {workspaceSsoFailure && (
+          <div
+            role="alert"
+            className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm"
+          >
+            <p className="font-medium text-destructive">
+              {t("auth:workspaceSso.title")}
+            </p>
+            <p className="mt-1 text-muted-foreground">
+              {t(`auth:workspaceSso.${workspaceSsoFailure}`)}
+            </p>
+          </div>
+        )}
         <div className="space-y-3">
           <FormField
             control={form.control}

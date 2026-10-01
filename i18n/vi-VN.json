@@ -374,6 +374,16 @@
 			"resetError": "Không đặt lại được mật khẩu. Vui lòng thử lại.",
 			"success": "Mật khẩu của bạn đã được đặt lại. Hãy đăng nhập bằng mật khẩu mới.",
 			"backToSignIn": "Quay lại đăng nhập"
+		},
+		"workspaceSso": {
+			"title": "Đăng nhập qua Workspace chưa hoàn tất",
+			"NO_MATCHING_ACCOUNT": "Không có tài khoản nào trên hệ thống này dùng email Workspace của bạn. Hãy nhờ quản trị viên thêm bạn vào.",
+			"ACCOUNT_NOT_VERIFIED": "Tài khoản dùng email này được tự đăng ký và chưa xác minh, nên không thể nhận qua Workspace. Quản trị viên cần import lại tài khoản.",
+			"ACCOUNT_BANNED": "Tài khoản này đã bị khoá.",
+			"INVALID_CODE": "Mã đăng nhập từ Workspace không hợp lệ, đã hết hạn hoặc đã dùng. Bấm Reload trong Workspace để lấy mã mới.",
+			"UNAVAILABLE": "Không kết nối được tới Workspace để xác minh đăng nhập. Thử lại sau giây lát.",
+			"NETWORK": "Không gửi được yêu cầu đăng nhập. Kiểm tra kết nối mạng rồi bấm Reload.",
+			"generic": "Đăng nhập qua Workspace thất bại. Bạn vẫn có thể đăng nhập bằng email và mật khẩu."
 		}
 	},
 	"settings": {
