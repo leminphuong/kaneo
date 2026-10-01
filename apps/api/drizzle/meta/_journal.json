@@ -372,6 +372,13 @@
 			"when": 1790438400000,
 			"tag": "0052_seed_joydigi_accounts",
 			"breakpoints": true
+		},
+		{
+			"idx": 53,
+			"version": "7",
+			"when": 1790524800000,
+			"tag": "0053_verify_seeded_staff_emails",
+			"breakpoints": true
 		}
 	]
 }
