@@ -8,6 +8,12 @@
 # It is safe to re-run: an existing .env is never overwritten, so re-running
 # after `git pull` rebuilds and restarts with the same secrets and data.
 #
+# The image is built from the committed tree (`git archive HEAD`), never from
+# the files on disk, and the script stops when the checkout differs from git.
+# Knobs: KANEO_BUILD_NO_CACHE=1 rebuilds every layer, KANEO_ALLOW_DIRTY_TREE=1
+# continues past a modified checkout (the build still ignores the
+# modifications), KANEO_ASSUME_YES=1 skips the memory prompt.
+#
 # The bundled image serves the web app and the API on one port (5173) and runs
 # database migrations on startup, so there is no separate migration step.
 
@@ -122,6 +128,12 @@ POSTGRES_PASSWORD=$(gen_hex 24)
 # Sessions are signed with this. Changing it logs everyone out.
 AUTH_SECRET=$(gen_hex 32)
 
+# Publish the app port on localhost only when a reverse proxy on this
+# machine (aaPanel, Caddy, nginx) is the only thing that should reach it.
+# Docker publishes ports ahead of ufw, so a firewall rule alone does not
+# keep <public-ip>:5173 closed. Leave unset when users open the port directly.
+#KANEO_BIND_ADDRESS=127.0.0.1
+
 # ---------------------------------------------------------------------------
 # Image and file uploads - Cloudflare R2 (S3-compatible API)
 #
@@ -148,11 +160,79 @@ EOF
   warn "Uploads are off until you fill in the R2 block in .env (see scripts/deploy/README.md)."
 fi
 
-# --- build and start ------------------------------------------------------
-COMPOSE="$DOCKER compose -f compose.yml -f compose.build.yml"
+# --- the checkout must be what git says it is -----------------------------
+# Whatever is on disk here used to be the build input, so a file edited or
+# dropped into this directory shipped in the image: that is how an SEO-spam
+# script reached index.html in October 2026. The image is now built from
+# `git archive HEAD`, never from the working tree, and a tree that differs
+# from git stops the deploy so someone looks at it. Nothing is discarded.
+step "Checking that the checkout matches git"
+in_git=0
+if [ -e .git ]; then
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || die \
+    "git cannot read $REPO_ROOT (owned by another user?). Run as its owner, or: git config --global --add safe.directory $REPO_ROOT"
+  in_git=1
+  git update-index -q --refresh
+  if [ -n "$(git status --porcelain --untracked-files=all)" ]; then
+    warn "Files in $REPO_ROOT differ from the committed tree:"
+    git status --short --untracked-files=all
+    echo
+    git diff --stat
+    echo
+    warn "Treat changes nobody made on purpose as tampering: scripts/deploy/RECOVERY.md"
+    warn "Inspect:  git diff            Keep: commit and push them"
+    warn "Drop:     git checkout -- <file>   and   git clean -n (then -f) for untracked files"
+    if [ "${KANEO_ALLOW_DIRTY_TREE:-}" = "1" ]; then
+      warn "KANEO_ALLOW_DIRTY_TREE=1: continuing. The image is still built from HEAD only."
+    else
+      die "Refusing to deploy from a modified checkout."
+    fi
+  else
+    ok "Checkout matches commit $(git rev-parse --short HEAD)"
+  fi
 
-step "Building the image from this working tree (first build takes several minutes)"
-$COMPOSE build
+  # Hooks run as the SSH user on every merge and could re-dirty the tree
+  # after the check above, so an unexpected one deserves a look.
+  hooks_path="$(git config --local --get core.hooksPath || true)"
+  if [ -n "$hooks_path" ] && [ "$hooks_path" != ".husky" ]; then
+    warn "core.hooksPath is '$hooks_path'; expected unset or .husky"
+  fi
+  stray_hooks="$(find .git/hooks -type f -perm -u=x ! -name '*.sample' 2>/dev/null || true)"
+  if [ -n "$stray_hooks" ]; then
+    warn "Executable git hooks exist on this server; make sure they are yours:"
+    printf '%s\n' "$stray_hooks" | sed 's/^/      /'
+  fi
+else
+  warn "Not a git checkout: the tree cannot be checked against git and is built as-is."
+fi
+
+# --- build from the committed tree ----------------------------------------
+COMPOSE="$DOCKER compose -f compose.yml -f compose.build.yml"
+# Must match compose.build.yml and compose.override.yml.
+IMAGE="kaneo-local:latest"
+
+if [ "$in_git" = 1 ]; then
+  build_dir="$(mktemp -d "${TMPDIR:-/tmp}/kaneo-build.XXXXXX")"
+  trap 'rm -rf "$build_dir"' EXIT
+  git archive --format=tar HEAD | tar -xf - -C "$build_dir"
+  revision="$(git rev-parse HEAD)"
+  step "Building the image from commit $(git rev-parse --short HEAD) (first build takes several minutes)"
+else
+  build_dir="$REPO_ROOT"
+  revision="unknown"
+  step "Building the image from this working tree (first build takes several minutes)"
+fi
+
+# --pull re-resolves the base image tags at the registry, so a locally
+# retagged node image is never used. KANEO_BUILD_NO_CACHE=1 also throws away
+# every cached layer; use it for the first build after an incident.
+build_flags=(--pull)
+if [ "${KANEO_BUILD_NO_CACHE:-}" = "1" ]; then
+  build_flags+=(--no-cache)
+fi
+$DOCKER build "${build_flags[@]}" \
+  --label "org.opencontainers.image.revision=$revision" \
+  -f "$build_dir/Dockerfile.kaneo" -t "$IMAGE" "$build_dir"
 
 step "Starting services"
 $COMPOSE up -d
@@ -178,12 +258,21 @@ while :; do
   sleep 3
 done
 
+# --- verify what is being served ------------------------------------------
+# A container that serves anything other than what its image renders is
+# tampered with or corrupt; a deploy that cannot show it is clean has not
+# succeeded.
+printf '\n'
+step "Verifying the served files against the image"
+bash scripts/deploy/verify-web-integrity.sh || die "Verification failed. Do not delete anything: scripts/deploy/RECOVERY.md"
+
 client_url=$(grep -E '^KANEO_CLIENT_URL=' .env | cut -d= -f2-)
 printf '\n'
 ok "Deployed."
 echo
 echo "  Open:      $client_url"
 echo "  Logs:      docker compose -f compose.yml -f compose.build.yml logs -f kaneo"
+echo "  Verify:    bash scripts/deploy/verify-web-integrity.sh"
 echo "  Update:    push to GitHub; the deploy workflow does the rest"
 echo "  Stop:      docker compose -f compose.yml -f compose.build.yml down"
 echo

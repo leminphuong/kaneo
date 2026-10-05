@@ -18,9 +18,20 @@ services:
   kaneo:
     image: ghcr.io/usekaneo/kaneo:latest
     ports:
-      - "5173:5173"
+      # KANEO_BIND_ADDRESS=127.0.0.1 in .env keeps the port off the public
+      # interface when a reverse proxy on this host is the only client.
+      # Docker publishes ports ahead of ufw, so a firewall rule alone is not
+      # enough to close <public-ip>:5173.
+      - "${KANEO_BIND_ADDRESS:-0.0.0.0}:5173:5173"
     env_file:
       - .env
+    # The container already runs as an unprivileged user; these take away
+    # only what nothing in it uses, so a compromised process cannot gain it.
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 512
     depends_on:
       postgres:
         condition: service_healthy

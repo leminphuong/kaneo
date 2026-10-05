@@ -147,6 +147,20 @@ Docker layer cache.
 Re-run the same command after `git pull` to update. It never overwrites an
 existing `.env`, so secrets and data survive.
 
+The image is built from the commit that is checked out (`git archive HEAD`),
+never from the files on disk, and the script stops when the checkout differs
+from git: an edited or added file on the server is how an injected script once
+reached production. Once the containers are healthy it runs
+`scripts/deploy/verify-web-integrity.sh`, which compares what the running
+container serves with what its image renders and with what the public URL
+returns. If either step stops the deploy, read [RECOVERY.md](./RECOVERY.md)
+before deleting anything.
+
+Knobs, all optional: `KANEO_BUILD_NO_CACHE=1` rebuilds every layer,
+`KANEO_ALLOW_DIRTY_TREE=1` continues past a modified checkout (the build still
+ignores the modifications), `KANEO_SKIP_PUBLIC_CHECK=1` skips the public-URL
+comparison when a proxy legitimately rewrites responses.
+
 ## 3a. Adding this as a second site on an aaPanel VPS
 
 If the server already runs another site through aaPanel's nginx (for example a
@@ -191,6 +205,14 @@ bash scripts/deploy/aapanel-add-site.sh task.joydigi.net 5173
 
 Deploy first so something answers on 5173; the site script warns but continues
 if nothing is listening yet.
+
+Once the vhost works, keep the app port off the public interface. Docker
+publishes ports ahead of ufw, so without this `<public-ip>:5173` answers
+directly, bypassing Cloudflare and the vhost:
+
+```bash
+echo 'KANEO_BIND_ADDRESS=127.0.0.1' >> .env && docker compose -f compose.yml -f compose.build.yml up -d
+```
 
 ## 3b. Put TLS in front (clean server, no aaPanel)
 
@@ -317,11 +339,30 @@ docker compose exec -T postgres psql -U kaneo -d kaneo_restore -c 'select count(
 docker compose exec -T postgres dropdb -U kaneo kaneo_restore
 ```
 
+## 6. Check what is being served
+
+```bash
+bash scripts/deploy/verify-web-integrity.sh
+```
+
+It renders the public configuration into a throwaway container from the same
+image and compares that web root, file by file, with the running container's;
+lists any change in the container's filesystem that the image does not
+explain; and fetches `index.html` and the assets it references through the
+local port and the public URL. Any difference exits non-zero. The deploy runs
+it at the end, and it is cheap enough to run from cron.
+
+If it fails, or if the deploy stops on a modified checkout, follow
+[RECOVERY.md](./RECOVERY.md): evidence first, then a clean rebuild, then new
+secrets, then a fresh host.
+
 ## Troubleshooting
 
 | Symptom | Cause |
 | --- | --- |
 | Build dies with `exit code 137` | Out of memory. Add swap (see Requirements). |
+| Deploy stops: "differs from the committed tree" | Files on the server were edited or added outside git. Inspect them; see [RECOVERY.md](./RECOVERY.md). |
+| Deploy stops: "Verification failed" | The container serves something its image does not produce, or the public URL returns something else, often a CDN still serving cached old assets. Purge the cache and re-run the check; otherwise see [RECOVERY.md](./RECOVERY.md). |
 | `DATABASE_URL is not set and POSTGRES_PASSWORD is not set` | `.env` is missing or `POSTGRES_PASSWORD` is empty. |
 | App loads but sign-in fails after restart | `AUTH_SECRET` is unset, so a random one is generated per start. |
 | Board does not update live | The reverse proxy is not forwarding WebSocket upgrades. |

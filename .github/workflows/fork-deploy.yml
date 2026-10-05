@@ -195,6 +195,27 @@ jobs:
           repo_url="$3"
           cd "$app_dir"
 
+          # Refuse to deploy from a checkout that differs from git. A file
+          # edited on the server or dropped into the tree used to be baked
+          # into the image unnoticed: an SEO-spam script reached index.html
+          # that way in October 2026. Nothing is discarded; the job stops so
+          # someone looks. deploy.sh repeats the check after the merge and
+          # builds from `git archive HEAD`, never from the working tree.
+          git update-index -q --refresh
+          if [ -n "$(git status --porcelain --untracked-files=all)" ]; then
+            echo "::error::$app_dir differs from the committed tree; refusing to deploy from it."
+            echo "Files on the server that git did not put there (edited, staged or untracked):"
+            git status --short --untracked-files=all
+            echo
+            git diff --stat
+            echo
+            echo "Treat changes nobody made on purpose as tampering: scripts/deploy/RECOVERY.md"
+            echo "Inspect:  git -C $app_dir diff"
+            echo "Keep:     commit and push them from the server."
+            echo "Drop:     git -C $app_dir checkout -- <file>; git -C $app_dir clean -n (then -f)"
+            exit 1
+          fi
+
           # Fetch from an explicitly authenticated URL instead of whatever
           # `origin` happens to be. The clone on the server has an https origin
           # for a private repository and no credentials of its own, so plain
