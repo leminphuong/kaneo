@@ -13,10 +13,10 @@ What this looked like in October 2026: `index.html` on task.joydigi.net
 carried an SEO-spam script before `</body>`, one JS chunk was cut off at
 4096 bytes, and the same script sat on another site on the same server. A
 local build of the same commit reproduced the asset names exactly, with the
-injected script as the only difference, so the file had been edited in the
-server's checkout and baked into the image by the next deploy. Nothing in git
-or in the dependencies was involved. The repository changes that came out of
-it are listed at the end.
+injected script as the only difference, so the script was added on the server:
+either in the checkout before a build, or straight into the image or the
+running container afterwards. Nothing in git or in the dependencies was
+involved. The repository changes that came out of it are listed at the end.
 
 ## 1. Keep the evidence
 
@@ -39,6 +39,21 @@ Copy the tampered files themselves before touching them, for example:
 ```bash
 cp /opt/kaneo/apps/web/index.html ./index.html.tampered
 ```
+
+`docker-diff.txt` says where the injection lives. A line such as
+`C /usr/share/nginx/html/index.html` means the running container was written
+to after it started, which only someone with root on the host (or the Docker
+socket) can do. No such line means the image itself carries it, so the build
+input was tampered with. Check the image directly:
+
+```bash
+docker run --rm --entrypoint sh kaneo-local:latest -c 'grep -c __contentLoaded /usr/share/nginx/html/index.html'
+```
+
+Files that the guard lists but that you recognise (an old `.bak` from a manual
+edit, say) are not the injection, but they are exactly what the guard exists
+for: anything under `apps/web` used to be copied into the image as it was.
+Keep a copy, then remove them so the build input is the commit alone.
 
 Then look for how they got there. Anything modified recently that you did not
 change is a lead, and so is any user, key, cron entry or process you do not
