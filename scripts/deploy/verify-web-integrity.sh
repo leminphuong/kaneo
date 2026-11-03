@@ -108,6 +108,10 @@ baseline="$baseline"'|^C /usr/share/nginx/html/assets/[^/]+\.js$'
 baseline="$baseline"'|^[AC] /usr/share/nginx/html/mcp-oauth-(resource|authorization)\.json$'
 baseline="$baseline"'|^[AC] /var/lib/nginx(/tmp(/.*)?)?$'
 baseline="$baseline"'|^[AC] /var/log/nginx(/.*)?$'
+# `docker diff` also marks every ancestor of a changed path as C. A C on a
+# directory says only that something below it changed, and that something is
+# listed on its own line and judged above, so the bare ancestors are noise.
+baseline="$baseline"'|^C /(usr|usr/share|usr/share/nginx|var|var/lib|var/log)$'
 unexpected="$($DOCKER diff "$container" | grep -Ev "$baseline" || true)"
 if [ -n "$unexpected" ]; then
   warn "Changes in the container filesystem that nothing in the image explains:"
