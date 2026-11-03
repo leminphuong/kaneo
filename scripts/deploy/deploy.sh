@@ -157,7 +157,55 @@ AUTH_SECRET=$(gen_hex 32)
 #S3_FORCE_PATH_STYLE=false
 EOF
   ok "Wrote .env with a generated database password and AUTH_SECRET"
-  warn "Uploads are off until you fill in the R2 block in .env (see scripts/deploy/README.md)."
+fi
+
+# --- uploads on Cloudflare R2 ---------------------------------------------
+# The deploy workflow passes the R2_* repository secrets through. They are
+# written over the S3_* lines on every deploy, so GitHub stays the one place
+# they are set and a rotated key reaches the server without anyone logging in.
+# Without them .env is left as it is, which keeps hand-edited values working.
+step "Checking upload storage"
+r2_vars=(R2_ACCOUNT_ID R2_BUCKET R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY)
+r2_given=""; r2_missing=""
+for name in "${r2_vars[@]}"; do
+  if [ -n "${!name:-}" ]; then r2_given=1; else r2_missing="$r2_missing $name"; fi
+done
+if [ -n "$r2_given" ]; then
+  [ -z "$r2_missing" ] || die "Only some R2 secrets are set. Missing:$r2_missing"
+  for name in "${r2_vars[@]}"; do
+    # Whitespace from a sloppy paste would split the .env line or end up in
+    # the value. None of these values ever contain any, so it is dropped.
+    printf -v "$name" '%s' "$(printf '%s' "${!name}" | tr -d '[:space:]')"
+    [[ "${!name}" =~ ^[A-Za-z0-9._:/-]+$ ]] || die \
+      "$name has characters it never contains. Re-paste the secret without quotes."
+  done
+  # The full S3 API endpoint is pasted as often as the bare account id.
+  r2_endpoint="${R2_ACCOUNT_ID%/}"
+  case "$r2_endpoint" in
+    *.r2.dev*) die "R2_ACCOUNT_ID is the public r2.dev domain, which cannot take signed uploads. Use the account id." ;;
+    https://*) ;;
+    *) r2_endpoint="https://$r2_endpoint.r2.cloudflarestorage.com" ;;
+  esac
+
+  r2_marker="# Managed by deploy.sh from the R2_* GitHub secrets; change them there."
+  r2_kept="$(grep -vxF "$r2_marker" .env | grep -vE '^S3_(ENDPOINT|BUCKET|ACCESS_KEY_ID|SECRET_ACCESS_KEY|REGION|FORCE_PATH_STYLE)=' || true)"
+  # Rewritten in place rather than replaced, so .env keeps its owner and mode.
+  {
+    printf '%s\n\n%s\n' "$r2_kept" "$r2_marker"
+    printf 'S3_ENDPOINT=%s\n' "$r2_endpoint"
+    printf 'S3_BUCKET=%s\n' "$R2_BUCKET"
+    printf 'S3_ACCESS_KEY_ID=%s\n' "$R2_ACCESS_KEY_ID"
+    printf 'S3_SECRET_ACCESS_KEY=%s\n' "$R2_SECRET_ACCESS_KEY"
+    # R2 has no regions, but the SDK requires one and Cloudflare documents "auto".
+    printf 'S3_REGION=auto\n'
+    printf 'S3_FORCE_PATH_STYLE=false\n'
+  } > .env
+  ok "Uploads go to R2 bucket $R2_BUCKET at $r2_endpoint"
+elif grep -qE '^S3_ENDPOINT=.+' .env && grep -qE '^S3_BUCKET=.+' .env; then
+  ok "Using the S3_* settings already in .env"
+else
+  warn "Uploads are off: images in task descriptions and comments fail with \"Uploads are not configured\"."
+  warn "Set the R2_* repository secrets and redeploy (see scripts/deploy/README.md)."
 fi
 
 # --- the checkout must be what git says it is -----------------------------

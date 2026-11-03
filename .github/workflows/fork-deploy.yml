@@ -71,7 +71,12 @@ jobs:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           SSH_HOST: ${{ secrets.DEPLOY_HOST }}
           SSH_USER: ${{ secrets.DEPLOY_USER }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
+          # Optional, so it never stops a deploy; the server's .env decides.
+          if [ -z "$R2_SECRET_ACCESS_KEY" ]; then
+            echo "::notice::R2_* secrets are not set; uploads use whatever S3_* settings the server's .env already has."
+          fi
           missing=""
           [ -n "$SSH_KEY" ]  || missing="$missing DEPLOY_SSH_KEY"
           [ -n "$SSH_HOST" ] || missing="$missing DEPLOY_HOST"
@@ -105,6 +110,12 @@ jobs:
           # Scoped to this repository and expires when the job ends, so the
           # server is never given a standing credential for GitHub.
           GH_TOKEN: ${{ github.token }}
+          # Optional. deploy.sh writes them into the server's .env as the S3_*
+          # settings that send uploads to Cloudflare R2.
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: |
           set -euo pipefail
           mkdir -p ~/.ssh
@@ -175,18 +186,20 @@ jobs:
           # fails with a broken pipe while the build is still running on the
           # server. 30s x 240 tolerates two hours of silence.
           #
-          # The token is prepended to the script as its first line, an ordinary
-          # shell assignment, rather than passed as an argument: an argument is
-          # visible in `ps` to every local user, and this server also runs
-          # somebody else's web app. The heredoc body and its REMOTE terminator
-          # stay at this block's base indentation even though they sit inside
-          # the brace group - an indented terminator does not close a <<
-          # heredoc.
+          # The token and the R2 secrets are prepended to the script as its
+          # first lines, ordinary shell assignments, rather than passed as
+          # arguments: an argument is visible in `ps` to every local user, and
+          # this server also runs somebody else's web app. The heredoc body and
+          # its REMOTE terminator stay at this block's base indentation even
+          # though they sit inside the brace group - an indented terminator
+          # does not close a << heredoc.
           {
-            printf 'GH_TOKEN=%q\n' "$GH_TOKEN"
+            for name in GH_TOKEN R2_ACCOUNT_ID R2_BUCKET R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY; do
+              printf '%s=%q\n' "$name" "${!name}"
+            done
             cat <<'REMOTE'
           set -euo pipefail
-          export GH_TOKEN
+          export GH_TOKEN R2_ACCOUNT_ID R2_BUCKET R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
           # Fail loudly instead of hanging or emitting the confusing
           # "could not read Username" if authentication is ever wrong again.
           export GIT_TERMINAL_PROMPT=0

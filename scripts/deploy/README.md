@@ -65,6 +65,7 @@ Under **Settings → Secrets and variables → Actions**:
 | Secret | `DEPLOY_SSH_KEY` | **private** key, full PEM including the BEGIN/END lines |
 | Secret | `DEPLOY_PORT` | optional, default `22` |
 | Secret | `DEPLOY_KNOWN_HOSTS` | optional but recommended: `ssh-keyscan <host>` output |
+| Secret | `R2_ACCOUNT_ID`, `R2_BUCKET`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | optional: turn uploads on, see [section 4](#4-uploads-on-cloudflare-r2) |
 
 Generate a key pair used only for deployment, and give the public half to the
 server:
@@ -255,11 +256,31 @@ sudo ufw deny 5173/tcp
 ## 4. Uploads on Cloudflare R2
 
 Kaneo talks to any S3-compatible store through the `S3_*` variables; R2 is one
-of them, so this is configuration, not a code change. Uploads stay off until
-you fill the block in `.env`.
+of them, so this is configuration, not a code change. Until they are set,
+uploading an image fails with "Uploads are not configured".
 
 Create the bucket and an **R2 API token** with Object Read & Write in the
-Cloudflare dashboard, then uncomment and fill these in `.env`:
+Cloudflare dashboard.
+
+### From GitHub Actions (recommended)
+
+Add four repository secrets under **Settings → Secrets and variables →
+Actions**, then push or re-run the **Fork CI and deploy** workflow:
+
+| Secret | Value |
+| --- | --- |
+| `R2_ACCOUNT_ID` | the Cloudflare account id (or the full `https://<ACCOUNT_ID>.r2.cloudflarestorage.com` endpoint) |
+| `R2_BUCKET` | the bucket name, e.g. `kaneo-uploads` |
+| `R2_ACCESS_KEY_ID` | the token's Access Key ID |
+| `R2_SECRET_ACCESS_KEY` | the token's Secret Access Key |
+
+Every deploy writes them into the server's `.env` as the `S3_*` lines below,
+replacing whatever was there, so rotate a key by changing the secret and
+redeploying. Without the secrets the deploy leaves `.env` alone.
+
+### By hand
+
+Uncomment and fill these in `.env` on the server:
 
 ```env
 S3_ENDPOINT=https://<ACCOUNT_ID>.r2.cloudflarestorage.com
