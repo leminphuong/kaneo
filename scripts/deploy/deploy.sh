@@ -183,8 +183,25 @@ if [ -n "$r2_given" ]; then
   r2_endpoint="${R2_ACCOUNT_ID%/}"
   case "$r2_endpoint" in
     *.r2.dev*) die "R2_ACCOUNT_ID is the public r2.dev domain, which cannot take signed uploads. Use the account id." ;;
-    https://*) ;;
+    http://*) die "R2_ACCOUNT_ID must use https://, or be just the account id." ;;
+    https://*)
+      # The bucket settings page shows the S3 API URL with the bucket name
+      # appended. The SDK keeps an endpoint's path and puts it in front of
+      # every key, so reads ask for <bucket>/workspace/... and miss every
+      # object that is actually there. R2's endpoint never has a path.
+      r2_host="${r2_endpoint#https://}"
+      r2_host="${r2_host%%/*}"
+      if [ "https://$r2_host" != "$r2_endpoint" ]; then
+        warn "Dropped the path from R2_ACCOUNT_ID; the S3 endpoint is the host alone."
+      fi
+      r2_endpoint="https://$r2_host"
+      ;;
+    */*) die "R2_ACCOUNT_ID must be the account id or https://<ACCOUNT_ID>.r2.cloudflarestorage.com" ;;
     *) r2_endpoint="https://$r2_endpoint.r2.cloudflarestorage.com" ;;
+  esac
+  case "$r2_endpoint" in
+    https://*.r2.cloudflarestorage.com) ;;
+    *) die "R2_ACCOUNT_ID resolves to $r2_endpoint, which is not an R2 S3 API endpoint (https://<ACCOUNT_ID>.r2.cloudflarestorage.com)." ;;
   esac
 
   r2_marker="# Managed by deploy.sh from the R2_* GitHub secrets; change them there."
