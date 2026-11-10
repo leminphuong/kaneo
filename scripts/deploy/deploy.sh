@@ -203,6 +203,14 @@ if [ -n "$r2_given" ]; then
   # The optional label is a jurisdiction endpoint such as <id>.eu.r2...
   [[ "$r2_endpoint" =~ ^https://[0-9a-f]{32}(\.[a-z]+)?\.r2\.cloudflarestorage\.com$ ]] || die \
     "R2_ACCOUNT_ID must be the account id or https://<ACCOUNT_ID>.r2.cloudflarestorage.com, optionally followed by /$R2_BUCKET."
+  # All three are hex and two are 32 characters, so they get swapped. R2 then
+  # answers every upload with 401, long after the deploy reported success.
+  [[ "$R2_ACCESS_KEY_ID" =~ ^[0-9a-f]{32}$ ]] || die \
+    "R2_ACCESS_KEY_ID must be the token's 32-character Access Key ID (got ${#R2_ACCESS_KEY_ID} characters)."
+  [ "$R2_ACCESS_KEY_ID" != "$r2_account" ] || die \
+    "R2_ACCESS_KEY_ID is the account id. Use the Access Key ID shown when the R2 API token was created."
+  [[ "$R2_SECRET_ACCESS_KEY" =~ ^[0-9a-f]{64}$ ]] || die \
+    "R2_SECRET_ACCESS_KEY must be the token's 64-character Secret Access Key (got ${#R2_SECRET_ACCESS_KEY} characters)."
 
   r2_marker="# Managed by deploy.sh from the R2_* GitHub secrets; change them there."
   r2_kept="$(grep -vxF "$r2_marker" .env | grep -vE '^S3_(ENDPOINT|BUCKET|ACCESS_KEY_ID|SECRET_ACCESS_KEY|REGION|FORCE_PATH_STYLE)=' || true)"
