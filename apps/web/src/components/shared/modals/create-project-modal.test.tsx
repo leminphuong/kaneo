@@ -35,11 +35,11 @@ function makeTemplate(): ProjectTemplate {
   return {
     key: "game-production-pipeline",
     version: 1,
-    name: "GAME PRODUCTION PIPELINE",
+    name: "QUY TRÌNH SẢN XUẤT GAME",
     description:
-      "Quản lý toàn bộ vòng đời game H5: tìm trend, duyệt ý tưởng, phát triển MVP, kiểm thử, Soft Launch, phân tích dữ liệu và Scale.",
+      "Quản lý toàn bộ vòng đời game H5: săn xu hướng, duyệt ý tưởng, phát triển bản MVP, kiểm thử, phát hành thử, phân tích dữ liệu và mở rộng.",
     project: {
-      name: "Game H5 — Production Pipeline",
+      name: "Game H5 — Quy trình sản xuất",
       description:
         "Quản lý sản xuất game H5 từ Idea đến Scale, có Gate Review, checklist và KPI cho từng giai đoạn.",
       icon: "Rocket",
@@ -102,7 +102,7 @@ function makeTemplate(): ProjectTemplate {
         {
           key: "scope",
           name: "Phạm vi",
-          labels: [{ name: "MVP", color: "gray" }],
+          labels: [{ name: "Bản MVP", color: "gray" }],
         },
       ],
     },
@@ -209,7 +209,7 @@ describe("template drafts", () => {
       canBeProducer: true,
       now: new Date("2026-11-09T18:30:00.000Z"),
     });
-    expect(draft.name).toBe("Game H5 — Production Pipeline");
+    expect(draft.name).toBe("Game H5 — Quy trình sản xuất");
     expect(draft.description).toContain("Gate Review");
     // 18:30 UTC is already the next day in Asia/Ho_Chi_Minh (UTC+7).
     expect(draft.template?.config.startDate).toBe("2026-11-10");
@@ -254,7 +254,7 @@ describe("CreateProjectModal", () => {
     fireEvent.click(useTemplateButton());
 
     expect(
-      screen.getByDisplayValue("Game H5 — Production Pipeline"),
+      screen.getByDisplayValue("Game H5 — Quy trình sản xuất"),
     ).toBeInTheDocument();
     expect(screen.getByText("gamePipeline:preview.title")).toBeInTheDocument();
     expect(lastRequest().template?.config.stages).toHaveLength(12);
@@ -262,7 +262,7 @@ describe("CreateProjectModal", () => {
 
     fireEvent.click(useTemplateButton());
     expect(
-      screen.queryByDisplayValue("Game H5 — Production Pipeline"),
+      screen.queryByDisplayValue("Game H5 — Quy trình sản xuất"),
     ).not.toBeInTheDocument();
     expect(screen.queryByText("gamePipeline:preview.title")).toBeNull();
     expect(lastRequest().template).toBeUndefined();

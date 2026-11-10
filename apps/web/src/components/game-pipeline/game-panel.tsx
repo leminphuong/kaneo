@@ -23,7 +23,7 @@ import {
   GameRoleFields,
   Section,
 } from "./game-form";
-import { formatGateFailure } from "./gate-failures";
+import { apiErrorMessage, formatGateFailure } from "./gate-failures";
 
 function toValue(game: Game): GameDetailsValue {
   return {
@@ -33,10 +33,6 @@ function toValue(game: Game): GameDetailsValue {
     evaluation: { ...game.evaluation },
     kpi: { ...game.kpi },
   };
-}
-
-function errorMessage(error: unknown, fallback: string) {
-  return error instanceof Error ? error.message : fallback;
 }
 
 function ChecklistBlock({
@@ -90,7 +86,8 @@ function ChecklistBlock({
                       {
                         onError: (error) =>
                           toast.error(
-                            errorMessage(
+                            apiErrorMessage(
+                              t,
                               error,
                               t("gamePipeline:panel.saveError"),
                             ),
@@ -173,7 +170,9 @@ function GamePanel({
         toast.success(t("gamePipeline:panel.saved"));
       },
       onError: (error) =>
-        toast.error(errorMessage(error, t("gamePipeline:panel.saveError"))),
+        toast.error(
+          apiErrorMessage(t, error, t("gamePipeline:panel.saveError")),
+        ),
     });
   };
 
@@ -291,7 +290,8 @@ function GamePanel({
                         {
                           onError: (error) =>
                             toast.error(
-                              errorMessage(
+                              apiErrorMessage(
+                                t,
                                 error,
                                 t("gamePipeline:panel.saveError"),
                               ),

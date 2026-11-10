@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { newCreationKey } from "@/components/game-pipeline/fields";
+import { apiErrorMessage } from "@/components/game-pipeline/gate-failures";
 import {
   blankDraft,
   draftErrors,
@@ -151,9 +152,7 @@ function CreateProjectModal({ open, onClose }: CreateProjectModalProps) {
       handleClose();
     } catch (error) {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : t("common:modals.createProject.errorToast"),
+        apiErrorMessage(t, error, t("common:modals.createProject.errorToast")),
       );
     } finally {
       setIsSubmitting(false);

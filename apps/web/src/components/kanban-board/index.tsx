@@ -18,7 +18,10 @@ import { useNavigate } from "@tanstack/react-router";
 import { produce } from "immer";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { formatGateFailure } from "@/components/game-pipeline/gate-failures";
+import {
+  apiErrorMessage,
+  formatGateFailure,
+} from "@/components/game-pipeline/gate-failures";
 import { getGame } from "@/fetchers/game-pipeline";
 import { useUpdateTask } from "@/hooks/mutations/task/use-update-task";
 import {
@@ -86,10 +89,13 @@ function KanbanBoard({ project, disableDragDrop = false }: KanbanBoardProps) {
         formatGateFailure(t, pipeline.config, failure),
       );
     } catch {
-      // Fall back to the API's own message below.
+      // Fall back to a status-based message below.
     }
     toast.error(t("gamePipeline:board.moveBlocked"), {
-      description: reasons.length > 0 ? reasons.join(" · ") : error.message,
+      description:
+        reasons.length > 0
+          ? reasons.join(" · ")
+          : apiErrorMessage(t, error, t("gamePipeline:panel.saveError")),
     });
   };
 

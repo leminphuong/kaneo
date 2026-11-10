@@ -42,7 +42,7 @@ describe("API integration: template project creation is atomic", () => {
 
     const body = JSON.stringify({
       workspaceId: owner.workspace.id,
-      name: "Game H5 — Production Pipeline",
+      name: "Game H5 — Quy trình sản xuất",
       icon: "Rocket",
       slug: "GAME",
       creationKey: "retry-after-failure-key",

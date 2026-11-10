@@ -1939,7 +1939,8 @@
 			"label": "View",
 			"backlog": "Backlog",
 			"board": "Board",
-			"list": "List"
+			"list": "List",
+			"gantt": "Gantt"
 		},
 		"common": {
 			"selectTask": "Select task",
@@ -3140,6 +3141,12 @@
 			"description": "Saving creates a new template version for future projects. Existing projects keep their own copy and do not change.",
 			"save": "Save as new version",
 			"saved": "Template version {{version}} saved"
+		},
+		"errors": {
+			"invalid": "Some values are not valid. Check the fields and try again.",
+			"forbidden": "You don't have permission to do this.",
+			"notFound": "The project or game was not found. It may have been deleted.",
+			"conflict": "This was just changed somewhere else. Reload the page and try again."
 		}
 	}
 }

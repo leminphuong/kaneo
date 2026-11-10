@@ -72,10 +72,10 @@ async function createPipelineProject(
 ) {
   return call(app, "POST", "/project", {
     workspaceId: ctx.workspace.id,
-    name: "Game H5 — Production Pipeline",
+    name: "Game H5 — Quy trình sản xuất",
     icon: "Rocket",
     slug: "GAME",
-    description: "Quản lý sản xuất game H5 từ Idea đến Scale.",
+    description: "Quản lý sản xuất game H5 từ ý tưởng đến mở rộng.",
     creationKey: options.creationKey,
     template: {
       key: GAME_PIPELINE_TEMPLATE_KEY,
@@ -121,7 +121,7 @@ describe("API integration: GAME PRODUCTION PIPELINE template", () => {
     expect(result.body).toMatchObject({
       key: "game-production-pipeline",
       version: 1,
-      name: "GAME PRODUCTION PIPELINE",
+      name: "QUY TRÌNH SẢN XUẤT GAME",
     });
     expect(result.body.config.stages).toHaveLength(12);
   });
@@ -138,18 +138,18 @@ describe("API integration: GAME PRODUCTION PIPELINE template", () => {
     expect(
       columns.sort((a, b) => a.position - b.position).map((c) => c.name),
     ).toEqual([
-      "🔥 Trend Radar",
-      "💡 Idea Backlog",
-      "🔍 Idea Validation",
-      "✅ Approved",
-      "🛠️ Development",
-      "🧪 QA / Testing",
-      "🚀 Soft Launch",
-      "📊 Data Analysis",
-      "🔧 Optimize",
-      "📈 Scale",
-      "🏆 Success",
-      "🛑 Stopped",
+      "🔥 Săn xu hướng",
+      "💡 Kho ý tưởng",
+      "🔍 Thẩm định ý tưởng",
+      "✅ Đã duyệt",
+      "🛠️ Phát triển",
+      "🧪 Kiểm thử",
+      "🚀 Phát hành thử",
+      "📊 Phân tích dữ liệu",
+      "🔧 Tối ưu",
+      "📈 Mở rộng",
+      "🏆 Thành công",
+      "🛑 Đã dừng",
     ]);
 
     const pipeline = await call(
@@ -179,15 +179,15 @@ describe("API integration: GAME PRODUCTION PIPELINE template", () => {
     expect(labels.map((l) => l.name).sort()).toEqual(
       [
         "Meme",
-        "Brainrot",
+        "Nhảm vui (brainrot)",
         "Văn hóa Việt",
         "Ý tưởng gốc",
-        "Casual",
-        "Puzzle",
-        "Action",
-        "Simulation",
-        "Multiplayer",
-        "MVP",
+        "Giải trí nhẹ",
+        "Giải đố",
+        "Hành động",
+        "Mô phỏng",
+        "Nhiều người chơi",
+        "Bản MVP",
         "Cần duyệt",
         "Bị chặn",
         "Cần dữ liệu",
@@ -268,7 +268,7 @@ describe("API integration: GAME PRODUCTION PIPELINE template", () => {
       await call(app, "GET", `/game-pipeline/project/${a.body.id}`)
     ).body.pipeline;
     pipeline.config.kpis[0].target = 999;
-    pipeline.config.stages[1].name = "Ý tưởng";
+    pipeline.config.stages[1].name = "Ý tưởng mới";
     const update = await call(
       app,
       "PUT",
@@ -281,7 +281,7 @@ describe("API integration: GAME PRODUCTION PIPELINE template", () => {
 
     const template = await call(app, "GET", "/game-pipeline/template");
     expect(template.body.config.kpis[0].target).toBe(300);
-    expect(template.body.config.stages[1].name).toBe("Idea Backlog");
+    expect(template.body.config.stages[1].name).toBe("Kho ý tưởng");
 
     const b = await createPipelineProject(app, owner);
     const bConfig = (
@@ -293,7 +293,7 @@ describe("API integration: GAME PRODUCTION PIPELINE template", () => {
       .select({ name: schema.columnTable.name })
       .from(schema.columnTable)
       .where(eq(schema.columnTable.id, pipeline.config.stages[1].columnId));
-    expect(renamed[0]?.name).toBe("💡 Ý tưởng");
+    expect(renamed[0]?.name).toBe("💡 Ý tưởng mới");
 
     // Only instance admins save template versions; an existing project keeps
     // its own copy and version when a new one is saved.

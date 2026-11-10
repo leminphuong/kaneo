@@ -274,7 +274,7 @@ export type PipelineStage = PipelineConfig["stages"][number];
 const MVP_BRIEF_TEMPLATE = `## Mục tiêu MVP
 [Bản MVP cần chứng minh điều gì? Ví dụ: người chơi hiểu luật trong 10 giây và muốn chơi lại]
 
-## Gameplay cốt lõi
+## Lối chơi cốt lõi
 [Vòng lặp chơi chính: người chơi làm gì, nhận được gì, vì sao chơi tiếp]
 
 ## Tính năng trong MVP
@@ -284,19 +284,19 @@ const MVP_BRIEF_TEMPLATE = `## Mục tiêu MVP
 - [Tính năng hay nhưng chưa cần cho bản thử nghiệm]
 
 ## Điều khiển và thiết bị
-- PC: [Ví dụ: chuột trái hoặc phím Space]
-- Mobile: [Ví dụ: chạm hoặc vuốt]
-[Xác định điều khiển phù hợp gameplay trên cả PC và Mobile]
+- Máy tính: [Ví dụ: chuột trái hoặc phím Space]
+- Điện thoại: [Ví dụ: chạm hoặc vuốt]
+[Xác định điều khiển phù hợp lối chơi trên cả máy tính và điện thoại]
 
-## Tracking
+## Theo dõi sự kiện
 - game_start: [Thời điểm bắn sự kiện]
 - game_end: [Thời điểm bắn sự kiện, kèm điểm số và thời gian chơi]
 - replay: [Thời điểm bắn sự kiện khi người chơi chơi lại]
 
 ## Tiêu chí nghiệm thu
-- MVP chơi được
-- Tracking được kiểm tra
-- QA đạt và không còn lỗi nghiêm trọng
+- Bản MVP chơi được
+- Sự kiện theo dõi đã được kiểm tra
+- Kiểm thử đạt và không còn lỗi nghiêm trọng
 `;
 
 type StageSeed = Omit<PipelineStage, "columnId" | "checklist"> & {
@@ -310,15 +310,15 @@ function slugItem(stage: string, index: number) {
 const STAGE_SEEDS: StageSeed[] = [
   {
     key: "trend-radar",
-    name: "Trend Radar",
+    name: "Săn xu hướng",
     emoji: "🔥",
     isFinal: false,
     description:
       "Theo dõi meme, xu hướng mạng xã hội và chủ đề nóng có thể trở thành game H5. Ghi lại nguồn, bằng chứng và thời điểm phát hiện.",
     conditions:
-      "Mọi game mới bắt đầu ở đây. Chuyển sang Idea Backlog khi đã có nguồn trend, bằng chứng, thị trường mục tiêu và checklist hoàn thành.",
+      "Mọi game mới bắt đầu ở đây. Chuyển sang Kho ý tưởng khi đã có nguồn xu hướng, bằng chứng, thị trường mục tiêu và hoàn thành danh mục kiểm tra.",
     checklist: [
-      "Có nguồn trend",
+      "Có nguồn xu hướng",
       "Có bằng chứng",
       "Ghi thị trường và thời điểm phát hiện",
     ],
@@ -326,15 +326,15 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "idea-backlog",
-    name: "Idea Backlog",
+    name: "Kho ý tưởng",
     emoji: "💡",
     isFinal: false,
     description:
-      "Biến trend thành ý tưởng game: mô tả gameplay, người chơi mục tiêu, điều kiện thắng và thua.",
+      "Biến xu hướng thành ý tưởng game: mô tả lối chơi, người chơi mục tiêu, điều kiện thắng và thua.",
     conditions:
-      "Vào từ Trend Radar khi có nguồn trend, bằng chứng và thị trường mục tiêu. Rời khỏi khi đã mô tả gameplay, người chơi, core loop, thắng/thua.",
+      "Vào từ Săn xu hướng khi có nguồn xu hướng, bằng chứng và thị trường mục tiêu. Rời khỏi khi đã mô tả lối chơi, người chơi, vòng lặp cốt lõi, thắng/thua.",
     checklist: [
-      "Mô tả gameplay",
+      "Mô tả lối chơi",
       "Xác định người chơi",
       "Mô tả điều kiện thắng/thua",
     ],
@@ -346,13 +346,13 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "idea-validation",
-    name: "Idea Validation",
+    name: "Thẩm định ý tưởng",
     emoji: "🔍",
     isFinal: false,
     description:
-      "Gate Review ý tưởng: chấm điểm viral, thị trường, gameplay, chi phí và độ khó; Producer ra quyết định.",
+      "Kiểm duyệt ý tưởng: chấm điểm khả năng lan truyền, thị trường, lối chơi, chi phí và độ khó; Nhà sản xuất ra quyết định.",
     conditions:
-      "Vào từ Idea Backlog khi gameplay, người chơi, core loop và thắng/thua đã được mô tả. Chỉ sang Approved khi đã chấm đủ điểm và quyết định là Duyệt.",
+      "Vào từ Kho ý tưởng khi lối chơi, người chơi, vòng lặp cốt lõi và thắng/thua đã được mô tả. Chỉ sang Đã duyệt khi đã chấm đủ điểm và quyết định là Duyệt.",
     checklist: [
       "Chấm điểm ý tưởng",
       "Đánh giá chi phí và độ khó",
@@ -372,18 +372,18 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "approved",
-    name: "Approved",
+    name: "Đã duyệt",
     emoji: "✅",
     isFinal: false,
     description:
-      "Ý tưởng đã qua Gate Review. Hoàn thiện MVP brief, phân công nhân sự và chốt deadline trước khi phát triển.",
+      "Ý tưởng đã qua kiểm duyệt. Hoàn thiện bản mô tả MVP, phân công nhân sự và chốt hạn chót trước khi phát triển.",
     conditions:
-      "Vào từ Idea Validation khi đã chấm đủ điểm và Producer quyết định Duyệt. Sang Development cần MVP brief hoàn chỉnh, Developer, QA, deadline và Producer duyệt.",
+      "Vào từ Thẩm định ý tưởng khi đã chấm đủ điểm và Nhà sản xuất quyết định Duyệt. Sang Phát triển cần bản mô tả MVP hoàn chỉnh, Lập trình viên, Kiểm thử viên, hạn chót và Nhà sản xuất duyệt.",
     checklist: [
-      "Hoàn thiện MVP brief",
+      "Hoàn thiện bản mô tả MVP",
       "Phân công nhân sự",
-      "Chốt deadline",
-      "Producer duyệt",
+      "Chốt hạn chót",
+      "Nhà sản xuất duyệt",
     ],
     entry: {
       from: ["idea-validation"],
@@ -394,18 +394,18 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "development",
-    name: "Development",
+    name: "Phát triển",
     emoji: "🛠️",
     isFinal: false,
     description:
-      "Phát triển bản MVP chơi được trên Mobile và Desktop, tích hợp tracking và xuất bản build.",
+      "Phát triển bản MVP chơi được trên điện thoại và máy tính, tích hợp theo dõi sự kiện và xuất bản dựng.",
     conditions:
-      "Vào từ Approved khi MVP brief hoàn chỉnh, có Producer, Developer, QA, deadline, Producer đã duyệt và Developer chưa vượt giới hạn WIP.",
+      "Vào từ Đã duyệt khi bản mô tả MVP hoàn chỉnh, có Nhà sản xuất, Lập trình viên, Kiểm thử viên, hạn chót, Nhà sản xuất đã duyệt và Lập trình viên chưa vượt giới hạn game đang làm.",
     checklist: [
-      "Gameplay chơi được",
-      "UI dùng được",
-      "Tích hợp tracking",
-      "Có bản build",
+      "Lối chơi chơi được",
+      "Giao diện dùng được",
+      "Tích hợp theo dõi sự kiện",
+      "Có bản dựng",
     ],
     entry: {
       from: ["approved"],
@@ -423,18 +423,18 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "qa-testing",
-    name: "QA / Testing",
+    name: "Kiểm thử",
     emoji: "🧪",
     isFinal: false,
     description:
-      "Kiểm thử trên Mobile và Desktop, kiểm tra hiệu năng, xác minh tracking và xử lý lỗi nghiêm trọng.",
+      "Kiểm thử trên điện thoại và máy tính, kiểm tra hiệu năng, xác minh theo dõi sự kiện và xử lý lỗi nghiêm trọng.",
     conditions:
-      "Vào từ Development khi có repository và build/test URL. Sang Soft Launch cần báo cáo QA và 0 lỗi nghiêm trọng.",
+      "Vào từ Phát triển khi có kho mã nguồn và URL bản dựng/thử nghiệm. Sang Phát hành thử cần báo cáo kiểm thử và 0 lỗi nghiêm trọng.",
     checklist: [
-      "Test trên Mobile",
-      "Test trên Desktop",
+      "Kiểm thử trên điện thoại",
+      "Kiểm thử trên máy tính",
       "Kiểm tra hiệu năng",
-      "Xác minh tracking",
+      "Xác minh theo dõi sự kiện",
       "Xử lý lỗi nghiêm trọng",
     ],
     entry: {
@@ -445,17 +445,17 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "soft-launch",
-    name: "Soft Launch",
+    name: "Phát hành thử",
     emoji: "🚀",
     isFinal: false,
     description:
-      "Phát hành thử nghiệm với lượng traffic nhỏ để thu dữ liệu người chơi thật.",
+      "Phát hành thử nghiệm với lưu lượng truy cập nhỏ để thu dữ liệu người chơi thật.",
     conditions:
-      "Vào từ QA / Testing khi có báo cáo QA và số lỗi nghiêm trọng đang mở là 0.",
+      "Vào từ Kiểm thử khi có báo cáo kiểm thử và số lỗi nghiêm trọng đang mở là 0.",
     checklist: [
       "Có URL thử nghiệm",
-      "Ghi nguồn traffic",
-      "Xác định thời gian test",
+      "Ghi nguồn lưu lượng truy cập",
+      "Xác định thời gian thử nghiệm",
       "Kiểm tra dữ liệu thu về",
     ],
     entry: {
@@ -467,16 +467,16 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "data-analysis",
-    name: "Data Analysis",
+    name: "Phân tích dữ liệu",
     emoji: "📊",
     isFinal: false,
     description:
-      "Phân tích chất lượng mẫu, engagement, tỉ lệ chơi lại và D1 so với ngưỡng KPI; Producer ghi quyết định.",
+      "Phân tích chất lượng mẫu, mức độ tương tác, tỉ lệ chơi lại và giữ chân D1 so với ngưỡng KPI; Nhà sản xuất ghi quyết định.",
     conditions:
-      "Vào từ Soft Launch hoặc Optimize khi có URL phát hành, nguồn dữ liệu và khoảng thời gian đo.",
+      "Vào từ Phát hành thử hoặc Tối ưu khi có URL phát hành, nguồn dữ liệu và khoảng thời gian đo.",
     checklist: [
       "Kiểm tra chất lượng mẫu",
-      "Phân tích engagement, replay và D1",
+      "Phân tích tương tác, chơi lại và giữ chân D1",
       "Ghi quyết định",
     ],
     entry: {
@@ -487,13 +487,13 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "optimize",
-    name: "Optimize",
+    name: "Tối ưu",
     emoji: "🔧",
     isFinal: false,
     description:
       "Tối ưu dựa trên dữ liệu: xác định vấn đề, viết giả thuyết, thay đổi, kiểm thử lại và so sánh kết quả.",
     conditions:
-      "Vào từ Data Analysis khi Producer đã ghi quyết định. Sau khi tối ưu, quay lại Soft Launch hoặc Data Analysis để đo lại.",
+      "Vào từ Phân tích dữ liệu khi Nhà sản xuất đã ghi quyết định. Sau khi tối ưu, quay lại Phát hành thử hoặc Phân tích dữ liệu để đo lại.",
     checklist: [
       "Xác định vấn đề",
       "Viết giả thuyết",
@@ -509,17 +509,17 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "scale",
-    name: "Scale",
+    name: "Mở rộng",
     emoji: "📈",
     isFinal: false,
     description:
-      "Mở rộng traffic theo từng đợt có kế hoạch kênh, ngân sách và điều kiện dừng.",
+      "Mở rộng lưu lượng truy cập theo từng đợt, có kế hoạch kênh, ngân sách và điều kiện dừng.",
     conditions:
-      "Vào từ Data Analysis hoặc Optimize khi đã nhập đủ kết quả KPI, Producer ghi quyết định và Producer duyệt Scale. Đạt KPI không tự động duyệt Scale.",
+      "Vào từ Phân tích dữ liệu hoặc Tối ưu khi đã nhập đủ kết quả KPI, Nhà sản xuất ghi quyết định và duyệt Mở rộng. Đạt KPI không tự động duyệt Mở rộng.",
     checklist: [
       "Có kế hoạch kênh và ngân sách",
       "Có điều kiện dừng",
-      "Producer duyệt",
+      "Nhà sản xuất duyệt",
       "Đánh giá từng đợt",
     ],
     entry: {
@@ -532,11 +532,13 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "success",
-    name: "Success",
+    name: "Thành công",
     emoji: "🏆",
     isFinal: true,
-    description: "Game đạt mục tiêu sau Scale. Tổng kết KPI và bài học.",
-    conditions: "Vào từ Scale khi checklist Scale hoàn thành.",
+    description:
+      "Game đạt mục tiêu sau giai đoạn Mở rộng. Tổng kết KPI và bài học.",
+    conditions:
+      "Vào từ Mở rộng khi danh mục kiểm tra của Mở rộng đã hoàn thành.",
     checklist: ["Xác minh kết quả", "Tổng kết KPI", "Ghi bài học"],
     entry: {
       from: ["scale"],
@@ -546,17 +548,17 @@ const STAGE_SEEDS: StageSeed[] = [
   },
   {
     key: "stopped",
-    name: "Stopped",
+    name: "Đã dừng",
     emoji: "🛑",
     isFinal: true,
     description:
-      "Game dừng ở bất kỳ giai đoạn nào. Ghi lý do, người quyết định và hoàn thành postmortem.",
+      "Game dừng ở bất kỳ giai đoạn nào. Ghi lý do, người quyết định và hoàn thành buổi rút kinh nghiệm.",
     conditions:
-      "Có thể chuyển vào từ mọi giai đoạn. Hoàn thành checklist để lưu lại bài học.",
+      "Có thể chuyển vào từ mọi giai đoạn. Hoàn thành danh mục kiểm tra để lưu lại bài học.",
     checklist: [
       "Ghi lý do dừng",
       "Ghi người quyết định",
-      "Hoàn thành postmortem",
+      "Hoàn thành buổi rút kinh nghiệm",
     ],
     entry: { from: [], requiredFields: [], requireSourceChecklist: false },
   },
@@ -610,10 +612,10 @@ export function builtInTemplateConfig(): PipelineConfig {
       template: MVP_BRIEF_TEMPLATE,
       requiredSections: [
         "Mục tiêu MVP",
-        "Gameplay cốt lõi",
+        "Lối chơi cốt lõi",
         "Tính năng trong MVP",
         "Điều khiển và thiết bị",
-        "Tracking",
+        "Theo dõi sự kiện",
       ],
     },
     kpis: [
@@ -631,7 +633,7 @@ export function builtInTemplateConfig(): PipelineConfig {
         name: "Loại ý tưởng",
         labels: [
           { name: "Meme", color: "pink" },
-          { name: "Brainrot", color: "purple" },
+          { name: "Nhảm vui (brainrot)", color: "purple" },
           { name: "Văn hóa Việt", color: "red" },
           { name: "Ý tưởng gốc", color: "teal" },
         ],
@@ -640,17 +642,17 @@ export function builtInTemplateConfig(): PipelineConfig {
         key: "genre",
         name: "Thể loại",
         labels: [
-          { name: "Casual", color: "green" },
-          { name: "Puzzle", color: "yellow" },
-          { name: "Action", color: "orange" },
-          { name: "Simulation", color: "dark-gray" },
-          { name: "Multiplayer", color: "purple" },
+          { name: "Giải trí nhẹ", color: "green" },
+          { name: "Giải đố", color: "yellow" },
+          { name: "Hành động", color: "orange" },
+          { name: "Mô phỏng", color: "dark-gray" },
+          { name: "Nhiều người chơi", color: "purple" },
         ],
       },
       {
         key: "scope",
         name: "Phạm vi",
-        labels: [{ name: "MVP", color: "gray" }],
+        labels: [{ name: "Bản MVP", color: "gray" }],
       },
       {
         key: "status",
@@ -669,13 +671,13 @@ export function builtInTemplateConfig(): PipelineConfig {
 export const BUILT_IN_TEMPLATE = {
   key: GAME_PIPELINE_TEMPLATE_KEY,
   version: BUILT_IN_TEMPLATE_VERSION,
-  name: "GAME PRODUCTION PIPELINE",
+  name: "QUY TRÌNH SẢN XUẤT GAME",
   description:
-    "Quản lý toàn bộ vòng đời game H5: tìm trend, duyệt ý tưởng, phát triển MVP, kiểm thử, Soft Launch, phân tích dữ liệu và Scale.",
+    "Quản lý toàn bộ vòng đời game H5: săn xu hướng, duyệt ý tưởng, phát triển bản MVP, kiểm thử, phát hành thử, phân tích dữ liệu và mở rộng.",
   project: {
-    name: "Game H5 — Production Pipeline",
+    name: "Game H5 — Quy trình sản xuất",
     description:
-      "Quản lý sản xuất game H5 từ Idea đến Scale, có Gate Review, checklist và KPI cho từng giai đoạn.",
+      "Quản lý sản xuất game H5 từ ý tưởng đến mở rộng, có kiểm duyệt, danh mục kiểm tra và KPI cho từng giai đoạn.",
     icon: "Rocket",
   },
 } as const;

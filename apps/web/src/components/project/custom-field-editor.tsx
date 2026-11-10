@@ -36,6 +36,7 @@ import useCreateCustomField from "@/hooks/mutations/custom-field/use-create-cust
 import useDeleteCustomField from "@/hooks/mutations/custom-field/use-delete-custom-field";
 import { useReorderCustomFields } from "@/hooks/mutations/custom-field/use-reorder-custom-field";
 import useGetCustomFieldsByProject from "@/hooks/queries/custom-field/use-get-custom-fields-by-project";
+import { formatDateMedium } from "@/lib/format";
 import { toast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
@@ -468,7 +469,7 @@ export default function CustomFieldEditor({
               >
                 <CalendarIcon className="mr-2 h-4 w-4 opacity-70" />
                 {defaultValue && isValid(parseISO(defaultValue))
-                  ? format(parseISO(defaultValue), "dd MMM yyyy")
+                  ? formatDateMedium(parseISO(defaultValue))
                   : t("tasks:detail.pickDate", "Pick a date")}
               </Button>
             </PopoverTrigger>

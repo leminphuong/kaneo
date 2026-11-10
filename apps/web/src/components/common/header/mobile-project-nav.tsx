@@ -112,7 +112,7 @@ export default function MobileProjectNav({
                 )}
               >
                 <CalendarDays className="size-3.5" />
-                Gantt
+                {t("tasks:view.gantt")}
               </button>
             </div>
           </div>
