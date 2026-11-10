@@ -28,6 +28,7 @@ import { waitForDatabase } from "./database/wait-for-database";
 import discordIntegration from "./discord-integration";
 import { eventContext } from "./events";
 import externalLink from "./external-link";
+import gamePipeline from "./game-pipeline";
 import genericWebhookIntegration from "./generic-webhook-integration";
 import giteaIntegration, { handleGiteaWebhookRoute } from "./gitea-integration";
 import githubIntegration, {
@@ -752,6 +753,7 @@ export function createApp() {
   const invitationApi = api.route("/invitation", invitation);
   const workspaceApi = api.route("/workspace", workspace);
   const customFieldApi = api.route("/custom-field", customField);
+  const gamePipelineApi = api.route("/game-pipeline", gamePipeline);
   const userApi = api.route("/user", user);
   const userImportApi = api.route("/import", userImport);
 
@@ -895,6 +897,7 @@ export function createApp() {
     workflowRuleApi,
     workspaceApi,
     customFieldApi,
+    gamePipelineApi,
     oauthApi,
   };
 }
@@ -1023,6 +1026,7 @@ const {
   workflowRuleApi,
   workspaceApi,
   customFieldApi,
+  gamePipelineApi,
   oauthApi,
 } = createdApp;
 
@@ -1062,6 +1066,7 @@ export type AppType =
   | typeof invitationApi
   | typeof workspaceApi
   | typeof customFieldApi
+  | typeof gamePipelineApi
   | typeof userApi
   | typeof userImportApi
   | typeof publicProjectApi

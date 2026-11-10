@@ -25,6 +25,9 @@
 						"clearAll": {
 							"type": "string"
 						},
+						"confirm": {
+							"type": "string"
+						},
 						"delete": {
 							"type": "string"
 						},
@@ -45,19 +48,24 @@
 						},
 						"clearAllFilters": {
 							"type": "string"
+						},
+						"toggleTheme": {
+							"type": "string"
 						}
 					},
 					"required": [
 						"cancel",
 						"close",
 						"clearAll",
+						"confirm",
 						"delete",
 						"deleting",
 						"markAllRead",
 						"remove",
 						"reset",
 						"filter",
-						"clearAllFilters"
+						"clearAllFilters",
+						"toggleTheme"
 					]
 				},
 				"a11y": {
@@ -416,6 +424,9 @@
 								"description": {
 									"type": "string"
 								},
+								"nameLabel": {
+									"type": "string"
+								},
 								"namePlaceholder": {
 									"type": "string"
 								},
@@ -436,6 +447,7 @@
 								"breadcrumbKaneo",
 								"title",
 								"description",
+								"nameLabel",
 								"namePlaceholder",
 								"descriptionPlaceholder",
 								"createButton",
@@ -630,6 +642,19 @@
 						}
 					},
 					"required": ["createProject", "createWorkspace", "createTask"]
+				},
+				"demoAlert": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"message": {
+							"type": "string"
+						},
+						"deployYourOwn": {
+							"type": "string"
+						}
+					},
+					"required": ["message", "deployYourOwn"]
 				}
 			},
 			"required": [
@@ -645,7 +670,8 @@
 				"people",
 				"error",
 				"formats",
-				"modals"
+				"modals",
+				"demoAlert"
 			]
 		},
 		"auth": {
@@ -1451,6 +1477,46 @@
 						"success",
 						"backToSignIn"
 					]
+				},
+				"workspaceSso": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"NO_MATCHING_ACCOUNT": {
+							"type": "string"
+						},
+						"ACCOUNT_NOT_VERIFIED": {
+							"type": "string"
+						},
+						"ACCOUNT_BANNED": {
+							"type": "string"
+						},
+						"INVALID_CODE": {
+							"type": "string"
+						},
+						"UNAVAILABLE": {
+							"type": "string"
+						},
+						"NETWORK": {
+							"type": "string"
+						},
+						"generic": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"title",
+						"NO_MATCHING_ACCOUNT",
+						"ACCOUNT_NOT_VERIFIED",
+						"ACCOUNT_BANNED",
+						"INVALID_CODE",
+						"UNAVAILABLE",
+						"NETWORK",
+						"generic"
+					]
 				}
 			},
 			"required": [
@@ -1466,7 +1532,8 @@
 				"invitation",
 				"onboarding",
 				"profileSetup",
-				"passwordReset"
+				"passwordReset",
+				"workspaceSso"
 			]
 		},
 		"settings": {
@@ -1804,6 +1871,113 @@
 						"edit",
 						"confirm",
 						"toast"
+					]
+				},
+				"importUsers": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						},
+						"chooseFile": {
+							"type": "string"
+						},
+						"ready": {
+							"type": "string"
+						},
+						"ready_zero": {
+							"type": "string"
+						},
+						"ready_one": {
+							"type": "string"
+						},
+						"ready_two": {
+							"type": "string"
+						},
+						"ready_few": {
+							"type": "string"
+						},
+						"ready_many": {
+							"type": "string"
+						},
+						"ready_other": {
+							"type": "string"
+						},
+						"import": {
+							"type": "string"
+						},
+						"import_zero": {
+							"type": "string"
+						},
+						"import_one": {
+							"type": "string"
+						},
+						"import_two": {
+							"type": "string"
+						},
+						"import_few": {
+							"type": "string"
+						},
+						"import_many": {
+							"type": "string"
+						},
+						"import_other": {
+							"type": "string"
+						},
+						"importing": {
+							"type": "string"
+						},
+						"summary": {
+							"type": "string"
+						},
+						"status": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"created": {
+									"type": "string"
+								},
+								"exists": {
+									"type": "string"
+								},
+								"error": {
+									"type": "string"
+								}
+							},
+							"required": ["created", "exists", "error"]
+						},
+						"errors": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"notJson": {
+									"type": "string"
+								},
+								"notArray": {
+									"type": "string"
+								},
+								"missingFields": {
+									"type": "string"
+								},
+								"failed": {
+									"type": "string"
+								}
+							},
+							"required": ["notJson", "notArray", "missingFields", "failed"]
+						}
+					},
+					"required": [
+						"title",
+						"description",
+						"chooseFile",
+						"importing",
+						"summary",
+						"status",
+						"errors"
 					]
 				},
 				"informationPage": {
@@ -6312,6 +6486,22 @@
 						"noPassword",
 						"validation"
 					]
+				},
+				"workspaceBilling": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"pageTitle": {
+							"type": "string"
+						},
+						"title": {
+							"type": "string"
+						},
+						"disabledDescription": {
+							"type": "string"
+						}
+					},
+					"required": ["pageTitle", "title", "disabledDescription"]
 				}
 			},
 			"required": [
@@ -6323,6 +6513,7 @@
 				"preferences",
 				"apiKeys",
 				"adminUsers",
+				"importUsers",
 				"informationPage",
 				"notificationsPage",
 				"preferencesPage",
@@ -6350,7 +6541,8 @@
 				"workflowEditor",
 				"externalLinks",
 				"security",
-				"securityPage"
+				"securityPage",
+				"workspaceBilling"
 			]
 		},
 		"navigation": {
@@ -7612,6 +7804,12 @@
 					"type": "object",
 					"additionalProperties": false,
 					"properties": {
+						"label": {
+							"type": "string"
+						},
+						"backlog": {
+							"type": "string"
+						},
 						"board": {
 							"type": "string"
 						},
@@ -7619,7 +7817,7 @@
 							"type": "string"
 						}
 					},
-					"required": ["board", "list"]
+					"required": ["label", "backlog", "board", "list"]
 				},
 				"common": {
 					"type": "object",
@@ -9431,6 +9629,34 @@
 						},
 						"changeStatus": {
 							"type": "string"
+						},
+						"archiveModal": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"title": {
+									"type": "string"
+								},
+								"description_one": {
+									"type": "string"
+								},
+								"description_zero": {
+									"type": "string"
+								},
+								"description_two": {
+									"type": "string"
+								},
+								"description_few": {
+									"type": "string"
+								},
+								"description_many": {
+									"type": "string"
+								},
+								"description_other": {
+									"type": "string"
+								}
+							},
+							"required": ["title"]
 						}
 					},
 					"required": [
@@ -9454,7 +9680,8 @@
 						"actions",
 						"searchActions",
 						"noActionsFound",
-						"changeStatus"
+						"changeStatus",
+						"archiveModal"
 					]
 				},
 				"editor": {
@@ -10115,6 +10342,22 @@
 						"roleUpdateSuccess",
 						"roleUpdateError"
 					]
+				},
+				"deleteMemberModal": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						},
+						"confirm": {
+							"type": "string"
+						}
+					},
+					"required": ["title", "description", "confirm"]
 				}
 			},
 			"required": [
@@ -10122,7 +10365,8 @@
 				"members",
 				"invitations",
 				"inviteModal",
-				"membersTable"
+				"membersTable",
+				"deleteMemberModal"
 			]
 		},
 		"publicProject": {
@@ -11065,6 +11309,1404 @@
 				"comparison",
 				"selfHostingGuide"
 			]
+		},
+		"gamePipeline": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"templatePicker": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"blankName": {
+							"type": "string"
+						},
+						"blankDescription": {
+							"type": "string"
+						},
+						"useTemplate": {
+							"type": "string"
+						},
+						"selected": {
+							"type": "string"
+						},
+						"loading": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"title",
+						"blankName",
+						"blankDescription",
+						"useTemplate",
+						"selected",
+						"loading"
+					]
+				},
+				"form": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"description": {
+							"type": "string"
+						},
+						"view": {
+							"type": "string"
+						},
+						"viewKanban": {
+							"type": "string"
+						},
+						"viewList": {
+							"type": "string"
+						},
+						"template": {
+							"type": "string"
+						},
+						"templateVersion": {
+							"type": "string"
+						},
+						"prefix": {
+							"type": "string"
+						},
+						"prefixHint": {
+							"type": "string"
+						},
+						"timezone": {
+							"type": "string"
+						},
+						"startDate": {
+							"type": "string"
+						},
+						"deadline": {
+							"type": "string"
+						},
+						"deadlineHint": {
+							"type": "string"
+						},
+						"wipLimit": {
+							"type": "string"
+						},
+						"producer": {
+							"type": "string"
+						},
+						"producerRequired": {
+							"type": "string"
+						},
+						"developer": {
+							"type": "string"
+						},
+						"qa": {
+							"type": "string"
+						},
+						"unassigned": {
+							"type": "string"
+						},
+						"pickMember": {
+							"type": "string"
+						},
+						"rulesTitle": {
+							"type": "string"
+						},
+						"includeSample": {
+							"type": "string"
+						},
+						"includeSampleHint": {
+							"type": "string"
+						},
+						"previewInvalid": {
+							"type": "string"
+						},
+						"createdToast": {
+							"type": "string"
+						},
+						"createdBlankToast": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"description",
+						"view",
+						"viewKanban",
+						"viewList",
+						"template",
+						"templateVersion",
+						"prefix",
+						"prefixHint",
+						"timezone",
+						"startDate",
+						"deadline",
+						"deadlineHint",
+						"wipLimit",
+						"producer",
+						"producerRequired",
+						"developer",
+						"qa",
+						"unassigned",
+						"pickMember",
+						"rulesTitle",
+						"includeSample",
+						"includeSampleHint",
+						"previewInvalid",
+						"createdToast",
+						"createdBlankToast"
+					]
+				},
+				"rules": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"requireDevelopmentApproval": {
+							"type": "string"
+						},
+						"requireScaleApproval": {
+							"type": "string"
+						},
+						"stageChecklists": {
+							"type": "string"
+						},
+						"kpiTracking": {
+							"type": "string"
+						},
+						"changeHistory": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"requireDevelopmentApproval",
+						"requireScaleApproval",
+						"stageChecklists",
+						"kpiTracking",
+						"changeHistory"
+					]
+				},
+				"preview": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"subtitle": {
+							"type": "string"
+						},
+						"columns": {
+							"type": "string"
+						},
+						"columnEmoji": {
+							"type": "string"
+						},
+						"columnName": {
+							"type": "string"
+						},
+						"columnDescription": {
+							"type": "string"
+						},
+						"columnConditions": {
+							"type": "string"
+						},
+						"finalStage": {
+							"type": "string"
+						},
+						"gameForm": {
+							"type": "string"
+						},
+						"gameFormHint": {
+							"type": "string"
+						},
+						"requiredAt": {
+							"type": "string"
+						},
+						"optional": {
+							"type": "string"
+						},
+						"briefTemplate": {
+							"type": "string"
+						},
+						"briefTemplateHint": {
+							"type": "string"
+						},
+						"checklists": {
+							"type": "string"
+						},
+						"checklistHint": {
+							"type": "string"
+						},
+						"itemLabel": {
+							"type": "string"
+						},
+						"addItem": {
+							"type": "string"
+						},
+						"removeItem": {
+							"type": "string"
+						},
+						"newItem": {
+							"type": "string"
+						},
+						"evaluation": {
+							"type": "string"
+						},
+						"evaluationHint": {
+							"type": "string"
+						},
+						"weight": {
+							"type": "string"
+						},
+						"inverse": {
+							"type": "string"
+						},
+						"scaleMax": {
+							"type": "string"
+						},
+						"passThreshold": {
+							"type": "string"
+						},
+						"kpis": {
+							"type": "string"
+						},
+						"rules": {
+							"type": "string"
+						},
+						"wipHint": {
+							"type": "string"
+						},
+						"labels": {
+							"type": "string"
+						},
+						"labelsHint": {
+							"type": "string"
+						},
+						"groupName": {
+							"type": "string"
+						},
+						"labelName": {
+							"type": "string"
+						},
+						"addLabel": {
+							"type": "string"
+						},
+						"newLabel": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"title",
+						"subtitle",
+						"columns",
+						"columnEmoji",
+						"columnName",
+						"columnDescription",
+						"columnConditions",
+						"finalStage",
+						"gameForm",
+						"gameFormHint",
+						"requiredAt",
+						"optional",
+						"briefTemplate",
+						"briefTemplateHint",
+						"checklists",
+						"checklistHint",
+						"itemLabel",
+						"addItem",
+						"removeItem",
+						"newItem",
+						"evaluation",
+						"evaluationHint",
+						"weight",
+						"inverse",
+						"scaleMax",
+						"passThreshold",
+						"kpis",
+						"rules",
+						"wipHint",
+						"labels",
+						"labelsHint",
+						"groupName",
+						"labelName",
+						"addLabel",
+						"newLabel"
+					]
+				},
+				"sections": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"general": {
+							"type": "string"
+						},
+						"trend": {
+							"type": "string"
+						},
+						"evaluation": {
+							"type": "string"
+						},
+						"brief": {
+							"type": "string"
+						},
+						"links": {
+							"type": "string"
+						},
+						"kpi": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"general",
+						"trend",
+						"evaluation",
+						"brief",
+						"links",
+						"kpi"
+					]
+				},
+				"fields": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"description": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"priority": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"dueDate": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"labels": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"devices": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"producerId": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"developerId": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"qaId": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"targetMarket": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"platform": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"trendSourceUrl": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"trendEvidence": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"audience": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"gameplayIdea": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"coreLoop": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"winCondition": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"loseCondition": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"hook": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"mvpBrief": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"estimatedMvpDays": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"comments": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"decision": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"evaluation": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"kpi": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"repositoryUrl": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"buildUrl": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"releaseUrl": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"designDocUrl": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"assetsUrl": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"analyticsUrl": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"qaReportUrl": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"kpiDataSource": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"kpiMeasurementWindow": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"kpiSampleSize": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						},
+						"kpiNotes": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								},
+								"hint": {
+									"type": "string"
+								}
+							},
+							"required": ["label", "hint"]
+						},
+						"producerDecision": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"label": {
+									"type": "string"
+								}
+							},
+							"required": ["label"]
+						}
+					},
+					"required": [
+						"title",
+						"description",
+						"priority",
+						"dueDate",
+						"labels",
+						"devices",
+						"producerId",
+						"developerId",
+						"qaId",
+						"targetMarket",
+						"platform",
+						"trendSourceUrl",
+						"trendEvidence",
+						"audience",
+						"gameplayIdea",
+						"coreLoop",
+						"winCondition",
+						"loseCondition",
+						"hook",
+						"mvpBrief",
+						"estimatedMvpDays",
+						"comments",
+						"decision",
+						"evaluation",
+						"kpi",
+						"repositoryUrl",
+						"buildUrl",
+						"releaseUrl",
+						"designDocUrl",
+						"assetsUrl",
+						"analyticsUrl",
+						"qaReportUrl",
+						"kpiDataSource",
+						"kpiMeasurementWindow",
+						"kpiSampleSize",
+						"kpiNotes",
+						"producerDecision"
+					]
+				},
+				"criteria": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"viralPotential": {
+							"type": "string"
+						},
+						"marketFit": {
+							"type": "string"
+						},
+						"gameplayAppeal": {
+							"type": "string"
+						},
+						"productionCost": {
+							"type": "string"
+						},
+						"technicalDifficulty": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"viralPotential",
+						"marketFit",
+						"gameplayAppeal",
+						"productionCost",
+						"technicalDifficulty"
+					]
+				},
+				"decisions": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"approved": {
+							"type": "string"
+						},
+						"revise": {
+							"type": "string"
+						},
+						"rejected": {
+							"type": "string"
+						}
+					},
+					"required": ["approved", "revise", "rejected"]
+				},
+				"producerDecisions": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"scale": {
+							"type": "string"
+						},
+						"optimize": {
+							"type": "string"
+						},
+						"retest": {
+							"type": "string"
+						},
+						"stop": {
+							"type": "string"
+						}
+					},
+					"required": ["scale", "optimize", "retest", "stop"]
+				},
+				"priorities": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"no-priority": {
+							"type": "string"
+						},
+						"low": {
+							"type": "string"
+						},
+						"medium": {
+							"type": "string"
+						},
+						"high": {
+							"type": "string"
+						},
+						"urgent": {
+							"type": "string"
+						}
+					},
+					"required": ["no-priority", "low", "medium", "high", "urgent"]
+				},
+				"devices": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"mobile": {
+							"type": "string"
+						},
+						"desktop": {
+							"type": "string"
+						}
+					},
+					"required": ["mobile", "desktop"]
+				},
+				"colors": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"gray": {
+							"type": "string"
+						},
+						"dark-gray": {
+							"type": "string"
+						},
+						"purple": {
+							"type": "string"
+						},
+						"teal": {
+							"type": "string"
+						},
+						"green": {
+							"type": "string"
+						},
+						"yellow": {
+							"type": "string"
+						},
+						"orange": {
+							"type": "string"
+						},
+						"pink": {
+							"type": "string"
+						},
+						"red": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"gray",
+						"dark-gray",
+						"purple",
+						"teal",
+						"green",
+						"yellow",
+						"orange",
+						"pink",
+						"red"
+					]
+				},
+				"kpis": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"validPlayers": {
+							"type": "string"
+						},
+						"play30sRate": {
+							"type": "string"
+						},
+						"replayRate": {
+							"type": "string"
+						},
+						"d1Retention": {
+							"type": "string"
+						},
+						"criticalBugs": {
+							"type": "string"
+						},
+						"adsEfficiency": {
+							"type": "string"
+						},
+						"operators": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"gte": {
+									"type": "string"
+								},
+								"lte": {
+									"type": "string"
+								},
+								"eq": {
+									"type": "string"
+								},
+								"ltvOverCac": {
+									"type": "string"
+								}
+							},
+							"required": ["gte", "lte", "eq", "ltvOverCac"]
+						},
+						"target": {
+							"type": "string"
+						},
+						"targetOverride": {
+							"type": "string"
+						},
+						"actual": {
+							"type": "string"
+						},
+						"ltv": {
+							"type": "string"
+						},
+						"cac": {
+							"type": "string"
+						},
+						"noData": {
+							"type": "string"
+						},
+						"note": {
+							"type": "string"
+						},
+						"neverAutoApprove": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"validPlayers",
+						"play30sRate",
+						"replayRate",
+						"d1Retention",
+						"criticalBugs",
+						"adsEfficiency",
+						"operators",
+						"target",
+						"targetOverride",
+						"actual",
+						"ltv",
+						"cac",
+						"noData",
+						"note",
+						"neverAutoApprove"
+					]
+				},
+				"notScored": {
+					"type": "string"
+				},
+				"notDecided": {
+					"type": "string"
+				},
+				"totalScore": {
+					"type": "string"
+				},
+				"evaluationHint": {
+					"type": "string"
+				},
+				"decisionRestricted": {
+					"type": "string"
+				},
+				"briefHint": {
+					"type": "string"
+				},
+				"game": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"createTitle": {
+							"type": "string"
+						},
+						"createDescription": {
+							"type": "string"
+						},
+						"createButton": {
+							"type": "string"
+						},
+						"codeAuto": {
+							"type": "string"
+						},
+						"initialStage": {
+							"type": "string"
+						},
+						"nameRequired": {
+							"type": "string"
+						},
+						"dateError": {
+							"type": "string"
+						},
+						"createdToast": {
+							"type": "string"
+						},
+						"error": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"createTitle",
+						"createDescription",
+						"createButton",
+						"codeAuto",
+						"initialStage",
+						"nameRequired",
+						"dateError",
+						"createdToast",
+						"error"
+					]
+				},
+				"panel": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"sample": {
+							"type": "string"
+						},
+						"progress": {
+							"type": "string"
+						},
+						"nextTitle": {
+							"type": "string"
+						},
+						"ready": {
+							"type": "string"
+						},
+						"blocked": {
+							"type": "string"
+						},
+						"approvalsTitle": {
+							"type": "string"
+						},
+						"approvals": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"development": {
+									"type": "string"
+								},
+								"scale": {
+									"type": "string"
+								}
+							},
+							"required": ["development", "scale"]
+						},
+						"approved": {
+							"type": "string"
+						},
+						"notApproved": {
+							"type": "string"
+						},
+						"approve": {
+							"type": "string"
+						},
+						"revoke": {
+							"type": "string"
+						},
+						"allChecklists": {
+							"type": "string"
+						},
+						"taskFieldsHint": {
+							"type": "string"
+						},
+						"save": {
+							"type": "string"
+						},
+						"saved": {
+							"type": "string"
+						},
+						"saveError": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"title",
+						"sample",
+						"progress",
+						"nextTitle",
+						"ready",
+						"blocked",
+						"approvalsTitle",
+						"approvals",
+						"approved",
+						"notApproved",
+						"approve",
+						"revoke",
+						"allChecklists",
+						"taskFieldsHint",
+						"save",
+						"saved",
+						"saveError"
+					]
+				},
+				"failures": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"notAllowedFrom": {
+							"type": "string"
+						},
+						"notAllowedOutside": {
+							"type": "string"
+						},
+						"missingField": {
+							"type": "string"
+						},
+						"briefIncomplete": {
+							"type": "string"
+						},
+						"checklistIncomplete": {
+							"type": "string"
+						},
+						"evaluationIncomplete": {
+							"type": "string"
+						},
+						"evaluationNotApproved": {
+							"type": "string"
+						},
+						"approvalRequired": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"development": {
+									"type": "string"
+								},
+								"scale": {
+									"type": "string"
+								}
+							},
+							"required": ["development", "scale"]
+						},
+						"kpiResultsMissing": {
+							"type": "string"
+						},
+						"criticalBugsOpen": {
+							"type": "string"
+						},
+						"wipLimitReached": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"notAllowedFrom",
+						"notAllowedOutside",
+						"missingField",
+						"briefIncomplete",
+						"checklistIncomplete",
+						"evaluationIncomplete",
+						"evaluationNotApproved",
+						"approvalRequired",
+						"kpiResultsMissing",
+						"criticalBugsOpen",
+						"wipLimitReached"
+					]
+				},
+				"board": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"moveBlocked": {
+							"type": "string"
+						},
+						"checklistTitle": {
+							"type": "string"
+						}
+					},
+					"required": ["moveBlocked", "checklistTitle"]
+				},
+				"activity": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"updated": {
+							"type": "string"
+						},
+						"checked": {
+							"type": "string"
+						},
+						"unchecked": {
+							"type": "string"
+						},
+						"approved": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"development": {
+									"type": "string"
+								},
+								"scale": {
+									"type": "string"
+								}
+							},
+							"required": ["development", "scale"]
+						},
+						"revoked": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"development": {
+									"type": "string"
+								},
+								"scale": {
+									"type": "string"
+								}
+							},
+							"required": ["development", "scale"]
+						}
+					},
+					"required": ["updated", "checked", "unchecked", "approved", "revoked"]
+				},
+				"settings": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						},
+						"save": {
+							"type": "string"
+						},
+						"saved": {
+							"type": "string"
+						}
+					},
+					"required": ["title", "description", "save", "saved"]
+				},
+				"admin": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"title": {
+							"type": "string"
+						},
+						"description": {
+							"type": "string"
+						},
+						"save": {
+							"type": "string"
+						},
+						"saved": {
+							"type": "string"
+						}
+					},
+					"required": ["title", "description", "save", "saved"]
+				}
+			},
+			"required": [
+				"templatePicker",
+				"form",
+				"rules",
+				"preview",
+				"sections",
+				"fields",
+				"criteria",
+				"decisions",
+				"producerDecisions",
+				"priorities",
+				"devices",
+				"colors",
+				"kpis",
+				"notScored",
+				"notDecided",
+				"totalScore",
+				"evaluationHint",
+				"decisionRestricted",
+				"briefHint",
+				"game",
+				"panel",
+				"failures",
+				"board",
+				"activity",
+				"settings",
+				"admin"
+			]
 		}
 	},
 	"required": [
@@ -11080,6 +12722,7 @@
 		"team",
 		"publicProject",
 		"press",
-		"landing"
+		"landing",
+		"gamePipeline"
 	]
 }

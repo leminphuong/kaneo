@@ -14,6 +14,10 @@ import {
   userTable,
 } from "../../database/schema";
 import { publishEvent } from "../../events";
+import {
+  attachDefaultGameCard,
+  pipelineEntryStage,
+} from "../../game-pipeline/controllers/create-game";
 import { contentReferencesAsset } from "../../storage/cleanup-assets";
 import { copyTaskAssetObject, deleteS3Object } from "../../storage/s3";
 import { assertAssignableUser } from "../../utils/assert-assignable-user";
@@ -150,10 +154,14 @@ async function duplicateTask({
   await assertValidTaskStatus(sourceTask.status, sourceTask.projectId);
   if (sourceTask.userId)
     await assertAssignableUser(sourceTask.userId, project.workspaceId);
+  // A copy in a pipeline project is a new game: it starts at the first stage
+  // with an empty pipeline record instead of inheriting the source's gates.
+  const entryStage = await pipelineEntryStage(sourceTask.projectId);
+  const duplicateStatus = entryStage ?? sourceTask.status;
   const column = await db.query.columnTable.findFirst({
     where: and(
       eq(columnTable.projectId, sourceTask.projectId),
-      eq(columnTable.slug, sourceTask.status),
+      eq(columnTable.slug, duplicateStatus),
     ),
   });
 
@@ -252,7 +260,7 @@ async function duplicateTask({
       const nextPosition = await nextTaskPosition(
         tx,
         sourceTask.projectId,
-        sourceTask.status,
+        duplicateStatus,
         column?.id ?? null,
       );
 
@@ -263,7 +271,7 @@ async function duplicateTask({
           projectId: sourceTask.projectId,
           userId: sourceTask.userId,
           title: title?.trim() || sourceTask.title,
-          status: sourceTask.status,
+          status: duplicateStatus,
           columnId: column?.id ?? null,
           startDate: sourceTask.startDate,
           dueDate: sourceTask.dueDate,
@@ -278,6 +286,10 @@ async function duplicateTask({
         throw new HTTPException(500, {
           message: "Failed to duplicate task",
         });
+      }
+
+      if (entryStage) {
+        await attachDefaultGameCard(tx, sourceTask.projectId, task.id);
       }
 
       if (customFields.length > 0) {

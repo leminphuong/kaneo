@@ -32,6 +32,10 @@ import {
 } from "@/components/ui/preview-card";
 import { useDeleteTask } from "@/hooks/mutations/task/use-delete-task";
 import useGetCustomFieldValuesByProject from "@/hooks/queries/custom-field/use-get-custom-field-values-by-project";
+import {
+  useProjectGames,
+  useProjectPipeline,
+} from "@/hooks/queries/game-pipeline/use-game-pipeline";
 import useActiveWorkspace from "@/hooks/queries/workspace/use-active-workspace";
 import { useGetActiveWorkspaceUsers } from "@/hooks/queries/workspace-users/use-get-active-workspace-users";
 import { cn } from "@/lib/cn";
@@ -129,6 +133,11 @@ function TaskCard({ task, disableDragDrop = false }: TaskCardProps) {
 
   const { data: projectCustomFieldValues = [] } =
     useGetCustomFieldValuesByProject(task.projectId);
+
+  // Pipeline projects only: one shared per-project query, not one per card.
+  const { data: pipeline } = useProjectPipeline(task.projectId);
+  const { data: games } = useProjectGames(task.projectId, Boolean(pipeline));
+  const game = games?.find((candidate) => candidate.taskId === task.id);
 
   const customFieldValues = useMemo(
     () =>
@@ -237,6 +246,34 @@ function TaskCard({ task, disableDragDrop = false }: TaskCardProps) {
             {showTaskNumbers && (
               <div className="mb-2 text-[10px] font-mono text-muted-foreground/90">
                 {project?.slug}-{task.number}
+              </div>
+            )}
+
+            {game && (
+              <div className="mb-2 flex flex-wrap items-center gap-1.5 pr-7 text-[10px] text-muted-foreground">
+                <span className="rounded border border-border px-1 font-mono font-medium text-foreground/80">
+                  {game.code}
+                </span>
+                {game.total > 0 && (
+                  <span
+                    title={t("gamePipeline:board.checklistTitle")}
+                    className={
+                      game.checked === game.total
+                        ? "text-success-foreground"
+                        : ""
+                    }
+                  >
+                    {t("gamePipeline:panel.progress", {
+                      checked: game.checked,
+                      total: game.total,
+                    })}
+                  </span>
+                )}
+                {game.isSample && (
+                  <span className="rounded bg-warning/10 px-1 text-warning-foreground">
+                    {t("gamePipeline:panel.sample")}
+                  </span>
+                )}
               </div>
             )}
 

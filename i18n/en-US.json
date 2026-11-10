@@ -2769,5 +2769,377 @@
 			"startLink": "Start and verify the services",
 			"startLinkDescription": "Start the stack, inspect its status, and check that the application is available."
 		}
+	},
+	"gamePipeline": {
+		"templatePicker": {
+			"title": "Choose a project template",
+			"blankName": "Blank project",
+			"blankDescription": "Start with the default To Do, In Progress, In Review and Done columns.",
+			"useTemplate": "Use template",
+			"selected": "Selected",
+			"loading": "Loading template…"
+		},
+		"form": {
+			"description": "Description",
+			"view": "View",
+			"viewKanban": "Kanban",
+			"viewList": "List",
+			"template": "Template",
+			"templateVersion": "Version {{version}}",
+			"prefix": "Game code prefix",
+			"prefixHint": "Games get codes like {{example}}; codes are never reused.",
+			"timezone": "Time zone",
+			"startDate": "Start date",
+			"deadline": "Project deadline",
+			"deadlineHint": "Optional. Leave empty if there is no fixed deadline.",
+			"wipLimit": "WIP limit per developer in Development",
+			"producer": "Producer",
+			"producerRequired": "Pick the producer who approves this project's games.",
+			"developer": "Developer",
+			"qa": "QA",
+			"unassigned": "Unassigned",
+			"pickMember": "Pick a member",
+			"rulesTitle": "Gate Review rules",
+			"includeSample": "Add one sample game",
+			"includeSampleHint": "Off by default. The sample is clearly marked as sample data and can be deleted.",
+			"previewInvalid": "Fill every column name, checklist item and label in the preview.",
+			"createdToast": "Game pipeline project created",
+			"createdBlankToast": "Project created"
+		},
+		"rules": {
+			"requireDevelopmentApproval": "Approval required before Development",
+			"requireScaleApproval": "Approval required before Scale",
+			"stageChecklists": "Checklist per stage",
+			"kpiTracking": "KPI tracking",
+			"changeHistory": "Change history"
+		},
+		"preview": {
+			"title": "Content that will be created",
+			"subtitle": "Open each group to inspect and edit it. Edits apply to this project only, never to the template.",
+			"columns": "Columns",
+			"columnEmoji": "Column icon",
+			"columnName": "Column name",
+			"columnDescription": "Work in this stage",
+			"columnConditions": "Transition conditions",
+			"finalStage": "Final",
+			"gameForm": "Game form",
+			"gameFormHint": "Only the name is required to create a game. Other fields are checked when the game enters the stage that needs them.",
+			"requiredAt": "Required to enter {{stage}}",
+			"optional": "Optional",
+			"briefTemplate": "MVP brief scaffold",
+			"briefTemplateHint": "Text in [brackets] is guidance and never counts as filled.",
+			"checklists": "Stage checklists",
+			"checklistHint": "Every game gets these items unchecked. Progress only counts items someone actually checked.",
+			"itemLabel": "Checklist item",
+			"addItem": "Add item",
+			"removeItem": "Remove",
+			"newItem": "New item",
+			"evaluation": "Idea evaluation",
+			"evaluationHint": "Scores run from 1 to the maximum. The total is a weighted score out of 100; low cost and difficulty count as better.",
+			"weight": "Weight",
+			"inverse": "lower is better",
+			"scaleMax": "Maximum score",
+			"passThreshold": "Suggested pass score",
+			"kpis": "Suggested KPIs",
+			"rules": "Gate Review and WIP",
+			"wipHint": "A developer can hold at most {{limit}} games in Development.",
+			"labels": "Default labels",
+			"labelsHint": "Labels are created as workspace labels and never attached to games automatically. They don't replace the column status.",
+			"groupName": "Group name",
+			"labelName": "Label name",
+			"addLabel": "Add label",
+			"newLabel": "New label"
+		},
+		"sections": {
+			"general": "A. General",
+			"trend": "B. Trend and idea",
+			"evaluation": "C. Idea evaluation",
+			"brief": "D. MVP brief",
+			"links": "E. Links",
+			"kpi": "F. KPI and decision"
+		},
+		"fields": {
+			"title": {
+				"label": "Game name",
+				"hint": "e.g. Dodge the Meme"
+			},
+			"description": {
+				"label": "Short description",
+				"hint": "One or two sentences about the game"
+			},
+			"priority": {
+				"label": "Priority"
+			},
+			"dueDate": {
+				"label": "Deadline"
+			},
+			"labels": {
+				"label": "Labels",
+				"hint": "Optional. Pick only what applies."
+			},
+			"devices": {
+				"label": "Devices"
+			},
+			"producerId": {
+				"label": "Producer"
+			},
+			"developerId": {
+				"label": "Developer"
+			},
+			"qaId": {
+				"label": "QA"
+			},
+			"targetMarket": {
+				"label": "Target market",
+				"hint": "e.g. Vietnam, Gen Z 16-24"
+			},
+			"platform": {
+				"label": "Platform",
+				"hint": "e.g. Web H5"
+			},
+			"trendSourceUrl": {
+				"label": "Trend source (URL)",
+				"hint": "Link to the post, video or chart where the trend was found"
+			},
+			"trendEvidence": {
+				"label": "Evidence",
+				"hint": "Views, engagement, screenshots, when it was spotted. Attach files in the game description."
+			},
+			"audience": {
+				"label": "Audience",
+				"hint": "Who plays this and why"
+			},
+			"gameplayIdea": {
+				"label": "Gameplay idea",
+				"hint": "What the player does in one sentence"
+			},
+			"coreLoop": {
+				"label": "Core loop",
+				"hint": "The action → reward → repeat cycle"
+			},
+			"winCondition": {
+				"label": "Win condition",
+				"hint": "How a round is won"
+			},
+			"loseCondition": {
+				"label": "Lose condition",
+				"hint": "How a round is lost"
+			},
+			"hook": {
+				"label": "Hook / differentiator",
+				"hint": "Why players share or replay it"
+			},
+			"mvpBrief": {
+				"label": "MVP brief"
+			},
+			"estimatedMvpDays": {
+				"label": "Estimated MVP time (days)"
+			},
+			"comments": {
+				"label": "Comments",
+				"hint": "Notes from the Gate Review"
+			},
+			"decision": {
+				"label": "Approval decision"
+			},
+			"evaluation": {
+				"label": "Idea evaluation"
+			},
+			"kpi": {
+				"label": "KPI"
+			},
+			"repositoryUrl": {
+				"label": "Repository",
+				"hint": "https://github.com/…"
+			},
+			"buildUrl": {
+				"label": "Build / test URL",
+				"hint": "Where the team can play the current build"
+			},
+			"releaseUrl": {
+				"label": "Release URL",
+				"hint": "Public link used for the soft launch"
+			},
+			"designDocUrl": {
+				"label": "Design document",
+				"hint": "Link to the game design document"
+			},
+			"assetsUrl": {
+				"label": "Art / audio assets",
+				"hint": "Folder with art and audio"
+			},
+			"analyticsUrl": {
+				"label": "Analytics dashboard",
+				"hint": "Dashboard with the tracked events"
+			},
+			"qaReportUrl": {
+				"label": "QA report",
+				"hint": "Link to the QA report"
+			},
+			"kpiDataSource": {
+				"label": "Data source",
+				"hint": "e.g. GA4, internal tracking"
+			},
+			"kpiMeasurementWindow": {
+				"label": "Measurement window",
+				"hint": "e.g. 7 days, 1-7 Dec"
+			},
+			"kpiSampleSize": {
+				"label": "Sample size"
+			},
+			"kpiNotes": {
+				"label": "Notes",
+				"hint": "Traffic source, anomalies, caveats"
+			},
+			"producerDecision": {
+				"label": "Producer decision"
+			}
+		},
+		"criteria": {
+			"viralPotential": "Viral potential",
+			"marketFit": "Market fit",
+			"gameplayAppeal": "Gameplay appeal",
+			"productionCost": "Production cost",
+			"technicalDifficulty": "Technical difficulty"
+		},
+		"decisions": {
+			"approved": "Approved",
+			"revise": "Needs revision",
+			"rejected": "Rejected"
+		},
+		"producerDecisions": {
+			"scale": "Scale",
+			"optimize": "Optimize",
+			"retest": "Test again",
+			"stop": "Stop"
+		},
+		"priorities": {
+			"no-priority": "No priority",
+			"low": "Low",
+			"medium": "Medium",
+			"high": "High",
+			"urgent": "Urgent"
+		},
+		"devices": {
+			"mobile": "Mobile",
+			"desktop": "Desktop"
+		},
+		"colors": {
+			"gray": "Gray",
+			"dark-gray": "Dark gray",
+			"purple": "Purple",
+			"teal": "Teal",
+			"green": "Green",
+			"yellow": "Yellow",
+			"orange": "Orange",
+			"pink": "Pink",
+			"red": "Red"
+		},
+		"kpis": {
+			"validPlayers": "Valid real players",
+			"play30sRate": "Played ≥ 30s rate (%)",
+			"replayRate": "In-session replay (%)",
+			"d1Retention": "D1 retention (%)",
+			"criticalBugs": "Open critical bugs",
+			"adsEfficiency": "Ads efficiency: expected LTV > CAC + margin (%)",
+			"operators": {
+				"gte": "≥",
+				"lte": "≤",
+				"eq": "=",
+				"ltvOverCac": "margin %"
+			},
+			"target": "Target",
+			"targetOverride": "Target for this game",
+			"actual": "Actual result",
+			"ltv": "Expected LTV",
+			"cac": "CAC",
+			"noData": "No data yet",
+			"note": "Internal test thresholds; adjust them to the genre and traffic source.",
+			"neverAutoApprove": "Meeting every KPI never approves Scale by itself: the producer still has to approve."
+		},
+		"notScored": "Not evaluated",
+		"notDecided": "Not decided",
+		"totalScore": "Total {{score}}/100",
+		"evaluationHint": "The total appears once every criterion is scored. Suggested pass score: {{threshold}}.",
+		"decisionRestricted": "Only the game's producer or a project manager can record decisions and approvals.",
+		"briefHint": "Replace every [bracketed] hint with real content. Required sections with only hints do not pass the Development gate.",
+		"game": {
+			"createTitle": "Create a new game",
+			"createDescription": "Only the name is required now; each stage asks for what it needs.",
+			"createButton": "Create game",
+			"codeAuto": "Code assigned on create, e.g. {{example}}",
+			"initialStage": "Starts in {{stage}}",
+			"nameRequired": "Enter the game's name.",
+			"dateError": "The deadline must not be before the start date.",
+			"createdToast": "Game {{code}} created",
+			"error": "Could not create the game"
+		},
+		"panel": {
+			"title": "Game pipeline",
+			"sample": "Sample data",
+			"progress": "{{checked}}/{{total}} done",
+			"nextTitle": "Next stages",
+			"ready": "ready",
+			"blocked": "not ready",
+			"approvalsTitle": "Approvals",
+			"approvals": {
+				"development": "Start Development",
+				"scale": "Scale"
+			},
+			"approved": "approved",
+			"notApproved": "not approved",
+			"approve": "Approve",
+			"revoke": "Revoke",
+			"allChecklists": "Checklists of other stages",
+			"taskFieldsHint": "Name, description, developer (assignee), priority, dates and labels are edited with the task's own fields.",
+			"save": "Save game",
+			"saved": "Game saved",
+			"saveError": "Could not save"
+		},
+		"failures": {
+			"notAllowedFrom": "Can't be reached from {{stage}}",
+			"notAllowedOutside": "New games start in {{stage}}",
+			"missingField": "Missing: {{field}}",
+			"briefIncomplete": "MVP brief sections still empty: {{sections}}",
+			"checklistIncomplete": "{{stage}} checklist has {{remaining}} unchecked item(s)",
+			"evaluationIncomplete": "The idea is not fully scored",
+			"evaluationNotApproved": "The approval decision is not \"Approved\"",
+			"approvalRequired": {
+				"development": "Producer approval for Development is required",
+				"scale": "Producer approval for Scale is required"
+			},
+			"kpiResultsMissing": "KPI results missing: {{kpis}}",
+			"criticalBugsOpen": "Open critical bugs must be recorded as 0",
+			"wipLimitReached": "The developer already has {{current}}/{{limit}} games in Development"
+		},
+		"board": {
+			"moveBlocked": "Not ready for this stage yet",
+			"checklistTitle": "Checklist of the current stage"
+		},
+		"activity": {
+			"updated": "updated {{fields}}",
+			"checked": "checked \"{{label}}\" ({{stage}})",
+			"unchecked": "unchecked \"{{label}}\" ({{stage}})",
+			"approved": {
+				"development": "approved the move to Development",
+				"scale": "approved Scale"
+			},
+			"revoked": {
+				"development": "revoked the Development approval",
+				"scale": "revoked the Scale approval"
+			}
+		},
+		"settings": {
+			"title": "Game pipeline",
+			"description": "This project's own copy of the GAME PRODUCTION PIPELINE template. Changes here never affect the template or other projects.",
+			"save": "Save pipeline",
+			"saved": "Pipeline saved"
+		},
+		"admin": {
+			"title": "Project templates",
+			"description": "Saving creates a new template version for future projects. Existing projects keep their own copy and do not change.",
+			"save": "Save as new version",
+			"saved": "Template version {{version}} saved"
+		}
 	}
 }

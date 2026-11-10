@@ -1,6 +1,8 @@
 import { HTTPException } from "hono/http-exception";
 import { requireWorkspaceEntitlement } from "../billing/controllers/require-entitlement";
 import { requireEntitlement } from "../billing/require-entitlement-middleware";
+import { assertWorkspaceMembers } from "../game-pipeline/controllers/create-game";
+import { assertKnownTemplateVersion } from "../game-pipeline/template-store";
 import {
   apiRouter,
   type BaseVariables,
@@ -16,7 +18,9 @@ import {
 import { validateWorkspaceAccess } from "../utils/validate-workspace-access";
 import { workspaceAccess } from "../utils/workspace-access-middleware";
 import archiveProjectCtrl from "./controllers/archive-project";
-import createProjectCtrl from "./controllers/create-project";
+import createProjectCtrl, {
+  type CreateProjectOptions,
+} from "./controllers/create-project";
 import deleteProjectCtrl from "./controllers/delete-project";
 import getProjectCtrl from "./controllers/get-project";
 import getProjectsCtrl from "./controllers/get-projects";
@@ -95,7 +99,7 @@ const createProjectRoute = createRoute({
   tags: ["Projects"],
   summary: "Create project",
   description:
-    "Create a project in a workspace. The slug becomes the prefix of its task identifiers.",
+    "Create a project in a workspace. The slug becomes the prefix of its task identifiers. Pass `template` to create it from a project template (columns, checklists, KPIs and gate rules); pass `creationKey` to make the request safe to retry.",
   middleware: [
     workspaceAccess.fromBody(),
     requireWorkspacePermission({ project: ["create"] }),
@@ -109,9 +113,11 @@ const createProjectRoute = createRoute({
   },
   responses: {
     200: jsonResponse("The created project", projectSchema),
-    400: errorResponse("Invalid body, or workspace ID could not be determined"),
+    400: errorResponse(
+      "Invalid body or template config, missing producer, or workspace ID could not be determined",
+    ),
     403: errorResponse(
-      "No workspace access, or missing project:create permission",
+      "No workspace access, missing project:create permission, or a template role is not a workspace member",
     ),
   },
 });
@@ -300,9 +306,37 @@ const project = apiRouter<BaseVariables & { workspaceId: string }>()
     return c.json(projects, 200);
   })
   .openapi(createProjectRoute, async (c) => {
-    const { name, icon, slug } = c.req.valid("json");
+    const { name, icon, slug, description, creationKey, template } =
+      c.req.valid("json");
     const workspaceId = c.get("workspaceId");
-    const newProject = await createProjectCtrl(workspaceId, name, icon, slug);
+    const userId = c.get("userId");
+    let templateOptions: CreateProjectOptions["template"];
+    if (template) {
+      await assertKnownTemplateVersion(template.key, template.version);
+      const { defaults } = template.config;
+      if (!defaults.producerId) {
+        throw new HTTPException(400, {
+          message: "A producer is required for a game pipeline project",
+        });
+      }
+      await assertWorkspaceMembers(workspaceId, [
+        defaults.producerId,
+        defaults.developerId,
+        defaults.qaId,
+      ]);
+      templateOptions = {
+        ...template,
+        currentUserId: userId,
+        canCreateLabels: await hasWorkspacePermission(c, {
+          label: ["create"],
+        }),
+      };
+    }
+    const newProject = await createProjectCtrl(workspaceId, name, icon, slug, {
+      description,
+      creationKey,
+      template: templateOptions,
+    });
     return c.json(newProject, 200);
   })
   .openapi(getProjectRoute, async (c) => {

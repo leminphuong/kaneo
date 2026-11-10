@@ -123,6 +123,18 @@ vi.mock("@/hooks/use-workspace-permission", () => ({
   }),
 }));
 
+let projectPipeline: { projectId: string } | null = null;
+
+vi.mock("@/hooks/queries/game-pipeline/use-game-pipeline", () => ({
+  useProjectPipeline: () => ({ data: projectPipeline, isLoading: false }),
+}));
+
+vi.mock("@/components/game-pipeline/create-game-modal", () => ({
+  default: (props: { pipeline: { projectId: string } }) => (
+    <div data-testid="create-game-modal">{props.pipeline.projectId}</div>
+  ),
+}));
+
 vi.mock("@/hooks/queries/project/use-get-projects", () => ({
   default: () => ({ data: projects }),
 }));
@@ -308,6 +320,27 @@ function pendingCreate() {
       createdAt: "2026-08-05T00:00:00.000Z",
     } as never);
 }
+
+describe("CreateTaskModal in a game pipeline project", () => {
+  it("shows the game form instead of the generic task form", () => {
+    projectPipeline = { projectId: "project-1" };
+    try {
+      render(<CreateTaskModal open onClose={vi.fn()} projectId="project-1" />, {
+        wrapper: createWrapper(),
+      });
+      expect(screen.getByTestId("create-game-modal")).toHaveTextContent(
+        "project-1",
+      );
+      expect(
+        screen.queryByPlaceholderText(
+          "common:modals.createTask.taskTitlePlaceholder",
+        ),
+      ).not.toBeInTheDocument();
+    } finally {
+      projectPipeline = null;
+    }
+  });
+});
 
 describe("CreateTaskModal context isolation", () => {
   it("never falls back to the last globally visited project", () => {

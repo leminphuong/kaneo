@@ -8,6 +8,7 @@ import {
   taskTable,
 } from "../../database/schema";
 import { publishEvent } from "../../events";
+import { getPipeline } from "../../game-pipeline/store";
 import { claimTaskNumber } from "./claim-task-numbers";
 import { nextTaskPosition } from "./next-task-position";
 
@@ -103,6 +104,18 @@ async function moveTask({
   if (!destinationProject) {
     throw new HTTPException(404, {
       message: "Project not found",
+    });
+  }
+
+  // A game's pipeline record (code, checklists, approvals) belongs to its
+  // project, so games neither leave nor enter a pipeline project by moving.
+  if (
+    (await getPipeline(sourceProject.id)) ||
+    (await getPipeline(destinationProject.id))
+  ) {
+    throw new HTTPException(409, {
+      message:
+        "Games cannot be moved into or out of a game pipeline project; create the game in the destination instead",
     });
   }
 

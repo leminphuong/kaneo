@@ -3,6 +3,7 @@ import { HTTPException } from "hono/http-exception";
 import db from "../../database";
 import { columnTable, taskTable } from "../../database/schema";
 import { publishEvent } from "../../events";
+import { assertGameTransition } from "../../game-pipeline/store";
 import { deleteOrphanedAssets } from "../../storage/cleanup-assets";
 import {
   assertAssignableUser,
@@ -61,6 +62,14 @@ async function updateTask(
       await getProjectWorkspaceId(projectId),
     );
   }
+
+  await assertGameTransition({
+    taskId: id,
+    projectId,
+    fromStatus: existingTask.status,
+    toStatus: status,
+    task: { userId: normalizedUserId ?? null, dueDate: dueDate ?? null },
+  });
 
   const column = await db.query.columnTable.findFirst({
     where: and(

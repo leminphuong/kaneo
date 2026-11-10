@@ -330,6 +330,9 @@ export const projectTable = pgTable(
     archivedAt: timestamp("archived_at", { mode: "date" }),
     lastTaskNumber: integer("last_task_number").notNull().default(0),
     position: integer("position").notNull().default(0),
+    // Client-generated key that makes project creation idempotent: a retried
+    // or double-submitted create returns the project the first one made.
+    creationKey: text("creation_key"),
   },
   (table) => [
     unique("project_workspace_id_id_unique").on(table.workspaceId, table.id),
@@ -337,8 +340,59 @@ export const projectTable = pgTable(
       table.workspaceId,
       table.position,
     ),
+    uniqueIndex("project_workspace_creation_key_unique")
+      .on(table.workspaceId, table.creationKey)
+      .where(sql`${table.creationKey} is not null`),
   ],
 );
+
+// Versions of a project template saved by an instance admin. The built-in
+// version 1 lives in code; rows here only exist once an admin saves a newer
+// one. Projects never reference these rows: creation copies the config.
+export const projectTemplateTable = pgTable(
+  "project_template",
+  {
+    id: text("id")
+      .$defaultFn(() => createId())
+      .primaryKey(),
+    templateKey: text("template_key").notNull(),
+    version: integer("version").notNull(),
+    config: jsonb("config").notNull(),
+    createdBy: text("created_by").references(() => userTable.id, {
+      onDelete: "set null",
+      onUpdate: "cascade",
+    }),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    unique("project_template_key_version_unique").on(
+      table.templateKey,
+      table.version,
+    ),
+  ],
+);
+
+// Project-owned copy of a template's config. Present only for projects that
+// were created from a template, so plain projects are untouched.
+export const projectPipelineTable = pgTable("project_pipeline", {
+  projectId: text("project_id")
+    .primaryKey()
+    .references(() => projectTable.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  templateKey: text("template_key").notNull(),
+  templateVersion: integer("template_version").notNull(),
+  config: jsonb("config").notNull(),
+  // Monotonic counter behind game codes (H5-001); never decremented, so a
+  // deleted game's code is never handed out again.
+  lastGameNumber: integer("last_game_number").notNull().default(0),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "date" })
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
 
 export const columnTable = pgTable(
   "column",
@@ -439,6 +493,55 @@ export const taskTable = pgTable(
     index("task_assigneeId_idx").on(table.userId),
     index("task_columnId_idx").on(table.columnId),
     unique("task_project_number_unique").on(table.projectId, table.number),
+  ],
+);
+
+// Pipeline data of one game. The game itself is the task (title, status,
+// assignee = developer, priority, dates, labels); this row only holds what a
+// task has no field for, so nothing is stored twice.
+export const gameCardTable = pgTable(
+  "game_card",
+  {
+    taskId: text("task_id")
+      .primaryKey()
+      .references(() => taskTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projectTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
+    code: text("code").notNull(),
+    producerId: text("producer_id").references(() => userTable.id, {
+      onDelete: "set null",
+      onUpdate: "cascade",
+    }),
+    qaId: text("qa_id").references(() => userTable.id, {
+      onDelete: "set null",
+      onUpdate: "cascade",
+    }),
+    isSample: boolean("is_sample").default(false).notNull(),
+    details: jsonb("details").notNull().default({}),
+    evaluation: jsonb("evaluation").notNull().default({}),
+    kpi: jsonb("kpi").notNull().default({}),
+    checklist: jsonb("checklist").notNull().default({}),
+    approvals: jsonb("approvals").notNull().default({}),
+    creationKey: text("creation_key"),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" })
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("game_card_projectId_idx").on(table.projectId),
+    unique("game_card_project_code_unique").on(table.projectId, table.code),
+    uniqueIndex("game_card_project_creation_key_unique")
+      .on(table.projectId, table.creationKey)
+      .where(sql`${table.creationKey} is not null`),
   ],
 );
 

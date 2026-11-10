@@ -10,6 +10,7 @@ import {
   workspaceUserTable,
 } from "../../database/schema";
 import { publishEvent } from "../../events";
+import { assertGameTransition } from "../../game-pipeline/store";
 import { removeLabelFromGitea } from "../../plugins/gitea/utils/sync-label-to-gitea";
 import { removeLabelFromGitHub } from "../../plugins/github/utils/sync-label-to-github";
 import { assertAssignableUser } from "../../utils/assert-assignable-user";
@@ -116,6 +117,17 @@ async function bulkUpdateTasks({
           (task) => task.projectId === projectId,
         );
         const projectTaskIds = projectTasks.map((task) => task.id);
+
+        // All-or-nothing: one game failing its Gate Review rejects the batch.
+        for (const task of projectTasks) {
+          await assertGameTransition({
+            taskId: task.id,
+            projectId,
+            fromStatus: task.status,
+            toStatus: value,
+            task: { userId: task.userId, dueDate: task.dueDate },
+          });
+        }
 
         const result = await db
           .update(taskTable)

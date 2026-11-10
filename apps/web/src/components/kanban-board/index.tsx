@@ -17,8 +17,16 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { produce } from "immer";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { formatGateFailure } from "@/components/game-pipeline/gate-failures";
+import { getGame } from "@/fetchers/game-pipeline";
 import { useUpdateTask } from "@/hooks/mutations/task/use-update-task";
+import {
+  gamePipelineKeys,
+  useProjectPipeline,
+} from "@/hooks/queries/game-pipeline/use-game-pipeline";
 import { useRegisterShortcuts } from "@/hooks/use-keyboard-shortcuts";
+import { toast } from "@/lib/toast";
 import useBulkSelectionStore from "@/store/bulk-selection";
 import useProjectStore from "@/store/project";
 import type { ProjectWithTasks } from "@/types/project";
@@ -43,7 +51,47 @@ function KanbanBoard({ project, disableDragDrop = false }: KanbanBoardProps) {
   } = useBulkSelectionStore();
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const { mutate: updateTask } = useUpdateTask();
+  // Its own mutation: TanStack only runs per-call callbacks for the latest
+  // mutate() of an instance, and the drop also re-positions sibling cards.
+  const { mutate: moveCard } = useUpdateTask();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { data: pipeline } = useProjectPipeline(project?.id);
+
+  // A Gate Review can reject a move. Put the board back and say why, using
+  // the same readiness data the game panel shows.
+  const handleMoveError = async (
+    taskId: string,
+    stageKey: string,
+    error: Error,
+    boardBeforeMove: ProjectWithTasks,
+  ) => {
+    setProject(boardBeforeMove);
+    queryClient.invalidateQueries({ queryKey: ["tasks", project.id] });
+    if (!pipeline) {
+      toast.error(error.message);
+      return;
+    }
+    let reasons: string[] = [];
+    try {
+      const game = await queryClient.fetchQuery({
+        queryKey: gamePipelineKeys.game(taskId),
+        queryFn: () => getGame(taskId),
+        staleTime: 0,
+      });
+      const transition = game.transitions.find(
+        (item) => item.stage === stageKey,
+      );
+      reasons = (transition?.failures ?? []).map((failure) =>
+        formatGateFailure(t, pipeline.config, failure),
+      );
+    } catch {
+      // Fall back to the API's own message below.
+    }
+    toast.error(t("gamePipeline:board.moveBlocked"), {
+      description: reasons.length > 0 ? reasons.join(" · ") : error.message,
+    });
+  };
 
   useEffect(() => {
     if (project?.columns) {
@@ -174,7 +222,22 @@ function KanbanBoard({ project, disableDragDrop = false }: KanbanBoardProps) {
         destinationColumn.tasks.splice(destinationIndex, 0, task);
 
         destinationColumn.tasks.forEach((t, index) => {
-          updateTask({ ...t, status: destinationColumn.slug, position: index });
+          const next = {
+            ...t,
+            status: destinationColumn.slug,
+            position: index,
+          };
+          if (t.id === activeId) {
+            // Plain values only: the immer draft is revoked by the time the
+            // request settles.
+            const stageKey = destinationColumn.slug;
+            moveCard(next, {
+              onError: (error) =>
+                void handleMoveError(activeId, stageKey, error, project),
+            });
+          } else {
+            updateTask(next);
+          }
         });
 
         sourceColumn.tasks.forEach((t, index) => {
