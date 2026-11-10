@@ -7,6 +7,7 @@ import Activity from "@/components/activity";
 import CommentInput from "@/components/activity/comment-input";
 import { isCommentActivity } from "@/components/activity/utils";
 import { ExternalLinksAccordion } from "@/components/external-links/external-links-accordion";
+import GamePanel from "@/components/game-pipeline/game-panel";
 import useAuth from "@/components/providers/auth-provider/hooks/use-auth";
 import {
   Accordion,
@@ -185,6 +186,7 @@ export default function TaskDetailsContent({
         <TaskTitle taskId={taskId} />
         <TaskDescription taskId={taskId} />
       </div>
+      <GamePanel taskId={taskId} projectId={projectId} />
       {customFields.length > 0 && (
         <div className="mt-2">
           <Accordion className="w-full">

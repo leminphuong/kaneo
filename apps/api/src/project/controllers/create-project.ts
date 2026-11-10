@@ -1,6 +1,10 @@
-import { eq, max, sql } from "drizzle-orm";
+import { and, eq, max, sql } from "drizzle-orm";
 import db from "../../database";
 import { columnTable, projectTable } from "../../database/schema";
+import {
+  type PipelineTemplateInput,
+  setupPipelineProject,
+} from "../../game-pipeline/controllers/setup-pipeline-project";
 
 export const DEFAULT_PROJECT_COLUMNS = [
   { name: "To Do", slug: "to-do", position: 0, isFinal: false },
@@ -9,11 +13,22 @@ export const DEFAULT_PROJECT_COLUMNS = [
   { name: "Done", slug: "done", position: 3, isFinal: true },
 ] as const;
 
+export type CreateProjectOptions = {
+  description?: string;
+  creationKey?: string;
+  // Present only when the project is created from a template.
+  template?: PipelineTemplateInput & {
+    currentUserId: string;
+    canCreateLabels: boolean;
+  };
+};
+
 async function createProject(
   workspaceId: string,
   name: string,
   icon: string,
   slug: string,
+  options: CreateProjectOptions = {},
 ) {
   return db.transaction(async (tx) => {
     // Serialize ordering writes per workspace: without this, two concurrent
@@ -23,6 +38,22 @@ async function createProject(
     await tx.execute(
       sql`SELECT pg_advisory_xact_lock(1524, hashtext(${workspaceId}))`,
     );
+
+    // A retried or double-submitted create returns the first one's project.
+    // The workspace lock above makes this check race-free.
+    if (options.creationKey) {
+      const [existing] = await tx
+        .select()
+        .from(projectTable)
+        .where(
+          and(
+            eq(projectTable.workspaceId, workspaceId),
+            eq(projectTable.creationKey, options.creationKey),
+          ),
+        )
+        .limit(1);
+      if (existing) return existing;
+    }
 
     // New projects go to the bottom of the workspace's ordering.
     const [{ maxPosition } = { maxPosition: null }] = await tx
@@ -37,19 +68,33 @@ async function createProject(
         name,
         icon,
         slug,
+        description: options.description,
+        creationKey: options.creationKey ?? null,
         position: maxPosition === null ? 0 : maxPosition + 1,
       })
       .returning();
 
     if (createdProject) {
-      for (const col of DEFAULT_PROJECT_COLUMNS) {
-        await tx.insert(columnTable).values({
+      if (options.template) {
+        const { currentUserId, canCreateLabels, ...template } =
+          options.template;
+        await setupPipelineProject(tx, {
           projectId: createdProject.id,
-          name: col.name,
-          slug: col.slug,
-          position: col.position,
-          isFinal: col.isFinal,
+          workspaceId,
+          currentUserId,
+          canCreateLabels,
+          template,
         });
+      } else {
+        for (const col of DEFAULT_PROJECT_COLUMNS) {
+          await tx.insert(columnTable).values({
+            projectId: createdProject.id,
+            name: col.name,
+            slug: col.slug,
+            position: col.position,
+            isFinal: col.isFinal,
+          });
+        }
       }
     }
 

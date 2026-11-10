@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import ImportUsersCard from "@/components/admin/import-users-card";
 import UserManagementPanel from "@/components/admin/user-management-panel";
+import { TemplateAdminCard } from "@/components/game-pipeline/pipeline-settings-card";
 import PageTitle from "@/components/page-title";
 
 export const Route = createFileRoute(
@@ -20,6 +21,7 @@ function RouteComponent() {
       <div className="mx-auto mt-6 max-w-5xl">
         <ImportUsersCard />
       </div>
+      <TemplateAdminCard />
     </>
   );
 }

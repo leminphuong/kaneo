@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import { PipelineSettingsCard } from "@/components/game-pipeline/pipeline-settings-card";
 import PageTitle from "@/components/page-title";
 import ColumnEditor from "@/components/project/column-editor";
 import CustomFieldEditor from "@/components/project/custom-field-editor";
@@ -27,6 +28,8 @@ function RouteComponent() {
             {t("settings:projectWorkflow.subtitle")}
           </p>
         </div>
+
+        <PipelineSettingsCard projectId={projectId} />
 
         <div className="space-y-6">
           <div className="space-y-1">

@@ -10,6 +10,10 @@ import {
 } from "../../database/schema";
 import { publishEvent } from "../../events";
 import {
+  attachDefaultGameCard,
+  pipelineEntryStage,
+} from "../../game-pipeline/controllers/create-game";
+import {
   assertAssignableUser,
   getProjectWorkspaceId,
 } from "../../utils/assert-assignable-user";
@@ -71,6 +75,15 @@ async function createTask({
   const normalizedUserId = userId?.trim() || undefined;
 
   await assertValidTaskStatus(resolvedStatus, projectId);
+
+  // Every task in a pipeline project is a game, and games enter at the first
+  // stage; anything else would skip the Gate Reviews.
+  const entryStage = await pipelineEntryStage(projectId);
+  if (entryStage && resolvedStatus !== entryStage) {
+    throw new HTTPException(400, {
+      message: `Games in this project start in the "${entryStage}" stage`,
+    });
+  }
 
   const allFields = await db
     .select()
@@ -142,6 +155,10 @@ async function createTask({
         position: nextPosition,
       })
       .returning();
+
+    if (task && entryStage) {
+      await attachDefaultGameCard(tx, projectId, task.id);
+    }
 
     if (task && mergedCustomFields.length) {
       await tx.insert(customFieldValueTable).values(

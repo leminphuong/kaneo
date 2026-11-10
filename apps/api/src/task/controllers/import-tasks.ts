@@ -3,6 +3,10 @@ import { HTTPException } from "hono/http-exception";
 import db from "../../database";
 import { columnTable, projectTable, taskTable } from "../../database/schema";
 import { publishEvent } from "../../events";
+import {
+  attachDefaultGameCard,
+  pipelineEntryStage,
+} from "../../game-pipeline/controllers/create-game";
 import { filterAssignableUsers } from "../../utils/assert-assignable-user";
 import {
   coercePriority,
@@ -50,6 +54,8 @@ async function importTasks(
   );
 
   const validStatuses = await getValidTaskStatuses(projectId);
+  // Imported tasks in a pipeline project become new games at the first stage.
+  const entryStage = await pipelineEntryStage(projectId);
 
   const results = [];
 
@@ -66,10 +72,12 @@ async function importTasks(
     }
 
     try {
-      const { status, warning: statusWarning } = coerceStatus(
-        taskData.status,
-        validStatuses,
-      );
+      const coerced = coerceStatus(taskData.status, validStatuses);
+      const status = entryStage ?? coerced.status;
+      const statusWarning =
+        entryStage && taskData.status !== entryStage
+          ? `Games start in "${entryStage}"; status "${taskData.status}" was not applied`
+          : coerced.warning;
       const { priority, warning: priorityWarning } = coercePriority(
         taskData.priority || "low",
       );
@@ -100,6 +108,10 @@ async function importTasks(
             number: taskNumber,
           })
           .returning();
+
+        if (task && entryStage) {
+          await attachDefaultGameCard(tx, projectId, task.id);
+        }
 
         return task;
       });

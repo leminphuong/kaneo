@@ -2845,5 +2845,377 @@
 			"startLink": "Start and verify the services",
 			"startLinkDescription": "Start the stack, inspect its status, and check that the application is available."
 		}
+	},
+	"gamePipeline": {
+		"activity": {
+			"approved": {
+				"development": "approved the move to Development",
+				"scale": "approved Scale"
+			},
+			"checked": "checked \"{{label}}\" ({{stage}})",
+			"revoked": {
+				"development": "revoked the Development approval",
+				"scale": "revoked the Scale approval"
+			},
+			"unchecked": "unchecked \"{{label}}\" ({{stage}})",
+			"updated": "updated {{fields}}"
+		},
+		"admin": {
+			"description": "Saving creates a new template version for future projects. Existing projects keep their own copy and do not change.",
+			"save": "Save as new version",
+			"saved": "Template version {{version}} saved",
+			"title": "Project templates"
+		},
+		"board": {
+			"checklistTitle": "Checklist of the current stage",
+			"moveBlocked": "Not ready for this stage yet"
+		},
+		"briefHint": "Replace every [bracketed] hint with real content. Required sections with only hints do not pass the Development gate.",
+		"colors": {
+			"dark-gray": "Dark gray",
+			"gray": "Gray",
+			"green": "Green",
+			"orange": "Orange",
+			"pink": "Pink",
+			"purple": "Purple",
+			"red": "Red",
+			"teal": "Teal",
+			"yellow": "Yellow"
+		},
+		"criteria": {
+			"gameplayAppeal": "Gameplay appeal",
+			"marketFit": "Market fit",
+			"productionCost": "Production cost",
+			"technicalDifficulty": "Technical difficulty",
+			"viralPotential": "Viral potential"
+		},
+		"decisionRestricted": "Only the game's producer or a project manager can record decisions and approvals.",
+		"decisions": {
+			"approved": "Approved",
+			"rejected": "Rejected",
+			"revise": "Needs revision"
+		},
+		"devices": {
+			"desktop": "Desktop",
+			"mobile": "Mobile"
+		},
+		"evaluationHint": "The total appears once every criterion is scored. Suggested pass score: {{threshold}}.",
+		"failures": {
+			"approvalRequired": {
+				"development": "Producer approval for Development is required",
+				"scale": "Producer approval for Scale is required"
+			},
+			"briefIncomplete": "MVP brief sections still empty: {{sections}}",
+			"checklistIncomplete": "{{stage}} checklist has {{remaining}} unchecked item(s)",
+			"criticalBugsOpen": "Open critical bugs must be recorded as 0",
+			"evaluationIncomplete": "The idea is not fully scored",
+			"evaluationNotApproved": "The approval decision is not \"Approved\"",
+			"kpiResultsMissing": "KPI results missing: {{kpis}}",
+			"missingField": "Missing: {{field}}",
+			"notAllowedFrom": "Can't be reached from {{stage}}",
+			"notAllowedOutside": "New games start in {{stage}}",
+			"wipLimitReached": "The developer already has {{current}}/{{limit}} games in Development"
+		},
+		"fields": {
+			"analyticsUrl": {
+				"hint": "Dashboard with the tracked events",
+				"label": "Analytics dashboard"
+			},
+			"assetsUrl": {
+				"hint": "Folder with art and audio",
+				"label": "Art / audio assets"
+			},
+			"audience": {
+				"hint": "Who plays this and why",
+				"label": "Audience"
+			},
+			"buildUrl": {
+				"hint": "Where the team can play the current build",
+				"label": "Build / test URL"
+			},
+			"comments": {
+				"hint": "Notes from the Gate Review",
+				"label": "Comments"
+			},
+			"coreLoop": {
+				"hint": "The action → reward → repeat cycle",
+				"label": "Core loop"
+			},
+			"decision": {
+				"label": "Approval decision"
+			},
+			"description": {
+				"hint": "One or two sentences about the game",
+				"label": "Short description"
+			},
+			"designDocUrl": {
+				"hint": "Link to the game design document",
+				"label": "Design document"
+			},
+			"developerId": {
+				"label": "Developer"
+			},
+			"devices": {
+				"label": "Devices"
+			},
+			"dueDate": {
+				"label": "Deadline"
+			},
+			"estimatedMvpDays": {
+				"label": "Estimated MVP time (days)"
+			},
+			"evaluation": {
+				"label": "Idea evaluation"
+			},
+			"gameplayIdea": {
+				"hint": "What the player does in one sentence",
+				"label": "Gameplay idea"
+			},
+			"hook": {
+				"hint": "Why players share or replay it",
+				"label": "Hook / differentiator"
+			},
+			"kpi": {
+				"label": "KPI"
+			},
+			"kpiDataSource": {
+				"hint": "e.g. GA4, internal tracking",
+				"label": "Data source"
+			},
+			"kpiMeasurementWindow": {
+				"hint": "e.g. 7 days, 1-7 Dec",
+				"label": "Measurement window"
+			},
+			"kpiNotes": {
+				"hint": "Traffic source, anomalies, caveats",
+				"label": "Notes"
+			},
+			"kpiSampleSize": {
+				"label": "Sample size"
+			},
+			"labels": {
+				"hint": "Optional. Pick only what applies.",
+				"label": "Labels"
+			},
+			"loseCondition": {
+				"hint": "How a round is lost",
+				"label": "Lose condition"
+			},
+			"mvpBrief": {
+				"label": "MVP brief"
+			},
+			"platform": {
+				"hint": "e.g. Web H5",
+				"label": "Platform"
+			},
+			"priority": {
+				"label": "Priority"
+			},
+			"producerDecision": {
+				"label": "Producer decision"
+			},
+			"producerId": {
+				"label": "Producer"
+			},
+			"qaId": {
+				"label": "QA"
+			},
+			"qaReportUrl": {
+				"hint": "Link to the QA report",
+				"label": "QA report"
+			},
+			"releaseUrl": {
+				"hint": "Public link used for the soft launch",
+				"label": "Release URL"
+			},
+			"repositoryUrl": {
+				"hint": "https://github.com/…",
+				"label": "Repository"
+			},
+			"targetMarket": {
+				"hint": "e.g. Vietnam, Gen Z 16-24",
+				"label": "Target market"
+			},
+			"title": {
+				"hint": "e.g. Dodge the Meme",
+				"label": "Game name"
+			},
+			"trendEvidence": {
+				"hint": "Views, engagement, screenshots, when it was spotted. Attach files in the game description.",
+				"label": "Evidence"
+			},
+			"trendSourceUrl": {
+				"hint": "Link to the post, video or chart where the trend was found",
+				"label": "Trend source (URL)"
+			},
+			"winCondition": {
+				"hint": "How a round is won",
+				"label": "Win condition"
+			}
+		},
+		"form": {
+			"createdBlankToast": "Project created",
+			"createdToast": "Game pipeline project created",
+			"deadline": "Project deadline",
+			"deadlineHint": "Optional. Leave empty if there is no fixed deadline.",
+			"description": "Description",
+			"developer": "Developer",
+			"includeSample": "Add one sample game",
+			"includeSampleHint": "Off by default. The sample is clearly marked as sample data and can be deleted.",
+			"pickMember": "Pick a member",
+			"prefix": "Game code prefix",
+			"prefixHint": "Games get codes like {{example}}; codes are never reused.",
+			"previewInvalid": "Fill every column name, checklist item and label in the preview.",
+			"producer": "Producer",
+			"producerRequired": "Pick the producer who approves this project's games.",
+			"qa": "QA",
+			"rulesTitle": "Gate Review rules",
+			"startDate": "Start date",
+			"template": "Template",
+			"templateVersion": "Version {{version}}",
+			"timezone": "Time zone",
+			"unassigned": "Unassigned",
+			"view": "View",
+			"viewKanban": "Kanban",
+			"viewList": "List",
+			"wipLimit": "WIP limit per developer in Development"
+		},
+		"game": {
+			"codeAuto": "Code assigned on create, e.g. {{example}}",
+			"createButton": "Create game",
+			"createDescription": "Only the name is required now; each stage asks for what it needs.",
+			"createdToast": "Game {{code}} created",
+			"createTitle": "Create a new game",
+			"dateError": "The deadline must not be before the start date.",
+			"error": "Could not create the game",
+			"initialStage": "Starts in {{stage}}",
+			"nameRequired": "Enter the game's name."
+		},
+		"kpis": {
+			"actual": "Actual result",
+			"adsEfficiency": "Ads efficiency: expected LTV > CAC + margin (%)",
+			"cac": "CAC",
+			"criticalBugs": "Open critical bugs",
+			"d1Retention": "D1 retention (%)",
+			"ltv": "Expected LTV",
+			"neverAutoApprove": "Meeting every KPI never approves Scale by itself: the producer still has to approve.",
+			"noData": "No data yet",
+			"note": "Internal test thresholds; adjust them to the genre and traffic source.",
+			"operators": {
+				"eq": "=",
+				"gte": "≥",
+				"lte": "≤",
+				"ltvOverCac": "margin %"
+			},
+			"play30sRate": "Played ≥ 30s rate (%)",
+			"replayRate": "In-session replay (%)",
+			"target": "Target",
+			"targetOverride": "Target for this game",
+			"validPlayers": "Valid real players"
+		},
+		"notDecided": "Not decided",
+		"notScored": "Not evaluated",
+		"panel": {
+			"allChecklists": "Checklists of other stages",
+			"approvals": {
+				"development": "Start Development",
+				"scale": "Scale"
+			},
+			"approvalsTitle": "Approvals",
+			"approve": "Approve",
+			"approved": "approved",
+			"blocked": "not ready",
+			"nextTitle": "Next stages",
+			"notApproved": "not approved",
+			"progress": "{{checked}}/{{total}} done",
+			"ready": "ready",
+			"revoke": "Revoke",
+			"sample": "Sample data",
+			"save": "Save game",
+			"saved": "Game saved",
+			"saveError": "Could not save",
+			"taskFieldsHint": "Name, description, developer (assignee), priority, dates and labels are edited with the task's own fields.",
+			"title": "Game pipeline"
+		},
+		"preview": {
+			"addItem": "Add item",
+			"addLabel": "Add label",
+			"briefTemplate": "MVP brief scaffold",
+			"briefTemplateHint": "Text in [brackets] is guidance and never counts as filled.",
+			"checklistHint": "Every game gets these items unchecked. Progress only counts items someone actually checked.",
+			"checklists": "Stage checklists",
+			"columnConditions": "Transition conditions",
+			"columnDescription": "Work in this stage",
+			"columnEmoji": "Column icon",
+			"columnName": "Column name",
+			"columns": "Columns",
+			"evaluation": "Idea evaluation",
+			"evaluationHint": "Scores run from 1 to the maximum. The total is a weighted score out of 100; low cost and difficulty count as better.",
+			"finalStage": "Final",
+			"gameForm": "Game form",
+			"gameFormHint": "Only the name is required to create a game. Other fields are checked when the game enters the stage that needs them.",
+			"groupName": "Group name",
+			"inverse": "lower is better",
+			"itemLabel": "Checklist item",
+			"kpis": "Suggested KPIs",
+			"labelName": "Label name",
+			"labels": "Default labels",
+			"labelsHint": "Labels are created as workspace labels and never attached to games automatically. They don't replace the column status.",
+			"newItem": "New item",
+			"newLabel": "New label",
+			"optional": "Optional",
+			"passThreshold": "Suggested pass score",
+			"removeItem": "Remove",
+			"requiredAt": "Required to enter {{stage}}",
+			"rules": "Gate Review and WIP",
+			"scaleMax": "Maximum score",
+			"subtitle": "Open each group to inspect and edit it. Edits apply to this project only, never to the template.",
+			"title": "Content that will be created",
+			"weight": "Weight",
+			"wipHint": "A developer can hold at most {{limit}} games in Development."
+		},
+		"priorities": {
+			"high": "High",
+			"low": "Low",
+			"medium": "Medium",
+			"no-priority": "No priority",
+			"urgent": "Urgent"
+		},
+		"producerDecisions": {
+			"optimize": "Optimize",
+			"retest": "Test again",
+			"scale": "Scale",
+			"stop": "Stop"
+		},
+		"rules": {
+			"changeHistory": "Change history",
+			"kpiTracking": "KPI tracking",
+			"requireDevelopmentApproval": "Approval required before Development",
+			"requireScaleApproval": "Approval required before Scale",
+			"stageChecklists": "Checklist per stage"
+		},
+		"sections": {
+			"brief": "D. MVP brief",
+			"evaluation": "C. Idea evaluation",
+			"general": "A. General",
+			"kpi": "F. KPI and decision",
+			"links": "E. Links",
+			"trend": "B. Trend and idea"
+		},
+		"settings": {
+			"description": "This project's own copy of the GAME PRODUCTION PIPELINE template. Changes here never affect the template or other projects.",
+			"save": "Save pipeline",
+			"saved": "Pipeline saved",
+			"title": "Game pipeline"
+		},
+		"templatePicker": {
+			"blankDescription": "Start with the default To Do, In Progress, In Review and Done columns.",
+			"blankName": "Blank project",
+			"loading": "Loading template…",
+			"selected": "Selected",
+			"title": "Choose a project template",
+			"useTemplate": "Use template"
+		},
+		"totalScore": "Total {{score}}/100"
 	}
 }

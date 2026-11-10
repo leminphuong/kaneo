@@ -393,6 +393,48 @@ function renderActivityContent({
     }
   }
 
+  if (activity.type === "game_checklist" && eventData) {
+    return (
+      <span className="text-sm text-muted-foreground">
+        {t(
+          eventData.checked
+            ? "gamePipeline:activity.checked"
+            : "gamePipeline:activity.unchecked",
+          {
+            label: String(eventData.label ?? ""),
+            stage: String(eventData.stageName ?? eventData.stage ?? ""),
+          },
+        )}
+      </span>
+    );
+  }
+
+  if (activity.type === "game_approval" && eventData) {
+    const gate = eventData.gate === "scale" ? "scale" : "development";
+    return (
+      <span className="text-sm text-muted-foreground">
+        {t(
+          eventData.approved
+            ? `gamePipeline:activity.approved.${gate}`
+            : `gamePipeline:activity.revoked.${gate}`,
+        )}
+      </span>
+    );
+  }
+
+  if (activity.type === "game_updated" && eventData) {
+    const fields = Array.isArray(eventData.fields)
+      ? (eventData.fields as unknown[]).map((field) =>
+          t(`gamePipeline:fields.${String(field)}.label`),
+        )
+      : [];
+    return (
+      <span className="text-sm text-muted-foreground">
+        {t("gamePipeline:activity.updated", { fields: fields.join(", ") })}
+      </span>
+    );
+  }
+
   if (activity.type === "created") {
     if (eventData) {
       return (

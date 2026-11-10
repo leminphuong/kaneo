@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import CreateGameModal from "@/components/game-pipeline/create-game-modal";
 import TaskDescriptionEditor from "@/components/task/task-description-editor";
 import {
   AlertDialog,
@@ -60,6 +61,7 @@ import useCreateTask from "@/hooks/mutations/task/use-create-task";
 import { useDeleteTask } from "@/hooks/mutations/task/use-delete-task";
 import { useUpdateTask } from "@/hooks/mutations/task/use-update-task";
 import useGetCustomFieldsByProject from "@/hooks/queries/custom-field/use-get-custom-fields-by-project";
+import { useProjectPipeline } from "@/hooks/queries/game-pipeline/use-game-pipeline";
 import useGetLabelsByWorkspace from "@/hooks/queries/label/use-get-labels-by-workspace";
 import useGetProjects from "@/hooks/queries/project/use-get-projects";
 import useActiveWorkspace from "@/hooks/queries/workspace/use-active-workspace";
@@ -1429,6 +1431,13 @@ function CreateTaskModalContent({
 function CreateTaskModal(props: CreateTaskModalProps) {
   const { data: workspace } = useActiveWorkspace();
   const location = useLocation();
+  const routeProjectId =
+    location.pathname.match(/\/project\/([^/]+)/)?.[1] ?? undefined;
+  // In a project created from the game pipeline template every task is a
+  // game, so the game form replaces the generic task form there.
+  const { data: pipeline, isLoading: pipelineLoading } = useProjectPipeline(
+    props.open ? props.projectId || routeProjectId : undefined,
+  );
   const routeWorkspaceId = useParams({
     strict: false,
     select: (params) =>
@@ -1440,6 +1449,17 @@ function CreateTaskModal(props: CreateTaskModalProps) {
   // while the new route's organization list is loading.
   if (!props.open || (routeWorkspaceId && routeWorkspaceId !== workspace?.id))
     return null;
+  if (pipelineLoading) return null;
+  if (pipeline) {
+    return (
+      <CreateGameModal
+        key={JSON.stringify([workspace?.id, pipeline.projectId])}
+        open={props.open}
+        onClose={props.onClose}
+        pipeline={pipeline}
+      />
+    );
+  }
 
   // Closing or navigating ends the whole editing session, including pending
   // upload drafts, instead of carrying confidential fields into a new context.
