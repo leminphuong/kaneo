@@ -269,7 +269,7 @@ Actions**, then push or re-run the **Fork CI and deploy** workflow:
 
 | Secret | Value |
 | --- | --- |
-| `R2_ACCOUNT_ID` | the Cloudflare account id (or the full `https://<ACCOUNT_ID>.r2.cloudflarestorage.com` endpoint) |
+| `R2_ACCOUNT_ID` | the 32-character Cloudflare account id, not the 64-character secret key (or the full `https://<ACCOUNT_ID>.r2.cloudflarestorage.com` endpoint; the S3 API URL the dashboard shows, with `/<bucket>` on the end, works too) |
 | `R2_BUCKET` | the bucket name, e.g. `kaneo-uploads` |
 | `R2_ACCESS_KEY_ID` | the token's Access Key ID |
 | `R2_SECRET_ACCESS_KEY` | the token's Secret Access Key |

@@ -181,11 +181,28 @@ if [ -n "$r2_given" ]; then
   done
   # The full S3 API endpoint is pasted as often as the bare account id.
   r2_endpoint="${R2_ACCOUNT_ID%/}"
+  # Cloudflare's dashboard shows the S3 API URL with the bucket appended, and
+  # that is what gets copied. The SDK adds the bucket itself.
+  r2_endpoint="${r2_endpoint%/"$R2_BUCKET"}"
   case "$r2_endpoint" in
     *.r2.dev*) die "R2_ACCOUNT_ID is the public r2.dev domain, which cannot take signed uploads. Use the account id." ;;
     https://*) ;;
     *) r2_endpoint="https://$r2_endpoint.r2.cloudflarestorage.com" ;;
   esac
+  # A wrong value does not fail the deploy: R2 refuses the connection at
+  # runtime and every image 404s with "Asset object not found". The 64-char
+  # secret key has been pasted here before; a 32-char access key id would
+  # pass this check, so compare against the id in the dashboard URL.
+  r2_account="${r2_endpoint#https://}"
+  r2_account="${r2_account%%.*}"
+  if ! [[ "$r2_account" =~ ^[0-9a-f]{32}$ ]]; then
+    hint=""
+    [ "${#r2_account}" -eq 64 ] && hint=" A 64-character value is the secret access key, not the account id."
+    die "R2_ACCOUNT_ID must be the 32-character Cloudflare account id (got ${#r2_account} characters).$hint"
+  fi
+  # The optional label is a jurisdiction endpoint such as <id>.eu.r2...
+  [[ "$r2_endpoint" =~ ^https://[0-9a-f]{32}(\.[a-z]+)?\.r2\.cloudflarestorage\.com$ ]] || die \
+    "R2_ACCOUNT_ID must be the account id or https://<ACCOUNT_ID>.r2.cloudflarestorage.com, optionally followed by /$R2_BUCKET."
 
   r2_marker="# Managed by deploy.sh from the R2_* GitHub secrets; change them there."
   r2_kept="$(grep -vxF "$r2_marker" .env | grep -vE '^S3_(ENDPOINT|BUCKET|ACCESS_KEY_ID|SECRET_ACCESS_KEY|REGION|FORCE_PATH_STYLE)=' || true)"
