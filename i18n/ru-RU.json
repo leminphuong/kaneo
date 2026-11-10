@@ -1961,7 +1961,8 @@
 			"board": "Доска",
 			"list": "Список",
 			"backlog": "Backlog",
-			"label": "View"
+			"label": "View",
+			"gantt": "Gantt"
 		},
 		"common": {
 			"selectTask": "Выбрать задачу",
@@ -3216,6 +3217,12 @@
 			"title": "Choose a project template",
 			"useTemplate": "Use template"
 		},
-		"totalScore": "Total {{score}}/100"
+		"totalScore": "Total {{score}}/100",
+		"errors": {
+			"conflict": "This was just changed somewhere else. Reload the page and try again.",
+			"forbidden": "You don't have permission to do this.",
+			"invalid": "Some values are not valid. Check the fields and try again.",
+			"notFound": "The project or game was not found. It may have been deleted."
+		}
 	}
 }

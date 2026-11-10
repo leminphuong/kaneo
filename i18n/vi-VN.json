@@ -562,7 +562,7 @@
 			"selectViewMode": "Chọn chế độ xem",
 			"board": "Bảng",
 			"list": "Danh sách",
-			"gantt": "Gantt",
+			"gantt": "Biểu đồ Gantt",
 			"sidebarDefault": "Thanh bên mặc định",
 			"sidebarDefaultDescription": "Giữ thanh bên mở rộng khi khởi động",
 			"displayOptions": "Tùy chọn hiển thị",
@@ -1152,7 +1152,7 @@
 			"repositoryHint": "Kho lưu trữ Gitea đã liên kết",
 			"commentTaskLinkTitle": "Bình luận liên kết JOYDIGI TASK trên issue mới",
 			"commentTaskLinkHint": "Khi bật, JOYDIGI TASK sẽ đăng bình luận trên mỗi issue mới kèm liên kết đến công việc.",
-			"webhookTitle": "Webhook",
+			"webhookTitle": "Webhook (lệnh gọi lại)",
 			"webhookHint": "Trong kho lưu trữ Gitea của bạn, hãy thêm một webhook với URL và khóa bí mật này. Bật push, pull request, issues, issue comments và create (cho nhãn).",
 			"webhookSecretLabel": "Khóa bí mật (phải khớp với khóa bí mật webhook trong Gitea)",
 			"baseUrlLabel": "URL Gitea",
@@ -1329,7 +1329,7 @@
 			"botTokenPlaceholder": "123456789:AAExampleBotToken",
 			"botTokenHint": "Tạo một bot với BotFather và dán token của nó vào đây.",
 			"botTokenHintConfigured": "Đã cấu hình token bot ({{token}}). Nhập token mới để thay thế.",
-			"chatIdLabel": "Chat ID",
+			"chatIdLabel": "ID cuộc trò chuyện",
 			"chatIdPlaceholder": "-1001234567890 hoặc @team_updates",
 			"chatIdHint": "Nhập Chat ID Telegram hoặc tên người dùng kênh nơi cập nhật sẽ được đăng.",
 			"threadIdLabel": "ID luồng chủ đề",
@@ -1410,7 +1410,7 @@
 		},
 		"externalLinks": {
 			"resources": "Tài nguyên",
-			"issue": "Issue",
+			"issue": "Vấn đề",
 			"branch": "Nhánh",
 			"merged": "Đã gộp",
 			"draft": "Bản nháp",
@@ -1930,9 +1930,10 @@
 		"boardSearchPlaceholder": "Tìm phiếu...",
 		"view": {
 			"label": "Chế độ xem",
-			"backlog": "Backlog",
+			"backlog": "Việc tồn đọng",
 			"board": "Bảng",
-			"list": "Danh sách"
+			"list": "Danh sách",
+			"gantt": "Biểu đồ Gantt"
 		},
 		"common": {
 			"selectTask": "Chọn công việc",
@@ -2220,7 +2221,7 @@
 			"noValuesUsedYet": "Chưa có giá trị nào được dùng"
 		},
 		"gantt": {
-			"pageTitle": "{{name}} – Gantt",
+			"pageTitle": "{{name}} – Biểu đồ Gantt",
 			"title": "Dòng thời gian Gantt",
 			"searchPlaceholder": "Tìm phiếu đã lên lịch...",
 			"hideTasks": "Ẩn công việc",
@@ -2267,7 +2268,7 @@
 			"merged": "Đã gộp",
 			"draft": "Bản nháp",
 			"open": "Đang mở",
-			"label": "Pull Request",
+			"label": "Yêu cầu hợp nhất (PR)",
 			"count_other": "{{count}} PR"
 		},
 		"assignee": {
@@ -2527,8 +2528,8 @@
 		"taskDetail": {
 			"labels": "Nhãn",
 			"externalLinks": "Liên kết ngoài",
-			"pullRequestFallback": "Pull Request",
-			"issueFallback": "Issue",
+			"pullRequestFallback": "Yêu cầu hợp nhất (PR)",
+			"issueFallback": "Vấn đề",
 			"prStatusMerged": "Đã gộp",
 			"prStatusDraft": "Bản nháp",
 			"prStatusOpen": "Đang mở",
@@ -2621,7 +2622,7 @@
 			"guides": "Hướng dẫn",
 			"comparisons": "So sánh công cụ",
 			"roadmap": "Lộ trình",
-			"menu": "Menu",
+			"menu": "Trình đơn",
 			"closeMenu": "Đóng menu",
 			"home": "Trang chủ Kaneo",
 			"signIn": "Đăng nhập",
@@ -2634,7 +2635,7 @@
 			"pause": "Tạm dừng các giao diện sản phẩm",
 			"board": "Bảng",
 			"list": "Danh sách chờ",
-			"gantt": "Gantt"
+			"gantt": "Biểu đồ Gantt"
 		},
 		"features": {
 			"tasks": {
@@ -2764,7 +2765,7 @@
 		"templatePicker": {
 			"title": "Chọn mẫu dự án",
 			"blankName": "Dự án trống",
-			"blankDescription": "Bắt đầu với các cột mặc định To Do, In Progress, In Review và Done.",
+			"blankDescription": "Bắt đầu với các cột mặc định Cần làm, Đang thực hiện, Đang xem xét và Hoàn thành.",
 			"useTemplate": "Sử dụng mẫu",
 			"selected": "Đang dùng",
 			"loading": "Đang tải mẫu…"
@@ -2772,7 +2773,7 @@
 		"form": {
 			"description": "Mô tả",
 			"view": "Chế độ xem",
-			"viewKanban": "Kanban",
+			"viewKanban": "Bảng Kanban",
 			"viewList": "Danh sách",
 			"template": "Mẫu",
 			"templateVersion": "Phiên bản {{version}}",
@@ -2780,27 +2781,27 @@
 			"prefixHint": "Game được cấp mã dạng {{example}}; mã không bao giờ bị trùng.",
 			"timezone": "Múi giờ",
 			"startDate": "Ngày bắt đầu",
-			"deadline": "Deadline dự án",
-			"deadlineHint": "Không bắt buộc. Để trống nếu chưa có deadline.",
-			"wipLimit": "Giới hạn WIP mỗi Developer trong Development",
-			"producer": "Producer",
-			"producerRequired": "Hãy chọn Producer chịu trách nhiệm duyệt game của dự án.",
-			"developer": "Developer",
-			"qa": "QA",
+			"deadline": "Hạn chót dự án",
+			"deadlineHint": "Không bắt buộc. Để trống nếu chưa có hạn chót.",
+			"wipLimit": "Số game tối đa mỗi Lập trình viên làm cùng lúc ở giai đoạn Phát triển",
+			"producer": "Nhà sản xuất",
+			"producerRequired": "Hãy chọn Nhà sản xuất chịu trách nhiệm duyệt game của dự án.",
+			"developer": "Lập trình viên",
+			"qa": "Kiểm thử viên",
 			"unassigned": "Chưa phân công",
 			"pickMember": "Chọn thành viên",
-			"rulesTitle": "Luật Gate Review",
+			"rulesTitle": "Quy tắc kiểm duyệt",
 			"includeSample": "Thêm một game mẫu",
 			"includeSampleHint": "Mặc định tắt. Game mẫu được đánh dấu rõ là dữ liệu mẫu và có thể xoá.",
-			"previewInvalid": "Hãy điền đủ tên cột, mục checklist và nhãn trong phần xem trước.",
-			"createdToast": "Đã tạo dự án Game Production Pipeline",
+			"previewInvalid": "Hãy điền đủ tên cột, mục kiểm tra và nhãn trong phần xem trước.",
+			"createdToast": "Đã tạo dự án theo mẫu Quy trình sản xuất game",
 			"createdBlankToast": "Đã tạo dự án"
 		},
 		"rules": {
-			"requireDevelopmentApproval": "Duyệt trước khi vào Development",
-			"requireScaleApproval": "Duyệt trước khi Scale",
-			"stageChecklists": "Checklist theo giai đoạn",
-			"kpiTracking": "Theo dõi KPI",
+			"requireDevelopmentApproval": "Phải duyệt trước khi vào Phát triển",
+			"requireScaleApproval": "Phải duyệt trước khi Mở rộng",
+			"stageChecklists": "Danh mục kiểm tra theo giai đoạn",
+			"kpiTracking": "Theo dõi chỉ số KPI",
 			"changeHistory": "Lưu lịch sử thay đổi"
 		},
 		"preview": {
@@ -2812,15 +2813,15 @@
 			"columnDescription": "Công việc ở giai đoạn này",
 			"columnConditions": "Điều kiện chuyển",
 			"finalStage": "Kết thúc",
-			"gameForm": "Form game",
+			"gameForm": "Biểu mẫu game",
 			"gameFormHint": "Chỉ bắt buộc tên game khi tạo. Các trường khác được kiểm tra khi game chuyển vào giai đoạn cần đến chúng.",
 			"requiredAt": "Bắt buộc khi vào {{stage}}",
 			"optional": "Không bắt buộc",
-			"briefTemplate": "Khung MVP brief",
+			"briefTemplate": "Khung bản mô tả MVP",
 			"briefTemplateHint": "Nội dung trong [ngoặc vuông] là gợi ý và không được tính là đã điền.",
-			"checklists": "Checklist theo giai đoạn",
+			"checklists": "Danh mục kiểm tra theo giai đoạn",
 			"checklistHint": "Mỗi game nhận các mục này ở trạng thái chưa đánh dấu. Tiến độ chỉ tính các mục đã thực sự được đánh dấu.",
-			"itemLabel": "Mục checklist",
+			"itemLabel": "Mục kiểm tra",
 			"addItem": "Thêm mục",
 			"removeItem": "Xoá",
 			"newItem": "Mục mới",
@@ -2830,11 +2831,11 @@
 			"inverse": "càng thấp càng tốt",
 			"scaleMax": "Điểm tối đa",
 			"passThreshold": "Ngưỡng điểm gợi ý",
-			"kpis": "KPI đề xuất",
-			"rules": "Gate Review và WIP",
-			"wipHint": "Mỗi Developer giữ tối đa {{limit}} game trong Development.",
+			"kpis": "Chỉ số KPI đề xuất",
+			"rules": "Kiểm duyệt và giới hạn game đang làm",
+			"wipHint": "Mỗi Lập trình viên làm tối đa {{limit}} game cùng lúc ở giai đoạn Phát triển.",
 			"labels": "Nhãn mặc định",
-			"labelsHint": "Nhãn được tạo thành nhãn của workspace và không tự gắn vào game. Nhãn không thay thế trạng thái cột.",
+			"labelsHint": "Nhãn được tạo thành nhãn của không gian làm việc và không tự gắn vào game. Nhãn không thay thế trạng thái cột.",
 			"groupName": "Tên nhóm",
 			"labelName": "Tên nhãn",
 			"addLabel": "Thêm nhãn",
@@ -2842,11 +2843,11 @@
 		},
 		"sections": {
 			"general": "A. Thông tin chung",
-			"trend": "B. Trend và ý tưởng",
+			"trend": "B. Xu hướng và ý tưởng",
 			"evaluation": "C. Đánh giá ý tưởng",
-			"brief": "D. MVP brief",
+			"brief": "D. Bản mô tả MVP",
 			"links": "E. Liên kết",
-			"kpi": "F. KPI và quyết định"
+			"kpi": "F. Chỉ số KPI và quyết định"
 		},
 		"fields": {
 			"title": {
@@ -2861,7 +2862,7 @@
 				"label": "Độ ưu tiên"
 			},
 			"dueDate": {
-				"label": "Deadline"
+				"label": "Hạn chót"
 			},
 			"labels": {
 				"label": "Nhãn",
@@ -2871,13 +2872,13 @@
 				"label": "Thiết bị"
 			},
 			"producerId": {
-				"label": "Producer"
+				"label": "Nhà sản xuất"
 			},
 			"developerId": {
-				"label": "Developer"
+				"label": "Lập trình viên"
 			},
 			"qaId": {
-				"label": "QA"
+				"label": "Kiểm thử viên"
 			},
 			"targetMarket": {
 				"label": "Thị trường mục tiêu",
@@ -2885,11 +2886,11 @@
 			},
 			"platform": {
 				"label": "Nền tảng",
-				"hint": "Ví dụ: Web H5"
+				"hint": "Ví dụ: Web H5 (trình duyệt)"
 			},
 			"trendSourceUrl": {
-				"label": "Nguồn trend (URL)",
-				"hint": "Link bài đăng, video hoặc bảng xếp hạng nơi phát hiện trend"
+				"label": "Nguồn xu hướng (URL)",
+				"hint": "Link bài đăng, video hoặc bảng xếp hạng nơi phát hiện xu hướng"
 			},
 			"trendEvidence": {
 				"label": "Bằng chứng",
@@ -2900,11 +2901,11 @@
 				"hint": "Ai sẽ chơi và vì sao"
 			},
 			"gameplayIdea": {
-				"label": "Ý tưởng gameplay",
+				"label": "Ý tưởng lối chơi",
 				"hint": "Người chơi làm gì, tóm trong một câu"
 			},
 			"coreLoop": {
-				"label": "Core loop",
+				"label": "Vòng lặp cốt lõi",
 				"hint": "Chu trình hành động → phần thưởng → lặp lại"
 			},
 			"winCondition": {
@@ -2920,14 +2921,14 @@
 				"hint": "Vì sao người chơi muốn chia sẻ hoặc chơi lại"
 			},
 			"mvpBrief": {
-				"label": "MVP brief"
+				"label": "Bản mô tả MVP"
 			},
 			"estimatedMvpDays": {
-				"label": "Thời gian làm MVP dự kiến (ngày)"
+				"label": "Thời gian làm bản MVP dự kiến (ngày)"
 			},
 			"comments": {
 				"label": "Nhận xét",
-				"hint": "Ghi chú từ buổi Gate Review"
+				"hint": "Ghi chú từ buổi kiểm duyệt"
 			},
 			"decision": {
 				"label": "Quyết định duyệt"
@@ -2936,39 +2937,39 @@
 				"label": "Đánh giá ý tưởng"
 			},
 			"kpi": {
-				"label": "KPI"
+				"label": "Chỉ số KPI"
 			},
 			"repositoryUrl": {
-				"label": "Repository",
+				"label": "Kho mã nguồn",
 				"hint": "https://github.com/…"
 			},
 			"buildUrl": {
-				"label": "Build / URL test",
-				"hint": "Nơi cả nhóm chơi được bản build hiện tại"
+				"label": "Bản dựng / URL thử nghiệm",
+				"hint": "Nơi cả nhóm chơi được bản dựng hiện tại"
 			},
 			"releaseUrl": {
 				"label": "URL phát hành",
-				"hint": "Link công khai dùng cho Soft Launch"
+				"hint": "Link công khai dùng cho giai đoạn Phát hành thử"
 			},
 			"designDocUrl": {
 				"label": "Tài liệu thiết kế",
 				"hint": "Link tới tài liệu thiết kế game"
 			},
 			"assetsUrl": {
-				"label": "Tài nguyên art / audio",
-				"hint": "Thư mục chứa art và audio"
+				"label": "Tài nguyên hình ảnh / âm thanh",
+				"hint": "Thư mục chứa hình ảnh và âm thanh"
 			},
 			"analyticsUrl": {
-				"label": "Dashboard analytics",
-				"hint": "Dashboard chứa các sự kiện tracking"
+				"label": "Bảng số liệu phân tích",
+				"hint": "Bảng số liệu chứa các sự kiện theo dõi"
 			},
 			"qaReportUrl": {
-				"label": "Báo cáo QA",
-				"hint": "Link tới báo cáo QA"
+				"label": "Báo cáo kiểm thử",
+				"hint": "Link tới báo cáo kiểm thử"
 			},
 			"kpiDataSource": {
 				"label": "Nguồn dữ liệu",
-				"hint": "Ví dụ: GA4, tracking nội bộ"
+				"hint": "Ví dụ: Google Analytics 4, hệ thống theo dõi nội bộ"
 			},
 			"kpiMeasurementWindow": {
 				"label": "Khoảng thời gian đo",
@@ -2979,16 +2980,16 @@
 			},
 			"kpiNotes": {
 				"label": "Ghi chú",
-				"hint": "Nguồn traffic, bất thường, lưu ý"
+				"hint": "Nguồn lưu lượng truy cập, điểm bất thường, lưu ý"
 			},
 			"producerDecision": {
-				"label": "Quyết định của Producer"
+				"label": "Quyết định của Nhà sản xuất"
 			}
 		},
 		"criteria": {
-			"viralPotential": "Tiềm năng viral",
+			"viralPotential": "Khả năng lan truyền",
 			"marketFit": "Phù hợp thị trường",
-			"gameplayAppeal": "Độ hấp dẫn gameplay",
+			"gameplayAppeal": "Độ hấp dẫn của lối chơi",
 			"productionCost": "Chi phí sản xuất",
 			"technicalDifficulty": "Độ khó kỹ thuật"
 		},
@@ -2998,9 +2999,9 @@
 			"rejected": "Từ chối"
 		},
 		"producerDecisions": {
-			"scale": "Scale",
+			"scale": "Mở rộng",
 			"optimize": "Tối ưu",
-			"retest": "Test lại",
+			"retest": "Thử nghiệm lại",
 			"stop": "Dừng"
 		},
 		"priorities": {
@@ -3011,8 +3012,8 @@
 			"urgent": "Khẩn cấp"
 		},
 		"devices": {
-			"mobile": "Mobile",
-			"desktop": "Desktop"
+			"mobile": "Điện thoại",
+			"desktop": "Máy tính"
 		},
 		"colors": {
 			"gray": "Xám",
@@ -3031,7 +3032,7 @@
 			"replayRate": "Tỉ lệ chơi lại trong phiên (%)",
 			"d1Retention": "Giữ chân D1 (%)",
 			"criticalBugs": "Lỗi nghiêm trọng đang mở",
-			"adsEfficiency": "Hiệu quả quảng cáo: LTV kỳ vọng > CAC + biên an toàn (%)",
+			"adsEfficiency": "Hiệu quả quảng cáo: giá trị vòng đời (LTV) kỳ vọng > chi phí có người chơi (CAC) + biên an toàn (%)",
 			"operators": {
 				"gte": "≥",
 				"lte": "≤",
@@ -3041,18 +3042,18 @@
 			"target": "Ngưỡng",
 			"targetOverride": "Ngưỡng riêng cho game",
 			"actual": "Kết quả thực tế",
-			"ltv": "LTV kỳ vọng",
-			"cac": "CAC",
+			"ltv": "Giá trị vòng đời kỳ vọng (LTV)",
+			"cac": "Chi phí có một người chơi (CAC)",
 			"noData": "Chưa có dữ liệu",
-			"note": "Ngưỡng thử nghiệm nội bộ, cần điều chỉnh theo thể loại và nguồn traffic.",
-			"neverAutoApprove": "Đạt KPI không tự động duyệt Scale: Producer vẫn phải duyệt."
+			"note": "Ngưỡng thử nghiệm nội bộ, cần điều chỉnh theo thể loại và nguồn lưu lượng truy cập.",
+			"neverAutoApprove": "Đạt KPI không tự động duyệt Mở rộng: Nhà sản xuất vẫn phải duyệt."
 		},
 		"notScored": "Chưa đánh giá",
 		"notDecided": "Chưa quyết định",
 		"totalScore": "Tổng {{score}}/100",
 		"evaluationHint": "Tổng điểm chỉ hiện khi đã chấm đủ các tiêu chí. Ngưỡng gợi ý: {{threshold}}.",
-		"decisionRestricted": "Chỉ Producer của game hoặc người quản lý dự án mới được ghi quyết định và duyệt.",
-		"briefHint": "Thay mọi gợi ý trong [ngoặc vuông] bằng nội dung thật. Mục bắt buộc chỉ còn gợi ý sẽ không qua Gate vào Development.",
+		"decisionRestricted": "Chỉ Nhà sản xuất của game hoặc người quản lý dự án mới được ghi quyết định và duyệt.",
+		"briefHint": "Thay mọi gợi ý trong [ngoặc vuông] bằng nội dung thật. Mục bắt buộc chỉ còn gợi ý sẽ không qua kiểm duyệt để vào Phát triển.",
 		"game": {
 			"createTitle": "Tạo game mới",
 			"createDescription": "Hiện chỉ bắt buộc tên game; mỗi giai đoạn sẽ yêu cầu thông tin cần thiết.",
@@ -3060,7 +3061,7 @@
 			"codeAuto": "Mã được cấp khi tạo, ví dụ {{example}}",
 			"initialStage": "Bắt đầu ở {{stage}}",
 			"nameRequired": "Hãy nhập tên game.",
-			"dateError": "Deadline không được trước ngày bắt đầu.",
+			"dateError": "Hạn chót không được trước ngày bắt đầu.",
 			"createdToast": "Đã tạo game {{code}}",
 			"error": "Không tạo được game"
 		},
@@ -3073,15 +3074,15 @@
 			"blocked": "chưa đủ điều kiện",
 			"approvalsTitle": "Phê duyệt",
 			"approvals": {
-				"development": "Vào Development",
-				"scale": "Scale"
+				"development": "Vào Phát triển",
+				"scale": "Mở rộng"
 			},
 			"approved": "đã duyệt",
 			"notApproved": "chưa duyệt",
 			"approve": "Duyệt",
 			"revoke": "Thu hồi",
-			"allChecklists": "Checklist các giai đoạn khác",
-			"taskFieldsHint": "Tên, mô tả, Developer (người được giao), độ ưu tiên, ngày và nhãn được sửa ở các trường của task.",
+			"allChecklists": "Danh mục kiểm tra các giai đoạn khác",
+			"taskFieldsHint": "Tên, mô tả, Lập trình viên (người được giao), độ ưu tiên, ngày và nhãn được sửa ở các trường của công việc.",
 			"save": "Lưu game",
 			"saved": "Đã lưu game",
 			"saveError": "Không lưu được"
@@ -3090,38 +3091,38 @@
 			"notAllowedFrom": "Không thể chuyển tới từ {{stage}}",
 			"notAllowedOutside": "Game mới phải bắt đầu ở {{stage}}",
 			"missingField": "Thiếu: {{field}}",
-			"briefIncomplete": "Các mục MVP brief chưa điền: {{sections}}",
-			"checklistIncomplete": "Checklist {{stage}} còn {{remaining}} mục chưa xong",
+			"briefIncomplete": "Các mục trong bản mô tả MVP chưa điền: {{sections}}",
+			"checklistIncomplete": "Danh mục kiểm tra {{stage}} còn {{remaining}} mục chưa xong",
 			"evaluationIncomplete": "Ý tưởng chưa được chấm đủ điểm",
 			"evaluationNotApproved": "Quyết định duyệt chưa phải \"Duyệt\"",
 			"approvalRequired": {
-				"development": "Cần Producer duyệt vào Development",
-				"scale": "Cần Producer duyệt Scale"
+				"development": "Cần Nhà sản xuất duyệt vào Phát triển",
+				"scale": "Cần Nhà sản xuất duyệt Mở rộng"
 			},
 			"kpiResultsMissing": "Chưa nhập kết quả KPI: {{kpis}}",
 			"criticalBugsOpen": "Số lỗi nghiêm trọng đang mở phải là 0",
-			"wipLimitReached": "Developer đã có {{current}}/{{limit}} game trong Development"
+			"wipLimitReached": "Lập trình viên đã có {{current}}/{{limit}} game ở giai đoạn Phát triển"
 		},
 		"board": {
 			"moveBlocked": "Chưa đủ điều kiện chuyển giai đoạn",
-			"checklistTitle": "Checklist của giai đoạn hiện tại"
+			"checklistTitle": "Danh mục kiểm tra của giai đoạn hiện tại"
 		},
 		"activity": {
 			"updated": "đã cập nhật {{fields}}",
 			"checked": "đã đánh dấu \"{{label}}\" ({{stage}})",
 			"unchecked": "đã bỏ đánh dấu \"{{label}}\" ({{stage}})",
 			"approved": {
-				"development": "đã duyệt vào Development",
-				"scale": "đã duyệt Scale"
+				"development": "đã duyệt vào Phát triển",
+				"scale": "đã duyệt Mở rộng"
 			},
 			"revoked": {
-				"development": "đã thu hồi duyệt Development",
-				"scale": "đã thu hồi duyệt Scale"
+				"development": "đã thu hồi duyệt Phát triển",
+				"scale": "đã thu hồi duyệt Mở rộng"
 			}
 		},
 		"settings": {
-			"title": "Game pipeline",
-			"description": "Bản cấu hình riêng của dự án, sao chép từ mẫu GAME PRODUCTION PIPELINE. Thay đổi ở đây không ảnh hưởng tới mẫu hay dự án khác.",
+			"title": "Quy trình sản xuất game",
+			"description": "Bản cấu hình riêng của dự án, sao chép từ mẫu Quy trình sản xuất game. Thay đổi ở đây không ảnh hưởng tới mẫu hay dự án khác.",
 			"save": "Lưu cấu hình",
 			"saved": "Đã lưu cấu hình"
 		},
@@ -3130,6 +3131,12 @@
 			"description": "Lưu sẽ tạo phiên bản mẫu mới cho các dự án tạo sau. Dự án hiện có giữ bản riêng và không bị thay đổi.",
 			"save": "Lưu thành phiên bản mới",
 			"saved": "Đã lưu mẫu phiên bản {{version}}"
+		},
+		"errors": {
+			"invalid": "Dữ liệu chưa hợp lệ. Kiểm tra lại các trường rồi thử lại.",
+			"forbidden": "Bạn không có quyền thực hiện thao tác này.",
+			"notFound": "Không tìm thấy dự án hoặc game. Có thể nó đã bị xoá.",
+			"conflict": "Dữ liệu vừa được thay đổi ở nơi khác. Tải lại trang rồi thử lại."
 		}
 	}
 }

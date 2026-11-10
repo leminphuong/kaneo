@@ -7815,9 +7815,12 @@
 						},
 						"list": {
 							"type": "string"
+						},
+						"gantt": {
+							"type": "string"
 						}
 					},
-					"required": ["label", "backlog", "board", "list"]
+					"required": ["label", "backlog", "board", "list", "gantt"]
 				},
 				"common": {
 					"type": "object",
@@ -12677,6 +12680,25 @@
 						}
 					},
 					"required": ["title", "description", "save", "saved"]
+				},
+				"errors": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"invalid": {
+							"type": "string"
+						},
+						"forbidden": {
+							"type": "string"
+						},
+						"notFound": {
+							"type": "string"
+						},
+						"conflict": {
+							"type": "string"
+						}
+					},
+					"required": ["invalid", "forbidden", "notFound", "conflict"]
 				}
 			},
 			"required": [
@@ -12705,7 +12727,8 @@
 				"board",
 				"activity",
 				"settings",
-				"admin"
+				"admin",
+				"errors"
 			]
 		}
 	},

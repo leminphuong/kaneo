@@ -72,7 +72,8 @@ vi.mock("@/components/gantt/gantt-task-bar", () => ({
 // Resolves against the real en-US bundle, so the assertions fail if the
 // jumpToToday key (or its interpolated siblings) stops matching what the
 // component actually requests.
-vi.mock("react-i18next", () => ({
+vi.mock("react-i18next", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("react-i18next")>()),
   useTranslation: () => ({
     t: (key: string, options?: Record<string, unknown>) => {
       const [namespace, path] = key.split(":");

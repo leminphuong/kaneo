@@ -11,12 +11,9 @@ import {
 } from "@/hooks/queries/game-pipeline/use-game-pipeline";
 import { useWorkspacePermission } from "@/hooks/use-workspace-permission";
 import { toast } from "@/lib/toast";
+import { apiErrorMessage } from "./gate-failures";
 import PipelineConfigEditor, { RulesEditor } from "./pipeline-config-editor";
 import { PipelineSettingsFields } from "./template-project-fields";
-
-function errorMessage(error: unknown, fallback: string) {
-  return error instanceof Error ? error.message : fallback;
-}
 
 /** Project settings: edits this project's own copy of the template config. */
 export function PipelineSettingsCard({ projectId }: { projectId: string }) {
@@ -80,7 +77,11 @@ export function PipelineSettingsCard({ projectId }: { projectId: string }) {
                   toast.success(t("gamePipeline:settings.saved")),
                 onError: (error) =>
                   toast.error(
-                    errorMessage(error, t("gamePipeline:panel.saveError")),
+                    apiErrorMessage(
+                      t,
+                      error,
+                      t("gamePipeline:panel.saveError"),
+                    ),
                   ),
               })
             }
@@ -151,7 +152,7 @@ export function TemplateAdminCard() {
                 ),
               onError: (error) =>
                 toast.error(
-                  errorMessage(error, t("gamePipeline:panel.saveError")),
+                  apiErrorMessage(t, error, t("gamePipeline:panel.saveError")),
                 ),
             })
           }

@@ -1,5 +1,6 @@
 import type { TFunction } from "i18next";
 import type { GateFailure, PipelineConfig } from "@/fetchers/game-pipeline";
+import { HttpError } from "@/lib/http-error";
 import { stageLabel } from "./fields";
 
 function stageName(config: PipelineConfig, key: string | null | undefined) {
@@ -50,4 +51,22 @@ export function formatGateFailure(
     default:
       return t(`gamePipeline:failures.${failure.code}`);
   }
+}
+
+const STATUS_MESSAGES: Record<number, string> = {
+  400: "gamePipeline:errors.invalid",
+  403: "gamePipeline:errors.forbidden",
+  404: "gamePipeline:errors.notFound",
+  409: "gamePipeline:errors.conflict",
+};
+
+// The API's own messages are English, so translate by status instead of
+// showing them; anything unexpected gets the caller's localized fallback.
+export function apiErrorMessage(
+  t: TFunction,
+  error: unknown,
+  fallback: string,
+) {
+  const key = error instanceof HttpError ? STATUS_MESSAGES[error.status] : null;
+  return key ? t(key) : fallback;
 }

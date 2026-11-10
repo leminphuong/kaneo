@@ -28,18 +28,18 @@ describe("built-in GAME PRODUCTION PIPELINE template", () => {
     expect(pipelineConfigSchema.safeParse(config).success).toBe(true);
     expect(config.stages.map((s) => s.key)).toEqual([...STAGE_KEYS]);
     expect(config.stages.map((s) => `${s.emoji} ${s.name}`)).toEqual([
-      "🔥 Trend Radar",
-      "💡 Idea Backlog",
-      "🔍 Idea Validation",
-      "✅ Approved",
-      "🛠️ Development",
-      "🧪 QA / Testing",
-      "🚀 Soft Launch",
-      "📊 Data Analysis",
-      "🔧 Optimize",
-      "📈 Scale",
-      "🏆 Success",
-      "🛑 Stopped",
+      "🔥 Săn xu hướng",
+      "💡 Kho ý tưởng",
+      "🔍 Thẩm định ý tưởng",
+      "✅ Đã duyệt",
+      "🛠️ Phát triển",
+      "🧪 Kiểm thử",
+      "🚀 Phát hành thử",
+      "📊 Phân tích dữ liệu",
+      "🔧 Tối ưu",
+      "📈 Mở rộng",
+      "🏆 Thành công",
+      "🛑 Đã dừng",
     ]);
     for (const stage of config.stages) {
       expect(stage.description.length).toBeGreaterThan(0);
@@ -109,11 +109,14 @@ describe("placeholders", () => {
         "[Bản MVP cần chứng minh điều gì? Ví dụ: người chơi hiểu luật trong 10 giây và muốn chơi lại]",
         "Chứng minh người chơi chơi lại ít nhất 2 lần",
       )
-      .replace("- PC: [Ví dụ: chuột trái hoặc phím Space]", "- PC: phím Space");
+      .replace(
+        "- Máy tính: [Ví dụ: chuột trái hoặc phím Space]",
+        "- Máy tính: phím Space",
+      );
     expect(missingBriefSections(brief, config)).toEqual([
-      "Gameplay cốt lõi",
+      "Lối chơi cốt lõi",
       "Tính năng trong MVP",
-      "Tracking",
+      "Theo dõi sự kiện",
     ]);
   });
 });
@@ -178,7 +181,7 @@ describe("KPI status", () => {
 });
 
 describe("Gate Review", () => {
-  it("lets new games enter only at Trend Radar", () => {
+  it("lets new games enter only at the first stage", () => {
     const card = emptyCardData();
     expect(
       evaluateGate({

@@ -29,6 +29,7 @@ import {
   GameRoleFields,
   Section,
 } from "./game-form";
+import { apiErrorMessage } from "./gate-failures";
 import MemberSelect from "./member-select";
 import OptionSelect from "./option-select";
 
@@ -135,9 +136,7 @@ function CreateGameModal({ open, onClose, pipeline }: Props) {
       );
       onClose();
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : t("gamePipeline:game.error"),
-      );
+      toast.error(apiErrorMessage(t, error, t("gamePipeline:game.error")));
     }
   };
 

@@ -207,7 +207,7 @@ export default function ProjectLayout({
                   )}
                 >
                   <CalendarDays className="size-3.5" />
-                  Gantt
+                  {t("tasks:view.gantt")}
                 </Button>
               </div>
             )}
