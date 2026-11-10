@@ -283,7 +283,12 @@ $DOCKER build "${build_flags[@]}" \
   -f "$build_dir/Dockerfile.kaneo" -t "$IMAGE" "$build_dir"
 
 step "Starting services"
-$COMPOSE up -d
+# Always recreate the app container. A cached rebuild yields an image with the
+# same config, so a plain `up -d` keeps the old container running: it never
+# sees a changed .env (the S3_* lines above) and keeps an image the new tag no
+# longer names, which the integrity check then cannot find. postgres is a
+# dependency here and is only recreated if its own config changed.
+$COMPOSE up -d --force-recreate kaneo
 
 # --- wait for health ------------------------------------------------------
 # Startup runs the database migrations, so the first boot after a schema

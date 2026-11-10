@@ -323,10 +323,11 @@ every upload fails in the browser while the server logs nothing. In the bucket's
 no trailing slash. Only `content-type` is needed in `AllowedHeaders`;
 `Content-Length` is signed but the browser sets it itself.
 
-Apply the change and verify:
+Apply the change and verify. `--force-recreate` matters: a plain `up -d` can
+leave the running container on its old environment.
 
 ```bash
-docker compose -f compose.yml -f compose.build.yml up -d
+docker compose -f compose.yml -f compose.build.yml up -d --force-recreate kaneo
 ```
 
 Then open a task, drag an image into the description, and confirm it renders.

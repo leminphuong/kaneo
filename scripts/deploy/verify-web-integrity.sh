@@ -48,6 +48,11 @@ container="$($COMPOSE ps -q kaneo | head -n 1)"
 [ -n "$container" ] || die "The kaneo container is not running."
 image="$($DOCKER inspect --format '{{.Image}}' "$container")"
 image_short="${image#sha256:}"
+# Rebuilding moves the tag, and the containerd image store then drops the old
+# image even while a container still runs it. Nothing can be rendered to compare
+# against, so say what happened instead of failing on "No such image".
+$DOCKER image inspect "$image" >/dev/null 2>&1 || die \
+  "The container runs image ${image_short:0:12}, which no longer exists (the container was not recreated after the last build). Recreate it, then re-run this check: $COMPOSE up -d --force-recreate kaneo"
 revision="$($DOCKER image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$image")"
 echo "  container ${container:0:12}  image ${image_short:0:12}  commit ${revision:-unknown (image predates this check)}"
 if [ -n "$revision" ] && git rev-parse --is-inside-work-tree >/dev/null 2>&1 \
